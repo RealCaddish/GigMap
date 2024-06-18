@@ -1,0 +1,14 @@
+/* Custom CSS */
+#mapid {
+    height: 500px;
+    width: 100%;
+}
+
+/* Additional custom styles */
+body {
+    padding-top: 56px;
+}
+
+.navbar {
+    margin-bottom: 20px;
+}

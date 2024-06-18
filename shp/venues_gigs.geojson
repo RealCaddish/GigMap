@@ -1,0 +1,24 @@
+{
+"type": "FeatureCollection",
+"name": "venues_gigs",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "id": null, "Venue": "The Burl", "Artist": "Shakey Graves", "Location": "The Burl", "Datetime": "2024-06-26T19:00:00-05:00" }, "geometry": { "type": "Point", "coordinates": [ -84.518869778640706, 38.056983944364255 ] } },
+{ "type": "Feature", "properties": { "id": null, "Venue": "The Burl", "Artist": "Sam Burchfield", "Location": "The Burl", "Datetime": "2024-06-20T19:00:00-05:00" }, "geometry": { "type": "Point", "coordinates": [ -84.518869778640706, 38.056983944364255 ] } },
+{ "type": "Feature", "properties": { "id": null, "Venue": "The Burl", "Artist": "Wildermiss", "Location": "The Burl", "Datetime": "2024-06-18T00:00:00" }, "geometry": { "type": "Point", "coordinates": [ -84.518869778640706, 38.056983944364255 ] } },
+{ "type": "Feature", "properties": { "id": null, "Venue": "The Green Lantern", "Artist": null, "Location": null, "Datetime": null }, "geometry": { "type": "Point", "coordinates": [ -84.498302875889209, 38.055050577958362 ] } },
+{ "type": "Feature", "properties": { "id": null, "Venue": "Manchester Music Hall", "Artist": "Hayden Coffman", "Location": "Manchester Music Hall", "Datetime": "2024-06-29T20:00:00-05:00" }, "geometry": { "type": "Point", "coordinates": [ -84.50944327121222, 38.053200573369594 ] } },
+{ "type": "Feature", "properties": { "id": null, "Venue": "Manchester Music Hall", "Artist": "Hardwired", "Location": "Manchester Music Hall", "Datetime": "2024-06-27T00:00:00" }, "geometry": { "type": "Point", "coordinates": [ -84.50944327121222, 38.053200573369594 ] } },
+{ "type": "Feature", "properties": { "id": null, "Venue": "Manchester Music Hall", "Artist": "Zach Seabaugh", "Location": "Manchester Music Hall", "Datetime": "2024-06-20T20:00:00-05:00" }, "geometry": { "type": "Point", "coordinates": [ -84.50944327121222, 38.053200573369594 ] } },
+{ "type": "Feature", "properties": { "id": null, "Venue": "Al's Bar", "Artist": "portrayal of guilt", "Location": "Al's Bar", "Datetime": "2024-06-19T19:00:00-05:00" }, "geometry": { "type": "Point", "coordinates": [ -84.486368617749918, 38.054104284004438 ] } },
+{ "type": "Feature", "properties": { "id": null, "Venue": "Lexington Opera House", "Artist": "David Spade", "Location": "Lexington Opera House", "Datetime": "2024-06-30T20:00:00-05:00" }, "geometry": { "type": "Point", "coordinates": [ -84.49922539418958, 38.050035771358864 ] } },
+{ "type": "Feature", "properties": { "id": null, "Venue": "Lexington Opera House", "Artist": "Mike Campbell & The Dirty Knobs", "Location": "Lexington Opera House", "Datetime": "2024-06-27T20:00:00-05:00" }, "geometry": { "type": "Point", "coordinates": [ -84.49922539418958, 38.050035771358864 ] } },
+{ "type": "Feature", "properties": { "id": null, "Venue": "Lexington Opera House", "Artist": "Jim Norton", "Location": "Lexington Opera House", "Datetime": "2024-06-21T20:00:00-05:00" }, "geometry": { "type": "Point", "coordinates": [ -84.49922539418958, 38.050035771358864 ] } },
+{ "type": "Feature", "properties": { "id": null, "Venue": "Lexington Opera House", "Artist": "John Hiatt", "Location": "Lexington Opera House", "Datetime": "2024-06-19T20:00:00-05:00" }, "geometry": { "type": "Point", "coordinates": [ -84.49922539418958, 38.050035771358864 ] } },
+{ "type": "Feature", "properties": { "id": null, "Venue": "Lexington Opera House", "Artist": "Jenny Lewis", "Location": "Lexington Opera House", "Datetime": "2024-06-18T20:00:00-05:00" }, "geometry": { "type": "Point", "coordinates": [ -84.49922539418958, 38.050035771358864 ] } },
+{ "type": "Feature", "properties": { "id": null, "Venue": "Break Room", "Artist": "Home Grown Head and The Footsteps", "Location": "Break Room", "Datetime": "2024-06-22T18:00:00-05:00" }, "geometry": { "type": "Point", "coordinates": [ -84.518751787881641, 38.055652653995978 ] } },
+{ "type": "Feature", "properties": { "id": null, "Venue": "Kentucky Theater", "Artist": null, "Location": null, "Datetime": null }, "geometry": { "type": "Point", "coordinates": [ -84.495409589492326, 38.04417782119836 ] } },
+{ "type": "Feature", "properties": { "id": null, "Venue": "Redeemer Community Church", "Artist": "Local Violence", "Location": "Redeemer Community Church", "Datetime": "2024-06-22T18:00:00-05:00" }, "geometry": { "type": "Point", "coordinates": [ -84.532176086342972, 38.01071712672379 ] } },
+{ "type": "Feature", "properties": { "id": null, "Venue": "Redeemer Community Church", "Artist": "Sempervivi, Violent Dawn, and death of rebellion", "Location": "Redeemer Community Church", "Datetime": "2024-06-22T18:00:00-05:00" }, "geometry": { "type": "Point", "coordinates": [ -84.532176086342972, 38.01071712672379 ] } }
+]
+}
