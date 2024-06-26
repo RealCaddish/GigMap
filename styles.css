@@ -1,14 +1,75 @@
 /* Custom CSS */
+body, html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
 #mapid {
-    height: 500px;
+    height: 100%;
     width: 100%;
 }
 
-/* Additional custom styles */
-body {
-    padding-top: 56px;
+/* Legend styles */
+.legend {
+    position: absolute;
+    bottom: 30px;
+    right: 10px;
+    background: white;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    font-family: Arial, sans-serif;
+    font-size: 14px;
 }
 
-.navbar {
-    margin-bottom: 20px;
+.legend h4 {
+    margin: 0 0 5px;
+}
+
+.legend div {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.legend div span {
+    margin-left: 5px;
+}
+
+.legend .circle {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+/* Back button styles */
+.back-button {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    background: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    cursor: pointer;
+    z-index: 1000; /* Ensure it appears above other elements */
+}
+
+/* Text box styles */
+.info-box {
+    position: absolute;
+    top: 5%;
+    left: 80%;
+    right: 2%;
+    background: rgba(255, 255, 255, 0.8);
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    z-index: 1000; /* Ensure it appears above other elements */
 }

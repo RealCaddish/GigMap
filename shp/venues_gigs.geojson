@@ -1,24 +1,572 @@
 {
-"type": "FeatureCollection",
-"name": "venues_gigs",
-"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
-"features": [
-{ "type": "Feature", "properties": { "id": null, "Venue": "The Burl", "Artist": "Shakey Graves", "Location": "The Burl", "Datetime": "2024-06-26T19:00:00-05:00" }, "geometry": { "type": "Point", "coordinates": [ -84.518869778640706, 38.056983944364255 ] } },
-{ "type": "Feature", "properties": { "id": null, "Venue": "The Burl", "Artist": "Sam Burchfield", "Location": "The Burl", "Datetime": "2024-06-20T19:00:00-05:00" }, "geometry": { "type": "Point", "coordinates": [ -84.518869778640706, 38.056983944364255 ] } },
-{ "type": "Feature", "properties": { "id": null, "Venue": "The Burl", "Artist": "Wildermiss", "Location": "The Burl", "Datetime": "2024-06-18T00:00:00" }, "geometry": { "type": "Point", "coordinates": [ -84.518869778640706, 38.056983944364255 ] } },
-{ "type": "Feature", "properties": { "id": null, "Venue": "The Green Lantern", "Artist": null, "Location": null, "Datetime": null }, "geometry": { "type": "Point", "coordinates": [ -84.498302875889209, 38.055050577958362 ] } },
-{ "type": "Feature", "properties": { "id": null, "Venue": "Manchester Music Hall", "Artist": "Hayden Coffman", "Location": "Manchester Music Hall", "Datetime": "2024-06-29T20:00:00-05:00" }, "geometry": { "type": "Point", "coordinates": [ -84.50944327121222, 38.053200573369594 ] } },
-{ "type": "Feature", "properties": { "id": null, "Venue": "Manchester Music Hall", "Artist": "Hardwired", "Location": "Manchester Music Hall", "Datetime": "2024-06-27T00:00:00" }, "geometry": { "type": "Point", "coordinates": [ -84.50944327121222, 38.053200573369594 ] } },
-{ "type": "Feature", "properties": { "id": null, "Venue": "Manchester Music Hall", "Artist": "Zach Seabaugh", "Location": "Manchester Music Hall", "Datetime": "2024-06-20T20:00:00-05:00" }, "geometry": { "type": "Point", "coordinates": [ -84.50944327121222, 38.053200573369594 ] } },
-{ "type": "Feature", "properties": { "id": null, "Venue": "Al's Bar", "Artist": "portrayal of guilt", "Location": "Al's Bar", "Datetime": "2024-06-19T19:00:00-05:00" }, "geometry": { "type": "Point", "coordinates": [ -84.486368617749918, 38.054104284004438 ] } },
-{ "type": "Feature", "properties": { "id": null, "Venue": "Lexington Opera House", "Artist": "David Spade", "Location": "Lexington Opera House", "Datetime": "2024-06-30T20:00:00-05:00" }, "geometry": { "type": "Point", "coordinates": [ -84.49922539418958, 38.050035771358864 ] } },
-{ "type": "Feature", "properties": { "id": null, "Venue": "Lexington Opera House", "Artist": "Mike Campbell & The Dirty Knobs", "Location": "Lexington Opera House", "Datetime": "2024-06-27T20:00:00-05:00" }, "geometry": { "type": "Point", "coordinates": [ -84.49922539418958, 38.050035771358864 ] } },
-{ "type": "Feature", "properties": { "id": null, "Venue": "Lexington Opera House", "Artist": "Jim Norton", "Location": "Lexington Opera House", "Datetime": "2024-06-21T20:00:00-05:00" }, "geometry": { "type": "Point", "coordinates": [ -84.49922539418958, 38.050035771358864 ] } },
-{ "type": "Feature", "properties": { "id": null, "Venue": "Lexington Opera House", "Artist": "John Hiatt", "Location": "Lexington Opera House", "Datetime": "2024-06-19T20:00:00-05:00" }, "geometry": { "type": "Point", "coordinates": [ -84.49922539418958, 38.050035771358864 ] } },
-{ "type": "Feature", "properties": { "id": null, "Venue": "Lexington Opera House", "Artist": "Jenny Lewis", "Location": "Lexington Opera House", "Datetime": "2024-06-18T20:00:00-05:00" }, "geometry": { "type": "Point", "coordinates": [ -84.49922539418958, 38.050035771358864 ] } },
-{ "type": "Feature", "properties": { "id": null, "Venue": "Break Room", "Artist": "Home Grown Head and The Footsteps", "Location": "Break Room", "Datetime": "2024-06-22T18:00:00-05:00" }, "geometry": { "type": "Point", "coordinates": [ -84.518751787881641, 38.055652653995978 ] } },
-{ "type": "Feature", "properties": { "id": null, "Venue": "Kentucky Theater", "Artist": null, "Location": null, "Datetime": null }, "geometry": { "type": "Point", "coordinates": [ -84.495409589492326, 38.04417782119836 ] } },
-{ "type": "Feature", "properties": { "id": null, "Venue": "Redeemer Community Church", "Artist": "Local Violence", "Location": "Redeemer Community Church", "Datetime": "2024-06-22T18:00:00-05:00" }, "geometry": { "type": "Point", "coordinates": [ -84.532176086342972, 38.01071712672379 ] } },
-{ "type": "Feature", "properties": { "id": null, "Venue": "Redeemer Community Church", "Artist": "Sempervivi, Violent Dawn, and death of rebellion", "Location": "Redeemer Community Church", "Datetime": "2024-06-22T18:00:00-05:00" }, "geometry": { "type": "Point", "coordinates": [ -84.532176086342972, 38.01071712672379 ] } }
-]
+    "type": "FeatureCollection",
+    "name": "venues_gigs",
+    "crs": {
+        "type": "name",
+        "properties": {
+            "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+        }
+    },
+    "features": [
+        {
+            "type": "Feature",
+            "properties": {
+                "id": null,
+                "Venue": "The Burl",
+                "Artist": "Old 97's",
+                "Location": "The Burl",
+                "Datetime": "2024-07-31",
+                "Artist Link": "https://www.songkick.com/concerts/41948675-old-97s-at-burl",
+                "Date": "2024-07-31",
+                "Time": null
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -84.518869778640706,
+                    38.056983944364255
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": null,
+                "Venue": "The Burl",
+                "Artist": "Fruit Bats",
+                "Location": "The Burl",
+                "Datetime": "2024-07-27",
+                "Artist Link": "https://www.songkick.com/concerts/41698871-fruit-bats-at-burl",
+                "Date": "2024-07-27",
+                "Time": null
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -84.518869778640706,
+                    38.056983944364255
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": null,
+                "Venue": "The Burl",
+                "Artist": "Wilderado",
+                "Location": "The Burl",
+                "Datetime": "2024-07-26",
+                "Artist Link": "https://www.songkick.com/concerts/41821447-wilderado-at-burl",
+                "Date": "2024-07-26",
+                "Time": "07:00 PM"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -84.518869778640706,
+                    38.056983944364255
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": null,
+                "Venue": "The Burl",
+                "Artist": "The Stews (US)",
+                "Location": "The Burl",
+                "Datetime": "2024-07-25",
+                "Artist Link": "https://www.songkick.com/concerts/41799077-stews-us-at-burl",
+                "Date": "2024-07-25",
+                "Time": null
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -84.518869778640706,
+                    38.056983944364255
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": null,
+                "Venue": "The Burl",
+                "Artist": "Jeremy Pinnell and Summer Dean",
+                "Location": "The Burl",
+                "Datetime": "2024-07-11",
+                "Artist Link": "https://www.songkick.com/concerts/41727409-jeremy-pinnell-at-burl",
+                "Date": "2024-07-11",
+                "Time": "07:00 PM"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -84.518869778640706,
+                    38.056983944364255
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": null,
+                "Venue": "The Burl",
+                "Artist": "Town Mountain and John R Miller",
+                "Location": "The Burl",
+                "Datetime": "2024-07-06",
+                "Artist Link": "https://www.songkick.com/concerts/41912553-town-mountain-at-burl",
+                "Date": "2024-07-06",
+                "Time": "08:00 PM"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -84.518869778640706,
+                    38.056983944364255
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": null,
+                "Venue": "The Burl",
+                "Artist": "The Steel Woods",
+                "Location": "The Burl",
+                "Datetime": "2024-07-04",
+                "Artist Link": "https://www.songkick.com/concerts/41948676-steel-woods-at-burl",
+                "Date": "2024-07-04",
+                "Time": null
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -84.518869778640706,
+                    38.056983944364255
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": null,
+                "Venue": "The Burl",
+                "Artist": "Shakey Graves",
+                "Location": "The Burl",
+                "Datetime": "2024-06-26",
+                "Artist Link": "https://www.songkick.com/concerts/41866369-shakey-graves-at-burl",
+                "Date": "2024-06-26",
+                "Time": "07:00 PM"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -84.518869778640706,
+                    38.056983944364255
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": null,
+                "Venue": "Manchester Music Hall",
+                "Artist": "Beartooth, Currents, and Boundaries",
+                "Location": "Manchester Music Hall",
+                "Datetime": "2024-07-29",
+                "Artist Link": "https://www.songkick.com/concerts/41934578-beartooth-at-manchester-music-hall",
+                "Date": "2024-07-29",
+                "Time": "06:30 PM"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -84.50944327121222,
+                    38.053200573369594
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": null,
+                "Venue": "Manchester Music Hall",
+                "Artist": "Whitey Morgan and the 78's",
+                "Location": "Manchester Music Hall",
+                "Datetime": "2024-07-25",
+                "Artist Link": "https://www.songkick.com/concerts/42014537-whitey-morgan-and-the-78s-at-manchester-music-hall",
+                "Date": "2024-07-25",
+                "Time": "08:00 PM"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -84.50944327121222,
+                    38.053200573369594
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": null,
+                "Venue": "Manchester Music Hall",
+                "Artist": "Left To Suffer, Within Destruction, Ten56, and Cabal",
+                "Location": "Manchester Music Hall",
+                "Datetime": "2024-07-20",
+                "Artist Link": "https://www.songkick.com/concerts/41907394-left-to-suffer-at-manchester-music-hall",
+                "Date": "2024-07-20",
+                "Time": "05:20 PM"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -84.50944327121222,
+                    38.053200573369594
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": null,
+                "Venue": "Manchester Music Hall",
+                "Artist": "Veil of Maya",
+                "Location": "Manchester Music Hall",
+                "Datetime": "2024-07-20",
+                "Artist Link": "https://www.songkick.com/concerts/41917527-veil-of-maya-at-manchester-music-hall",
+                "Date": "2024-07-20",
+                "Time": "03:00 PM"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -84.50944327121222,
+                    38.053200573369594
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": null,
+                "Venue": "Manchester Music Hall",
+                "Artist": "Uncle Lucius",
+                "Location": "Manchester Music Hall",
+                "Datetime": "2024-07-16",
+                "Artist Link": "https://www.songkick.com/concerts/41930439-uncle-lucius-at-manchester-music-hall",
+                "Date": "2024-07-16",
+                "Time": "08:00 PM"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -84.50944327121222,
+                    38.053200573369594
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": null,
+                "Venue": "Manchester Music Hall",
+                "Artist": "Kolby Cooper",
+                "Location": "Manchester Music Hall",
+                "Datetime": "2024-07-12",
+                "Artist Link": "https://www.songkick.com/concerts/41840775-kolby-cooper-at-manchester-music-hall",
+                "Date": "2024-07-12",
+                "Time": "08:00 PM"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -84.50944327121222,
+                    38.053200573369594
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": null,
+                "Venue": "Manchester Music Hall",
+                "Artist": "Del McCoury Band",
+                "Location": "Manchester Music Hall",
+                "Datetime": "2024-07-11",
+                "Artist Link": "https://www.songkick.com/concerts/41898831-del-mccoury-band-at-manchester-music-hall",
+                "Date": "2024-07-11",
+                "Time": "08:00 PM"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -84.50944327121222,
+                    38.053200573369594
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": null,
+                "Venue": "Manchester Music Hall",
+                "Artist": "Hayden Coffman",
+                "Location": "Manchester Music Hall",
+                "Datetime": "2024-06-29",
+                "Artist Link": "https://www.songkick.com/concerts/41714049-hayden-coffman-at-manchester-music-hall",
+                "Date": "2024-06-29",
+                "Time": "08:00 PM"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -84.50944327121222,
+                    38.053200573369594
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": null,
+                "Venue": "Manchester Music Hall",
+                "Artist": "Hardwired",
+                "Location": "Manchester Music Hall",
+                "Datetime": "2024-06-27",
+                "Artist Link": "https://www.songkick.com/concerts/42010396-hardwired-at-manchester-music-hall",
+                "Date": "2024-06-27",
+                "Time": null
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -84.50944327121222,
+                    38.053200573369594
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": null,
+                "Venue": "Manchester Music Hall",
+                "Artist": "Austin Meade",
+                "Location": "Manchester Music Hall",
+                "Datetime": "2024-06-26",
+                "Artist Link": "https://www.songkick.com/concerts/42021311-austin-meade-at-manchester-music-hall",
+                "Date": "2024-06-26",
+                "Time": "08:00 PM"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -84.50944327121222,
+                    38.053200573369594
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": null,
+                "Venue": "Al's Bar",
+                "Artist": "Breed (Official)",
+                "Location": "Al's Bar",
+                "Datetime": "2024-07-31",
+                "Artist Link": "https://www.songkick.com/concerts/42005174-breed-official-at-als-bar",
+                "Date": "2024-07-31",
+                "Time": "07:00 PM"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -84.486368617749918,
+                    38.054104284004438
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": null,
+                "Venue": "Al's Bar",
+                "Artist": "Six Foot Blonde",
+                "Location": "Al's Bar",
+                "Datetime": "2024-07-18",
+                "Artist Link": "https://www.songkick.com/concerts/41848768-six-foot-blonde-at-als-bar",
+                "Date": "2024-07-18",
+                "Time": null
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -84.486368617749918,
+                    38.054104284004438
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": null,
+                "Venue": "Lexington Opera House",
+                "Artist": "Trey Kennedy",
+                "Location": "Lexington Opera House",
+                "Datetime": "2024-07-18",
+                "Artist Link": "https://www.songkick.com/concerts/41816919-trey-kennedy-at-lexington-opera-house",
+                "Date": "2024-07-18",
+                "Time": "07:30 PM"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -84.49922539418958,
+                    38.050035771358864
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": null,
+                "Venue": "Lexington Opera House",
+                "Artist": "Ben Folds",
+                "Location": "Lexington Opera House",
+                "Datetime": "2024-07-17",
+                "Artist Link": "https://www.songkick.com/concerts/41860300-ben-folds-at-lexington-opera-house",
+                "Date": "2024-07-17",
+                "Time": "07:30 PM"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -84.49922539418958,
+                    38.050035771358864
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": null,
+                "Venue": "Lexington Opera House",
+                "Artist": "David Spade",
+                "Location": "Lexington Opera House",
+                "Datetime": "2024-06-30",
+                "Artist Link": "https://www.songkick.com/concerts/41894942-david-spade-at-lexington-opera-house",
+                "Date": "2024-06-30",
+                "Time": "08:00 PM"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -84.49922539418958,
+                    38.050035771358864
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": null,
+                "Venue": "Lexington Opera House",
+                "Artist": "Mike Campbell & The Dirty Knobs",
+                "Location": "Lexington Opera House",
+                "Datetime": "2024-06-27",
+                "Artist Link": "https://www.songkick.com/concerts/41797630-mike-campbell-and-the-dirty-knobs-at-lexington-opera-house",
+                "Date": "2024-06-27",
+                "Time": "08:00 PM"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -84.49922539418958,
+                    38.050035771358864
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": null,
+                "Venue": "Oleika Temple",
+                "Artist": "LEXINGTON REGGAE FEST 2024",
+                "Location": "Oleika Temple",
+                "Datetime": "2024-07-28",
+                "Artist Link": "https://www.songkick.com/festivals/3670269-lexington-reggae-fest/id/41966163-lexington-reggae-fest-2024",
+                "Date": "2024-07-28",
+                "Time": null
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -84.525755691684424,
+                    38.01615208418616
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": null,
+                "Venue": "Slainte Public House",
+                "Artist": "Jen Howard",
+                "Location": "Slainte Public House",
+                "Datetime": "2024-07-07",
+                "Artist Link": "https://www.songkick.com/concerts/41684503-jen-howard-at-slainte-public-house",
+                "Date": "2024-07-07",
+                "Time": "05:00 PM"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -84.556467750410988,
+                    38.209525697511232
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": null,
+                "Venue": "Festival Grounds",
+                "Artist": "Holler Of Doom 2024",
+                "Location": "Festival Grounds",
+                "Datetime": "2024-07-12",
+                "Artist Link": "https://www.songkick.com/festivals/3658627-holler-of-doom/id/41864665-holler-of-doom-2024",
+                "Date": "2024-07-12",
+                "Time": null
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -83.908874223050191,
+                    37.112128035688308
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": null,
+                "Venue": "Lake Reba Recreational Complex Park",
+                "Artist": "Tyler Deaver",
+                "Location": "Lake Reba Recreational Complex Park",
+                "Datetime": "2024-07-04",
+                "Artist Link": "https://www.songkick.com/concerts/42013289-tyler-deaver-at-lake-reba-recreational-complex-park",
+                "Date": "2024-07-04",
+                "Time": "04:00 PM"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -84.256918903826559,
+                    37.739185366615537
+                ]
+            }
+        }
+    ]
 }
