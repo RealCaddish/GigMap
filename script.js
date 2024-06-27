@@ -8,7 +8,8 @@ L.tileLayer('https://tiles.stadiamaps.com/tiles/stamen_toner_lite/{z}/{x}/{y}{r}
     minZoom: 0,
     maxZoom: 20,
     attribution: '&copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://www.stamen.com/" target="_blank">Stamen Design</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-    ext: 'png'
+    ext: 'png',
+    apikey: '2c3cc290-ef3a-486a-86ec-bd0958a845b5'
 }).addTo(map);
 
 // Define the URL of the GeoJSON file
