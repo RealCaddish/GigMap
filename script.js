@@ -42,7 +42,7 @@ function getColor(datetime) {
     if (diffDays <= 3) {
         return 'green';
     } else if (diffDays <= 7) {
-        return 'yellow';
+        return 'orange';
     } else {
         return 'red';
     }
@@ -69,16 +69,20 @@ function createPopupContent(venue, events) {
         events.forEach(function (event) {
             var formattedDateTime = formatDateTime(event.properties.Datetime);
             var color = getColor(event.properties.Datetime);
+            var artistLink = event.properties.ArtistLink;
+            console.log('Artist:', event.properties.Artist, 'ArtistLink:', artistLink); // Debug log
             popupContent += '<li><div style="color:' + color + ';" class="popup-datetime">' + formattedDateTime.day + ' - ' + formattedDateTime.time + '</div>' +
-                '<div class="popup-artist"><a href="' + event.properties.ArtistLink + '" target="_blank">' + event.properties.Artist + '</a></div></li>';
+                '<div class="popup-artist"><a href="' + artistLink + '" target="_blank">' + event.properties.Artist + '</a></div></li>';
         });
         popupContent += '</ul>';
     } else {
         events.forEach(function (event) {
             var formattedDateTime = formatDateTime(event.properties.Datetime);
             var color = getColor(event.properties.Datetime);
+            var artistLink = event.properties.ArtistLink;
+            console.log('Artist:', event.properties.Artist, 'ArtistLink:', artistLink); // Debug log
             popupContent += '<div style="color:' + color + ';" class="popup-datetime">' + formattedDateTime.day + ' - ' + formattedDateTime.time + '</div>' +
-                '<div class="popup-artist"><a href="' + event.properties.ArtistLink + '" target="_blank">' + event.properties.Artist + '</a></div><hr>';
+                '<div class="popup-artist"><a href="' + artistLink + '" target="_blank">' + event.properties.Artist + '</a></div><hr>';
         });
     }
     popupContent += '</div>';
@@ -95,7 +99,7 @@ function addLegend(map) {
         var div = L.DomUtil.create('div', 'legend');
         div.innerHTML += '<h4>Event Timing</h4>';
         div.innerHTML += '<div><span class="circle" style="background: green"></span><span>0-3 days</span></div>';
-        div.innerHTML += '<div><span class="circle" style="background: yellow"></span><span>4-7 days</span></div>';
+        div.innerHTML += '<div><span class="circle" style="background: orange"></span><span>4-7 days</span></div>';
         div.innerHTML += '<div><span class="circle" style="background: red"></span><span>8+ days</span></div>';
         return div;
     };
