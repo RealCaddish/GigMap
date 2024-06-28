@@ -12,7 +12,7 @@ L.tileLayer('https://tiles.stadiamaps.com/tiles/stamen_toner_lite/{z}/{x}/{y}{r}
 }).addTo(map);
 
 // Define the URL of the GeoJSON file
-var geojsonUrl = 'shp/venues_gigs.geojson';
+var geojsonUrl = 'shp/merged_venues_events.geojson';
 
 // Define a function to format the date and time
 function formatDateTime(datetime) {
@@ -64,29 +64,75 @@ function groupByVenue(data) {
 // Define a function to create popups for each venue
 function createPopupContent(venue, events) {
     var popupContent = '<div class="popup-content"><div class="popup-location">' + venue + '</div><hr>';
-    if (events.length > 5) {
-        popupContent += '<ul>';
-        events.forEach(function (event) {
-            var formattedDateTime = formatDateTime(event.properties.Datetime);
-            var color = getColor(event.properties.Datetime);
-            var artistLink = event.properties.ArtistLink;
-            console.log('Artist:', event.properties.Artist, 'ArtistLink:', artistLink); // Debug log
-            popupContent += '<li><div style="color:' + color + ';" class="popup-datetime">' + formattedDateTime.day + ' - ' + formattedDateTime.time + '</div>' +
-                '<div class="popup-artist"><a href="' + artistLink + '" target="_blank">' + event.properties.Artist + '</a></div></li>';
-        });
-        popupContent += '</ul>';
+    if (events.length > 3) {
+        popupContent += createFeatureSet(venue, events, 0);
     } else {
         events.forEach(function (event) {
             var formattedDateTime = formatDateTime(event.properties.Datetime);
             var color = getColor(event.properties.Datetime);
             var artistLink = event.properties.ArtistLink;
-            console.log('Artist:', event.properties.Artist, 'ArtistLink:', artistLink); // Debug log
-            popupContent += '<div style="color:' + color + ';" class="popup-datetime">' + formattedDateTime.day + ' - ' + formattedDateTime.time + '</div>' +
-                '<div class="popup-artist"><a href="' + artistLink + '" target="_blank">' + event.properties.Artist + '</a></div><hr>';
+            var artistImage = event.properties.ArtistImage;
+            popupContent += '<div class="popup-datetime" style="color:' + color + ';">' +
+                '<h2>' + formattedDateTime.day + '</h2>' +
+                '<p class="popup-time">' + formattedDateTime.time + '</p>' +
+                '</div>' +
+                '<div class="popup-artist">' +
+                '<img src="' + artistImage + '" alt="' + event.properties.Artist + '" style="width:60px; height:auto; vertical-align:middle; margin-right:10px;">' +
+                '<div class="popup-artist-details">' +
+                '<a href="' + artistLink + '" target="_blank" class="popup-artist-name">' + event.properties.Artist + '</a>' +
+                '</div></div><hr>';
         });
     }
     popupContent += '</div>';
     return popupContent;
+}
+
+function createFeatureSet(venue, events, startIndex) {
+    var endIndex = Math.min(startIndex + 3, events.length);
+    var hasNext = endIndex < events.length;
+    var hasPrevious = startIndex > 0;
+
+    var content = '<div id="popup-set" data-start-index="' + startIndex + '">';
+
+    for (var i = startIndex; i < endIndex; i++) {
+        var event = events[i];
+        var formattedDateTime = formatDateTime(event.properties.Datetime);
+        var color = getColor(event.properties.Datetime);
+        var artistLink = event.properties.ArtistLink;
+        var artistImage = event.properties.ArtistImage;
+
+        content += '<div class="popup-datetime" style="color:' + color + ';">' +
+            '<h2>' + formattedDateTime.day + '</h2>' +
+            '<p class="popup-time">' + formattedDateTime.time + '</p>' +
+            '</div>' +
+            '<div class="popup-artist">' +
+            '<img src="' + artistImage + '" alt="' + event.properties.Artist + '" style="width:60px; height:auto; vertical-align:middle; margin-right:10px;">' +
+            '<div class="popup-artist-details">' +
+            '<a href="' + artistLink + '" target="_blank" class="popup-artist-name">' + event.properties.Artist + '</a>' +
+            '</div></div><hr>';
+    }
+
+    content += '<div style="text-align: right;">';
+    if (hasPrevious) {
+        content += '<button onclick="navigatePopup(\'' + venue + '\', ' + (startIndex - 3) + ', \'' + JSON.stringify(events[0].geometry.coordinates) + '\')">←</button>';
+    }
+    if (hasNext) {
+        content += '<button onclick="navigatePopup(\'' + venue + '\', ' + (startIndex + 3) + ', \'' + JSON.stringify(events[0].geometry.coordinates) + '\')">→</button>';
+    }
+    content += '</div></div>';
+
+    return content;
+}
+
+
+
+function navigatePopup(venue, startIndex, coordinates) {
+    var popupContent = createFeatureSet(venue, window.venues[venue], startIndex);
+    var latlng = JSON.parse(coordinates);
+    var popup = L.popup()
+        .setLatLng([latlng[1], latlng[0]])
+        .setContent(popupContent)
+        .openOn(map);
 }
 
 // Add legend to the map
@@ -97,6 +143,7 @@ function addLegend(map) {
 
     legend.onAdd = function (map) {
         var div = L.DomUtil.create('div', 'legend');
+        div.className = 'legend';
         div.innerHTML += '<h4>Event Timing</h4>';
         div.innerHTML += '<div><span class="circle" style="background: green"></span><span>0-3 days</span></div>';
         div.innerHTML += '<div><span class="circle" style="background: orange"></span><span>4-7 days</span></div>';
@@ -121,7 +168,8 @@ function addBackButton() {
 fetch(geojsonUrl)
     .then(response => response.json())
     .then(data => {
-        var venues = groupByVenue(data);
+        // Make venues globally accessible
+        window.venues = groupByVenue(data);
 
         Object.keys(venues).forEach(function (venue) {
             var events = venues[venue];
@@ -142,7 +190,17 @@ fetch(geojsonUrl)
             marker.bindPopup(popupContent);
 
             marker.on('click', function () {
-                map.setView(latlng, 15); // Zoom in to the point
+                map.setView(latlng, 15, {
+                    animate: true,
+                    pan: {
+                        duration: 1
+                    }
+                });
+                setTimeout(function () {
+                    map.panTo(latlng, {
+                        animate: true
+                    });
+                }, 500); // Adjust this timeout as needed
                 addBackButton(); // Show the back button
             });
         });

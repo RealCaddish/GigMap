@@ -1,4 +1,14 @@
-/* Custom CSS */
+/* Import custom fonts */
+@font-face {
+    font-family: 'Slaytanic';
+    src: url('fonts/Slaytanic.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Lexend-SemiBold';
+    src: url('fonts/Lexend-SemiBold.ttf') format('truetype');
+}
+
 body, html {
     height: 100%;
     margin: 0;
@@ -21,6 +31,7 @@ body, html {
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
     font-family: Arial, sans-serif;
     font-size: 14px;
+    z-index: 1000; /* Ensure it appears above other elements */
 }
 
 .legend h4 {
@@ -69,7 +80,99 @@ body, html {
     padding: 20px;
     border-radius: 5px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-    font-family: Arial, sans-serif;
+    font-family: 'Lexend-SemiBold', Arial, sans-serif;
     font-size: 14px;
     z-index: 1000; /* Ensure it appears above other elements */
+    max-height: 50%; /* Limit the height */
+    overflow-y: auto; /* Enable scrolling */
+}
+
+/* Style for info-box header */
+.info-box h1 {
+    font-family: 'Slaytanic', Arial, sans-serif;
+    text-align: center;
+}
+
+/* Style for popup date */
+.popup-datetime h2 {
+    font-weight: bold;
+    font-size: 1.2em; /* Adjust the size as needed */
+    margin: 0; /* Remove any default margins */
+    padding: 2px 0; /* Reduce padding */
+}
+
+/* Style for popup time */
+.popup-time {
+    font-size: 1em; /* Slightly smaller than the date */
+    margin: 0; /* Remove any default margins */
+    padding: 2px 0; /* Reduce padding */
+}
+
+/* Style for popup artist details */
+.popup-artist {
+    margin: 2px 0; /* Reduce margin between features */
+}
+
+.popup-artist-details {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.popup-artist-name {
+    font-weight: bold;
+    margin: 0; /* Remove any default margins */
+    text-decoration: none;
+    color: inherit; /* Use the inherited text color */
+    padding: 2px 0; /* Reduce padding */
+}
+
+.popup-artist-name:hover {
+    text-decoration: underline; /* Underline on hover for better UX */
+}
+
+/* Styles for mobile devices */
+@media (max-width: 768px) {
+    .info-box {
+        top: auto;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        border-radius: 0;
+        padding: 10px;
+        max-height: 30%; /* Limit the height */
+    }
+
+    .legend {
+        top: 10px;
+        bottom: auto;
+        right: 10px;
+    }
+}
+
+/* Reset styles for larger screens */
+@media (min-width: 769px) {
+    .info-box {
+        top: 5%;
+        left: 80%;
+        right: 2%;
+        width: auto;
+        border-radius: 5px;
+        padding: 20px;
+        max-height: 50%; /* Limit the height */
+        overflow-y: auto; /* Enable scrolling */
+    }
+
+    .legend {
+        bottom: 30px;
+        right: 10px;
+        top: auto;
+    }
+}
+
+.popup-location {
+    font-weight: bold;
+    font-size: x-large;
+    font-family: 'Slaytanic', Arial, sans-serif;
+    text-align: center;
 }
