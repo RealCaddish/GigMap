@@ -98,19 +98,18 @@ body, html {
     font-weight: bold;
     font-size: 1.2em; /* Adjust the size as needed */
     margin: 0; /* Remove any default margins */
-    padding: 2px 0; /* Reduce padding */
+    padding: 1px 0; /* Reduce padding */
 }
 
 /* Style for popup time */
 .popup-time {
     font-size: 1em; /* Slightly smaller than the date */
     margin: 0; /* Remove any default margins */
-    padding: 2px 0; /* Reduce padding */
 }
 
 /* Style for popup artist details */
 .popup-artist {
-    margin: 2px 0; /* Reduce margin between features */
+    margin: 1px 0; /* Reduce margin between features */
 }
 
 .popup-artist-details {
@@ -123,7 +122,7 @@ body, html {
     margin: 0; /* Remove any default margins */
     text-decoration: none;
     color: inherit; /* Use the inherited text color */
-    padding: 2px 0; /* Reduce padding */
+    padding: 1px 0; /* Reduce padding */
 }
 
 .popup-artist-name:hover {
