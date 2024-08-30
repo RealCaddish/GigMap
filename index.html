@@ -10,69 +10,98 @@
     />
     <style>
       #map {
-        height: 90vh;
-        width: 100vw;
-      }
-      .legend {
-    background: white;
-    padding: 10px;
-    font-size: 14px;
-    color: #555;
-    overflow-y: auto; /* Allows scrolling */
-    max-height: 300px; /* Adjust based on your preference */
-    border: 1px solid #ccc;
-}
-
-.calendar-day {
-    display: inline-block;
-    width: 40px; /* Adjust width based on content */
-    min-height: 50px; /* Minimum height to manage days with few events */
-    vertical-align: top;
-    margin: 2px;
-    text-align: center;
+    display: flex;
+    justify-content: center;
     position: relative;
-    font-weight: bold;
-    padding-top: 20px; /* Space for the date at the top */
-    border-right: 1px solid rgba(0, 0, 0, 0.2); /* Semi-transparent vertical line between days */
+    height: 100vh; /* Adjust based on your requirement */
+    width: 100vw; /* Adjust based on your requirement */
 }
 
-.calendar-day:last-child {
-    border-right: none; /* No border for the last element */
+.legend {
+  background: rgba(255, 255, 255, 0.7);    
+  padding: 5px;
+    font-size: 14px;
+    color: #000000;
+    border: 2px solid #dddddd;
+    position: absolute;
+    bottom: 20px; /* Make sure it's positioned at the bottom */
+    left: 5px; /* Adjust this if it's too far to the left or overlapping */
+    box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+    max-height: 200px;
+    overflow-y: auto;
+    max-width: auto; /* Let it grow as needed based on content */
+  
+    white-space: nowrap; /* Keep content on a single line unless specifically broken by <br> tags */
 }
 
+@media (max-width: 600px) {
+    .legend {
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%; /* Full width for smaller screens */
+        max-width: 100%; /* Full width for smaller screens */
+    }
+}
 
+      .calendar-day {
+        display: inline-block;
+        width: 40px; /* Adjust width based on content */
+        min-height: 50px; /* Minimum height to manage days with few events */
+        vertical-align: top;
+        margin: 2px;
+        text-align: center;
+        position: relative;
+        font-weight: bold;
+        padding-top: 20px; /* Space for the date at the top */
+        border-right: 1px solid rgba(0, 0, 0, 0.2); /* Semi-transparent vertical line between days */
+      }
 
-.event-dot {
+      .calendar-day:last-child {
+        border-right: none; /* No border for the last element */
+      }
+
+      .event-dot {
     height: 10px;
     width: 10px;
     background-color: #f03;
     border-radius: 50%;
     display: block;
-    margin: 2px auto; /* Centers dot and adds space between dots */
+    margin: 2px auto;
+    position: relative;
 }
 
-
-.calendar-day:last-child {
-    border-right: none; /* No border for the last element */
+.event-dot:hover::after {
+    content: attr(data-artist) ", " attr(data-venue);
+    position: absolute;
+    left: 120%; /* Adjust based on your layout */
+    top: 50%;
+    transform: translateY(-50%);
+    white-space: nowrap;
+    background-color: black;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    z-index: 1000;
+    box-shadow: 0px 0px 5px rgba(0,0,0,0.3);
 }
 
-
+      .calendar-day:last-child {
+        border-right: none; /* No border for the last element */
+      }
     </style>
   </head>
   <body>
     <div id="map"></div>
-    <div id="calendar-legend" class="legend">
-      <h4>Event Calendar</h4>
-      <!-- Calendar goes here -->
     </div>
-
+  </div>
     <script
       src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
       integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
       crossorigin=""
     ></script>
     <script src="https://unpkg.com/@turf/turf.min.js"></script>
-    <!-- Link to your external JavaScript file -->
+    <!-- Link to external JavaScript file -->
     <script src="script.js"></script>
   </body>
 </html>

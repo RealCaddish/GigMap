@@ -1,40 +1,740 @@
 {
-"type": "FeatureCollection",
-"features": [
-{ "type": "Feature", "properties": { "id": null, "Venue": "The Burl", "Artist": "Keller Williams and The HillBenders", "Location": "The Burl", "Datetime": "2024-09-06", "ArtistLink": "https://www.songkick.com/concerts/42066605-keller-williams-at-burl", "ArtistImage": "artist_images/Keller_Williams_and_The_HillBenders.jpg", "Date": "2024-09-06", "Time": null }, "geometry": { "type": "Point", "coordinates": [ -84.518869778640706, 38.056983944364255 ] } },
-{ "type": "Feature", "properties": { "id": null, "Venue": "The Burl", "Artist": "Burl County Fest 2024", "Location": "The Burl", "Datetime": "2024-09-06", "ArtistLink": "https://www.songkick.com/festivals/3682569-burl-county-fest/id/42079150-burl-county-fest-2024", "ArtistImage": "artist_images/Burl_County_Fest_2024.jpg", "Date": "2024-09-06", "Time": null }, "geometry": { "type": "Point", "coordinates": [ -84.518869778640706, 38.056983944364255 ] } },
-{ "type": "Feature", "properties": { "id": null, "Venue": "The Burl", "Artist": "Dopapod", "Location": "The Burl", "Datetime": "2024-09-08T20:00:00-0500", "ArtistLink": "https://www.songkick.com/concerts/42022988-dopapod-at-burl", "ArtistImage": "artist_images/Dopapod.jpg", "Date": "2024-09-08", "Time": "08:00 PM" }, "geometry": { "type": "Point", "coordinates": [ -84.518869778640706, 38.056983944364255 ] } },
-{ "type": "Feature", "properties": { "id": null, "Venue": "The Burl", "Artist": "Taylor McCall", "Location": "The Burl", "Datetime": "2024-09-10", "ArtistLink": "https://www.songkick.com/concerts/42141871-taylor-mccall-at-burl", "ArtistImage": "artist_images/Taylor_McCall.jpg", "Date": "2024-09-10", "Time": null }, "geometry": { "type": "Point", "coordinates": [ -84.518869778640706, 38.056983944364255 ] } },
-{ "type": "Feature", "properties": { "id": null, "Venue": "The Burl", "Artist": "Bendigo Fletcher", "Location": "The Burl", "Datetime": "2024-09-13T18:30:00-0500", "ArtistLink": "https://www.songkick.com/concerts/42069929-bendigo-fletcher-at-burl", "ArtistImage": "artist_images/Bendigo_Fletcher.jpg", "Date": "2024-09-13", "Time": "06:30 PM" }, "geometry": { "type": "Point", "coordinates": [ -84.518869778640706, 38.056983944364255 ] } },
-{ "type": "Feature", "properties": { "id": null, "Venue": "The Burl", "Artist": "Sarah Shook & the Disarmers", "Location": "The Burl", "Datetime": "2024-09-14", "ArtistLink": "https://www.songkick.com/concerts/42142029-sarah-shook-and-the-disarmers-at-burl", "ArtistImage": "artist_images/Sarah_Shook_&_the_Disarmers.jpg", "Date": "2024-09-14", "Time": null }, "geometry": { "type": "Point", "coordinates": [ -84.518869778640706, 38.056983944364255 ] } },
-{ "type": "Feature", "properties": { "id": null, "Venue": "The Burl", "Artist": "Melissa Carper", "Location": "The Burl", "Datetime": "2024-09-18", "ArtistLink": "https://www.songkick.com/concerts/41948400-melissa-carper-at-burl", "ArtistImage": "artist_images/Melissa_Carper.jpg", "Date": "2024-09-18", "Time": null }, "geometry": { "type": "Point", "coordinates": [ -84.518869778640706, 38.056983944364255 ] } },
-{ "type": "Feature", "properties": { "id": null, "Venue": "The Burl", "Artist": "Supersuckers", "Location": "The Burl", "Datetime": "2024-09-20", "ArtistLink": "https://www.songkick.com/concerts/42144644-supersuckers-at-burl", "ArtistImage": "artist_images/Supersuckers.jpg", "Date": "2024-09-20", "Time": null }, "geometry": { "type": "Point", "coordinates": [ -84.518869778640706, 38.056983944364255 ] } },
-{ "type": "Feature", "properties": { "id": null, "Venue": "The Burl", "Artist": "Kaitlin Butts", "Location": "The Burl", "Datetime": "2024-09-25", "ArtistLink": "https://www.songkick.com/concerts/41983369-kaitlin-butts-at-burl", "ArtistImage": "artist_images/Kaitlin_Butts.jpg", "Date": "2024-09-25", "Time": null }, "geometry": { "type": "Point", "coordinates": [ -84.518869778640706, 38.056983944364255 ] } },
-{ "type": "Feature", "properties": { "id": null, "Venue": "The Burl", "Artist": "Willie Watson", "Location": "The Burl", "Datetime": "2024-09-28", "ArtistLink": "https://www.songkick.com/concerts/42019807-willie-watson-at-burl", "ArtistImage": "artist_images/Willie_Watson.jpg", "Date": "2024-09-28", "Time": null }, "geometry": { "type": "Point", "coordinates": [ -84.518869778640706, 38.056983944364255 ] } },
-{ "type": "Feature", "properties": { "id": null, "Venue": "The Burl", "Artist": "Speedy Ortiz", "Location": "The Burl", "Datetime": "2024-09-29T19:00:00-0500", "ArtistLink": "https://www.songkick.com/concerts/42117557-speedy-ortiz-at-burl", "ArtistImage": "artist_images/Speedy_Ortiz.jpg", "Date": "2024-09-29", "Time": "07:00 PM" }, "geometry": { "type": "Point", "coordinates": [ -84.518869778640706, 38.056983944364255 ] } },
-{ "type": "Feature", "properties": { "id": null, "Venue": "Manchester Music Hall", "Artist": "Zach Top", "Location": "Manchester Music Hall", "Datetime": "2024-09-05T20:00:00-0500", "ArtistLink": "https://www.songkick.com/concerts/41991716-zach-top-at-manchester-music-hall", "ArtistImage": "artist_images/Zach_Top.jpg", "Date": "2024-09-05", "Time": "08:00 PM" }, "geometry": { "type": "Point", "coordinates": [ -84.50944327121222, 38.053200573369594 ] } },
-{ "type": "Feature", "properties": { "id": null, "Venue": "Manchester Music Hall", "Artist": "Steel Panther", "Location": "Manchester Music Hall", "Datetime": "2024-09-06T20:00:00-0500", "ArtistLink": "https://www.songkick.com/concerts/41960465-steel-panther-at-manchester-music-hall", "ArtistImage": "artist_images/Steel_Panther.jpg", "Date": "2024-09-06", "Time": "08:00 PM" }, "geometry": { "type": "Point", "coordinates": [ -84.50944327121222, 38.053200573369594 ] } },
-{ "type": "Feature", "properties": { "id": null, "Venue": "Manchester Music Hall", "Artist": "Tom Wopat", "Location": "Manchester Music Hall", "Datetime": "2024-09-11T20:00:00-0500", "ArtistLink": "https://www.songkick.com/concerts/42047911-tom-wopat-at-manchester-music-hall", "ArtistImage": "artist_images/Tom_Wopat.jpg", "Date": "2024-09-11", "Time": "08:00 PM" }, "geometry": { "type": "Point", "coordinates": [ -84.50944327121222, 38.053200573369594 ] } },
-{ "type": "Feature", "properties": { "id": null, "Venue": "Manchester Music Hall", "Artist": "Red Not Chili Peppers", "Location": "Manchester Music Hall", "Datetime": "2024-09-12T20:00:00-0500", "ArtistLink": "https://www.songkick.com/concerts/41999551-red-not-chili-peppers-at-manchester-music-hall", "ArtistImage": "artist_images/Red_Not_Chili_Peppers.jpg", "Date": "2024-09-12", "Time": "08:00 PM" }, "geometry": { "type": "Point", "coordinates": [ -84.50944327121222, 38.053200573369594 ] } },
-{ "type": "Feature", "properties": { "id": null, "Venue": "Manchester Music Hall", "Artist": "Drake White", "Location": "Manchester Music Hall", "Datetime": "2024-09-13T19:00:00-0500", "ArtistLink": "https://www.songkick.com/concerts/41471373-drake-white-at-manchester-music-hall", "ArtistImage": "artist_images/Drake_White.jpg", "Date": "2024-09-13", "Time": "07:00 PM" }, "geometry": { "type": "Point", "coordinates": [ -84.50944327121222, 38.053200573369594 ] } },
-{ "type": "Feature", "properties": { "id": null, "Venue": "Manchester Music Hall", "Artist": "STRFKR", "Location": "Manchester Music Hall", "Datetime": "2024-09-14T20:00:00-0500", "ArtistLink": "https://www.songkick.com/concerts/41972520-strfkr-at-manchester-music-hall", "ArtistImage": "artist_images/STRFKR.jpg", "Date": "2024-09-14", "Time": "08:00 PM" }, "geometry": { "type": "Point", "coordinates": [ -84.50944327121222, 38.053200573369594 ] } },
-{ "type": "Feature", "properties": { "id": null, "Venue": "Manchester Music Hall", "Artist": "Alex Williams and Silverada", "Location": "Manchester Music Hall", "Datetime": "2024-09-15T20:00:00-0500", "ArtistLink": "https://www.songkick.com/concerts/42091690-alex-williams-at-manchester-music-hall", "ArtistImage": "artist_images/Alex_Williams_and_Silverada.jpg", "Date": "2024-09-15", "Time": "08:00 PM" }, "geometry": { "type": "Point", "coordinates": [ -84.50944327121222, 38.053200573369594 ] } },
-{ "type": "Feature", "properties": { "id": null, "Venue": "Manchester Music Hall", "Artist": "MC4D", "Location": "Manchester Music Hall", "Datetime": "2024-09-19T20:00:00-0500", "ArtistLink": "https://www.songkick.com/concerts/42112777-mc4d-at-manchester-music-hall", "ArtistImage": "artist_images/MC4D.jpg", "Date": "2024-09-19", "Time": "08:00 PM" }, "geometry": { "type": "Point", "coordinates": [ -84.50944327121222, 38.053200573369594 ] } },
-{ "type": "Feature", "properties": { "id": null, "Venue": "Manchester Music Hall", "Artist": "Shrek Rave", "Location": "Manchester Music Hall", "Datetime": "2024-09-20T21:00:00-0500", "ArtistLink": "https://www.songkick.com/concerts/42089311-shrek-rave-at-manchester-music-hall", "ArtistImage": "artist_images/Shrek_Rave.jpg", "Date": "2024-09-20", "Time": "09:00 PM" }, "geometry": { "type": "Point", "coordinates": [ -84.50944327121222, 38.053200573369594 ] } },
-{ "type": "Feature", "properties": { "id": null, "Venue": "Manchester Music Hall", "Artist": "Bingo Loco", "Location": "Manchester Music Hall", "Datetime": "2024-09-21", "ArtistLink": "https://www.songkick.com/concerts/42142023-bingo-loco-at-manchester-music-hall", "ArtistImage": "artist_images/Bingo_Loco.jpg", "Date": "2024-09-21", "Time": null }, "geometry": { "type": "Point", "coordinates": [ -84.50944327121222, 38.053200573369594 ] } },
-{ "type": "Feature", "properties": { "id": null, "Venue": "Manchester Music Hall", "Artist": "Nekrogoblikon and Enterprise Earth", "Location": "Manchester Music Hall", "Datetime": "2024-09-24T19:30:00-0500", "ArtistLink": "https://www.songkick.com/concerts/42036991-nekrogoblikon-at-manchester-music-hall", "ArtistImage": "artist_images/Nekrogoblikon_and_Enterprise_Earth.jpg", "Date": "2024-09-24", "Time": "07:30 PM" }, "geometry": { "type": "Point", "coordinates": [ -84.50944327121222, 38.053200573369594 ] } },
-{ "type": "Feature", "properties": { "id": null, "Venue": "Manchester Music Hall", "Artist": "Loud Luxury", "Location": "Manchester Music Hall", "Datetime": "2024-09-27T21:00:00-0500", "ArtistLink": "https://www.songkick.com/concerts/42095878-loud-luxury-at-manchester-music-hall", "ArtistImage": "artist_images/Loud_Luxury.jpg", "Date": "2024-09-27", "Time": "09:00 PM" }, "geometry": { "type": "Point", "coordinates": [ -84.50944327121222, 38.053200573369594 ] } },
-{ "type": "Feature", "properties": { "id": null, "Venue": "Al's Bar", "Artist": "Glacial Tomb", "Location": "Al's Bar", "Datetime": "2024-09-15T19:00:00-0500", "ArtistLink": "https://www.songkick.com/concerts/42098409-glacial-tomb-at-als-bar", "ArtistImage": "artist_images/Glacial_Tomb.jpg", "Date": "2024-09-15", "Time": "07:00 PM" }, "geometry": { "type": "Point", "coordinates": [ -84.486368617749918, 38.054104284004438 ] } },
-{ "type": "Feature", "properties": { "id": null, "Venue": "Lexington Opera House", "Artist": "Mac McAnally", "Location": "Lexington Opera House", "Datetime": "2024-09-05T20:00:00-0500", "ArtistLink": "https://www.songkick.com/concerts/41897202-mac-mcanally-at-lexington-opera-house", "ArtistImage": "artist_images/Mac_McAnally.jpg", "Date": "2024-09-05", "Time": "08:00 PM" }, "geometry": { "type": "Point", "coordinates": [ -84.49922539418958, 38.050035771358864 ] } },
-{ "type": "Feature", "properties": { "id": null, "Venue": "Lexington Opera House", "Artist": "Kathleen Madigan", "Location": "Lexington Opera House", "Datetime": "2024-09-14T19:00:00-0500", "ArtistLink": "https://www.songkick.com/concerts/41884002-kathleen-madigan-at-lexington-opera-house", "ArtistImage": "artist_images/Kathleen_Madigan.jpg", "Date": "2024-09-14", "Time": "07:00 PM" }, "geometry": { "type": "Point", "coordinates": [ -84.49922539418958, 38.050035771358864 ] } },
-{ "type": "Feature", "properties": { "id": null, "Venue": "Lexington Opera House", "Artist": "Amy Grant", "Location": "Lexington Opera House", "Datetime": "2024-09-25T20:00:00-0500", "ArtistLink": "https://www.songkick.com/concerts/41883813-amy-grant-at-lexington-opera-house", "ArtistImage": "artist_images/Amy_Grant.jpg", "Date": "2024-09-25", "Time": "08:00 PM" }, "geometry": { "type": "Point", "coordinates": [ -84.49922539418958, 38.050035771358864 ] } },
-{ "type": "Feature", "properties": { "id": null, "Venue": "Lexington Opera House", "Artist": "Dusty Slay", "Location": "Lexington Opera House", "Datetime": "2024-09-27T19:00:00-0500", "ArtistLink": "https://www.songkick.com/concerts/41827527-dusty-slay-at-lexington-opera-house", "ArtistImage": "artist_images/Dusty_Slay.jpg", "Date": "2024-09-27", "Time": "07:00 PM" }, "geometry": { "type": "Point", "coordinates": [ -84.49922539418958, 38.050035771358864 ] } },
-{ "type": "Feature", "properties": { "id": null, "Venue": "Lexington Opera House", "Artist": "Chris D’Elia", "Location": "Lexington Opera House", "Datetime": "2024-09-28T20:00:00-0500", "ArtistLink": "https://www.songkick.com/concerts/41999482-chris-delia-at-lexington-opera-house", "ArtistImage": "artist_images/Chris_D’Elia.jpg", "Date": "2024-09-28", "Time": "08:00 PM" }, "geometry": { "type": "Point", "coordinates": [ -84.49922539418958, 38.050035771358864 ] } },
-{ "type": "Feature", "properties": { "id": null, "Venue": "Lexington Opera House", "Artist": "Black Jacket Symphony", "Location": "Lexington Opera House", "Datetime": "2024-09-29T20:00:00-0500", "ArtistLink": "https://www.songkick.com/concerts/41914744-black-jacket-symphony-at-lexington-opera-house", "ArtistImage": "artist_images/Black_Jacket_Symphony.jpg", "Date": "2024-09-29", "Time": "08:00 PM" }, "geometry": { "type": "Point", "coordinates": [ -84.49922539418958, 38.050035771358864 ] } },
-{ "type": "Feature", "properties": { "id": null, "Venue": "Lexington Opera House", "Artist": "Black Jacket Symphony", "Location": "Lexington Opera House", "Datetime": "2024-09-29T16:00:00-0500", "ArtistLink": "https://www.songkick.com/concerts/41936786-black-jacket-symphony-at-lexington-opera-house", "ArtistImage": "artist_images/Black_Jacket_Symphony.jpg", "Date": "2024-09-29", "Time": "04:00 PM" }, "geometry": { "type": "Point", "coordinates": [ -84.49922539418958, 38.050035771358864 ] } },
-{ "type": "Feature", "properties": { "id": null, "Venue": "Lexington Opera House", "Artist": "Trombone Shorty & Orleans Avenue", "Location": "Lexington Opera House", "Datetime": "2024-09-30T20:00:00-0500", "ArtistLink": "https://www.songkick.com/concerts/42021008-trombone-shorty-and-orleans-avenue-at-lexington-opera-house", "ArtistImage": "artist_images/Trombone_Shorty_&_Orleans_Avenue.jpg", "Date": "2024-09-30", "Time": "08:00 PM" }, "geometry": { "type": "Point", "coordinates": [ -84.49922539418958, 38.050035771358864 ] } },
-{ "type": "Feature", "properties": { "id": null, "Venue": "Rupp Arena", "Artist": "Lil Yachty, NLE Choppa, and Chow Lee", "Location": "Rupp Arena", "Datetime": "2024-09-05T20:00:00-0500", "ArtistLink": "https://www.songkick.com/concerts/41921369-lil-yachty-at-rupp-arena", "ArtistImage": "artist_images/Lil_Yachty,_NLE_Choppa,_and_Chow_Lee.jpg", "Date": "2024-09-05", "Time": "08:00 PM" }, "geometry": { "type": "Point", "coordinates": [ -84.502398484183857, 38.049454801985291 ] } },
-{ "type": "Feature", "properties": { "id": null, "Venue": "Rupp Arena", "Artist": "Alejandro Escovedo and Jason Isbell and the 400 Unit", "Location": "Rupp Arena", "Datetime": "2024-09-06T20:00:00-0500", "ArtistLink": "https://www.songkick.com/concerts/41796570-alejandro-escovedo-at-rupp-arena", "ArtistImage": "artist_images/Alejandro_Escovedo_and_Jason_Isbell_and_the_400_Unit.jpg", "Date": "2024-09-06", "Time": "08:00 PM" }, "geometry": { "type": "Point", "coordinates": [ -84.502398484183857, 38.049454801985291 ] } },
-{ "type": "Feature", "properties": { "id": null, "Venue": "Rupp Arena", "Artist": "Sturgill Simpson", "Location": "Rupp Arena", "Datetime": "2024-09-27T20:00:00-0500", "ArtistLink": "https://www.songkick.com/concerts/41991417-sturgill-simpson-at-rupp-arena", "ArtistImage": "artist_images/Sturgill_Simpson.jpg", "Date": "2024-09-27", "Time": "08:00 PM" }, "geometry": { "type": "Point", "coordinates": [ -84.502398484183857, 38.049454801985291 ] } }
-]
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "properties": {
+                "id": null,
+                "Venue": "The Burl",
+                "Artist": "Keller Williams and The HillBenders",
+                "Location": "The Burl",
+                "Datetime": "2024-09-06",
+                "ArtistLink": "https://www.songkick.com/concerts/42066605-keller-williams-at-burl",
+                "ArtistImage": "artist_images/Keller_Williams_and_The_HillBenders.jpg",
+                "Date": "2024-09-06",
+                "Time": null
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -84.518869778640706,
+                    38.056983944364255
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": null,
+                "Venue": "The Burl",
+                "Artist": "Burl County Fest 2024",
+                "Location": "The Burl",
+                "Datetime": "2024-09-06",
+                "ArtistLink": "https://www.songkick.com/festivals/3682569-burl-county-fest/id/42079150-burl-county-fest-2024",
+                "ArtistImage": "artist_images/Burl_County_Fest_2024.jpg",
+                "Date": "2024-09-06",
+                "Time": null
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -84.518869778640706,
+                    38.056983944364255
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": null,
+                "Venue": "The Burl",
+                "Artist": "Dopapod",
+                "Location": "The Burl",
+                "Datetime": "2024-09-08T20:00:00-0500",
+                "ArtistLink": "https://www.songkick.com/concerts/42022988-dopapod-at-burl",
+                "ArtistImage": "artist_images/Dopapod.jpg",
+                "Date": "2024-09-08",
+                "Time": "08:00 PM"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -84.518869778640706,
+                    38.056983944364255
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": null,
+                "Venue": "The Burl",
+                "Artist": "Taylor McCall",
+                "Location": "The Burl",
+                "Datetime": "2024-09-10",
+                "ArtistLink": "https://www.songkick.com/concerts/42141871-taylor-mccall-at-burl",
+                "ArtistImage": "artist_images/Taylor_McCall.jpg",
+                "Date": "2024-09-10",
+                "Time": null
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -84.518869778640706,
+                    38.056983944364255
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": null,
+                "Venue": "The Burl",
+                "Artist": "Bendigo Fletcher",
+                "Location": "The Burl",
+                "Datetime": "2024-09-13T18:30:00-0500",
+                "ArtistLink": "https://www.songkick.com/concerts/42069929-bendigo-fletcher-at-burl",
+                "ArtistImage": "artist_images/Bendigo_Fletcher.jpg",
+                "Date": "2024-09-13",
+                "Time": "06:30 PM"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -84.518869778640706,
+                    38.056983944364255
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": null,
+                "Venue": "The Burl",
+                "Artist": "Sarah Shook & the Disarmers",
+                "Location": "The Burl",
+                "Datetime": "2024-09-14",
+                "ArtistLink": "https://www.songkick.com/concerts/42142029-sarah-shook-and-the-disarmers-at-burl",
+                "ArtistImage": "artist_images/Sarah_Shook_&_the_Disarmers.jpg",
+                "Date": "2024-09-14",
+                "Time": null
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -84.518869778640706,
+                    38.056983944364255
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": null,
+                "Venue": "The Burl",
+                "Artist": "Melissa Carper",
+                "Location": "The Burl",
+                "Datetime": "2024-09-18",
+                "ArtistLink": "https://www.songkick.com/concerts/41948400-melissa-carper-at-burl",
+                "ArtistImage": "artist_images/Melissa_Carper.jpg",
+                "Date": "2024-09-18",
+                "Time": null
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -84.518869778640706,
+                    38.056983944364255
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": null,
+                "Venue": "The Burl",
+                "Artist": "Supersuckers",
+                "Location": "The Burl",
+                "Datetime": "2024-09-20",
+                "ArtistLink": "https://www.songkick.com/concerts/42144644-supersuckers-at-burl",
+                "ArtistImage": "artist_images/Supersuckers.jpg",
+                "Date": "2024-09-20",
+                "Time": null
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -84.518869778640706,
+                    38.056983944364255
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": null,
+                "Venue": "The Burl",
+                "Artist": "Kaitlin Butts",
+                "Location": "The Burl",
+                "Datetime": "2024-09-25",
+                "ArtistLink": "https://www.songkick.com/concerts/41983369-kaitlin-butts-at-burl",
+                "ArtistImage": "artist_images/Kaitlin_Butts.jpg",
+                "Date": "2024-09-25",
+                "Time": null
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -84.518869778640706,
+                    38.056983944364255
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": null,
+                "Venue": "The Burl",
+                "Artist": "Willie Watson",
+                "Location": "The Burl",
+                "Datetime": "2024-09-28",
+                "ArtistLink": "https://www.songkick.com/concerts/42019807-willie-watson-at-burl",
+                "ArtistImage": "artist_images/Willie_Watson.jpg",
+                "Date": "2024-09-28",
+                "Time": null
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -84.518869778640706,
+                    38.056983944364255
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": null,
+                "Venue": "The Burl",
+                "Artist": "Speedy Ortiz",
+                "Location": "The Burl",
+                "Datetime": "2024-09-29T19:00:00-0500",
+                "ArtistLink": "https://www.songkick.com/concerts/42117557-speedy-ortiz-at-burl",
+                "ArtistImage": "artist_images/Speedy_Ortiz.jpg",
+                "Date": "2024-09-29",
+                "Time": "07:00 PM"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -84.518869778640706,
+                    38.056983944364255
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": null,
+                "Venue": "Manchester Music Hall",
+                "Artist": "Zach Top",
+                "Location": "Manchester Music Hall",
+                "Datetime": "2024-09-05T20:00:00-0500",
+                "ArtistLink": "https://www.songkick.com/concerts/41991716-zach-top-at-manchester-music-hall",
+                "ArtistImage": "artist_images/Zach_Top.jpg",
+                "Date": "2024-09-05",
+                "Time": "08:00 PM"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -84.50944327121222,
+                    38.053200573369594
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": null,
+                "Venue": "Manchester Music Hall",
+                "Artist": "Steel Panther",
+                "Location": "Manchester Music Hall",
+                "Datetime": "2024-09-06T20:00:00-0500",
+                "ArtistLink": "https://www.songkick.com/concerts/41960465-steel-panther-at-manchester-music-hall",
+                "ArtistImage": "artist_images/Steel_Panther.jpg",
+                "Date": "2024-09-06",
+                "Time": "08:00 PM"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -84.50944327121222,
+                    38.053200573369594
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": null,
+                "Venue": "Manchester Music Hall",
+                "Artist": "Tom Wopat",
+                "Location": "Manchester Music Hall",
+                "Datetime": "2024-09-11T20:00:00-0500",
+                "ArtistLink": "https://www.songkick.com/concerts/42047911-tom-wopat-at-manchester-music-hall",
+                "ArtistImage": "artist_images/Tom_Wopat.jpg",
+                "Date": "2024-09-11",
+                "Time": "08:00 PM"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -84.50944327121222,
+                    38.053200573369594
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": null,
+                "Venue": "Manchester Music Hall",
+                "Artist": "Red Not Chili Peppers",
+                "Location": "Manchester Music Hall",
+                "Datetime": "2024-09-12T20:00:00-0500",
+                "ArtistLink": "https://www.songkick.com/concerts/41999551-red-not-chili-peppers-at-manchester-music-hall",
+                "ArtistImage": "artist_images/Red_Not_Chili_Peppers.jpg",
+                "Date": "2024-09-12",
+                "Time": "08:00 PM"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -84.50944327121222,
+                    38.053200573369594
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": null,
+                "Venue": "Manchester Music Hall",
+                "Artist": "Drake White",
+                "Location": "Manchester Music Hall",
+                "Datetime": "2024-09-13T19:00:00-0500",
+                "ArtistLink": "https://www.songkick.com/concerts/41471373-drake-white-at-manchester-music-hall",
+                "ArtistImage": "artist_images/Drake_White.jpg",
+                "Date": "2024-09-13",
+                "Time": "07:00 PM"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -84.50944327121222,
+                    38.053200573369594
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": null,
+                "Venue": "Manchester Music Hall",
+                "Artist": "STRFKR",
+                "Location": "Manchester Music Hall",
+                "Datetime": "2024-09-14T20:00:00-0500",
+                "ArtistLink": "https://www.songkick.com/concerts/41972520-strfkr-at-manchester-music-hall",
+                "ArtistImage": "artist_images/STRFKR.jpg",
+                "Date": "2024-09-14",
+                "Time": "08:00 PM"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -84.50944327121222,
+                    38.053200573369594
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": null,
+                "Venue": "Manchester Music Hall",
+                "Artist": "Alex Williams and Silverada",
+                "Location": "Manchester Music Hall",
+                "Datetime": "2024-09-15T20:00:00-0500",
+                "ArtistLink": "https://www.songkick.com/concerts/42091690-alex-williams-at-manchester-music-hall",
+                "ArtistImage": "artist_images/Alex_Williams_and_Silverada.jpg",
+                "Date": "2024-09-15",
+                "Time": "08:00 PM"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -84.50944327121222,
+                    38.053200573369594
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": null,
+                "Venue": "Manchester Music Hall",
+                "Artist": "MC4D",
+                "Location": "Manchester Music Hall",
+                "Datetime": "2024-09-19T20:00:00-0500",
+                "ArtistLink": "https://www.songkick.com/concerts/42112777-mc4d-at-manchester-music-hall",
+                "ArtistImage": "artist_images/MC4D.jpg",
+                "Date": "2024-09-19",
+                "Time": "08:00 PM"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -84.50944327121222,
+                    38.053200573369594
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": null,
+                "Venue": "Manchester Music Hall",
+                "Artist": "Shrek Rave",
+                "Location": "Manchester Music Hall",
+                "Datetime": "2024-09-20T21:00:00-0500",
+                "ArtistLink": "https://www.songkick.com/concerts/42089311-shrek-rave-at-manchester-music-hall",
+                "ArtistImage": "artist_images/Shrek_Rave.jpg",
+                "Date": "2024-09-20",
+                "Time": "09:00 PM"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -84.50944327121222,
+                    38.053200573369594
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": null,
+                "Venue": "Manchester Music Hall",
+                "Artist": "Bingo Loco",
+                "Location": "Manchester Music Hall",
+                "Datetime": "2024-09-21",
+                "ArtistLink": "https://www.songkick.com/concerts/42142023-bingo-loco-at-manchester-music-hall",
+                "ArtistImage": "artist_images/Bingo_Loco.jpg",
+                "Date": "2024-09-21",
+                "Time": null
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -84.50944327121222,
+                    38.053200573369594
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": null,
+                "Venue": "Manchester Music Hall",
+                "Artist": "Nekrogoblikon and Enterprise Earth",
+                "Location": "Manchester Music Hall",
+                "Datetime": "2024-09-24T19:30:00-0500",
+                "ArtistLink": "https://www.songkick.com/concerts/42036991-nekrogoblikon-at-manchester-music-hall",
+                "ArtistImage": "artist_images/Nekrogoblikon_and_Enterprise_Earth.jpg",
+                "Date": "2024-09-24",
+                "Time": "07:30 PM"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -84.50944327121222,
+                    38.053200573369594
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": null,
+                "Venue": "Manchester Music Hall",
+                "Artist": "Loud Luxury",
+                "Location": "Manchester Music Hall",
+                "Datetime": "2024-09-27T21:00:00-0500",
+                "ArtistLink": "https://www.songkick.com/concerts/42095878-loud-luxury-at-manchester-music-hall",
+                "ArtistImage": "artist_images/Loud_Luxury.jpg",
+                "Date": "2024-09-27",
+                "Time": "09:00 PM"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -84.50944327121222,
+                    38.053200573369594
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": null,
+                "Venue": "Al's Bar",
+                "Artist": "Glacial Tomb",
+                "Location": "Al's Bar",
+                "Datetime": "2024-09-15T19:00:00-0500",
+                "ArtistLink": "https://www.songkick.com/concerts/42098409-glacial-tomb-at-als-bar",
+                "ArtistImage": "artist_images/Glacial_Tomb.jpg",
+                "Date": "2024-09-15",
+                "Time": "07:00 PM"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -84.486368617749918,
+                    38.054104284004438
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": null,
+                "Venue": "Lexington Opera House",
+                "Artist": "Mac McAnally",
+                "Location": "Lexington Opera House",
+                "Datetime": "2024-09-05T20:00:00-0500",
+                "ArtistLink": "https://www.songkick.com/concerts/41897202-mac-mcanally-at-lexington-opera-house",
+                "ArtistImage": "artist_images/Mac_McAnally.jpg",
+                "Date": "2024-09-05",
+                "Time": "08:00 PM"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -84.49922539418958,
+                    38.050035771358864
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": null,
+                "Venue": "Lexington Opera House",
+                "Artist": "Kathleen Madigan",
+                "Location": "Lexington Opera House",
+                "Datetime": "2024-09-14T19:00:00-0500",
+                "ArtistLink": "https://www.songkick.com/concerts/41884002-kathleen-madigan-at-lexington-opera-house",
+                "ArtistImage": "artist_images/Kathleen_Madigan.jpg",
+                "Date": "2024-09-14",
+                "Time": "07:00 PM"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -84.49922539418958,
+                    38.050035771358864
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": null,
+                "Venue": "Lexington Opera House",
+                "Artist": "Amy Grant",
+                "Location": "Lexington Opera House",
+                "Datetime": "2024-09-25T20:00:00-0500",
+                "ArtistLink": "https://www.songkick.com/concerts/41883813-amy-grant-at-lexington-opera-house",
+                "ArtistImage": "artist_images/Amy_Grant.jpg",
+                "Date": "2024-09-25",
+                "Time": "08:00 PM"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -84.49922539418958,
+                    38.050035771358864
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": null,
+                "Venue": "Lexington Opera House",
+                "Artist": "Dusty Slay",
+                "Location": "Lexington Opera House",
+                "Datetime": "2024-09-27T19:00:00-0500",
+                "ArtistLink": "https://www.songkick.com/concerts/41827527-dusty-slay-at-lexington-opera-house",
+                "ArtistImage": "artist_images/Dusty_Slay.jpg",
+                "Date": "2024-09-27",
+                "Time": "07:00 PM"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -84.49922539418958,
+                    38.050035771358864
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": null,
+                "Venue": "Lexington Opera House",
+                "Artist": "Chris D’Elia",
+                "Location": "Lexington Opera House",
+                "Datetime": "2024-09-28T20:00:00-0500",
+                "ArtistLink": "https://www.songkick.com/concerts/41999482-chris-delia-at-lexington-opera-house",
+                "ArtistImage": "artist_images/Chris_D’Elia.jpg",
+                "Date": "2024-09-28",
+                "Time": "08:00 PM"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -84.49922539418958,
+                    38.050035771358864
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": null,
+                "Venue": "Lexington Opera House",
+                "Artist": "Black Jacket Symphony",
+                "Location": "Lexington Opera House",
+                "Datetime": "2024-09-29T20:00:00-0500",
+                "ArtistLink": "https://www.songkick.com/concerts/41914744-black-jacket-symphony-at-lexington-opera-house",
+                "ArtistImage": "artist_images/Black_Jacket_Symphony.jpg",
+                "Date": "2024-09-29",
+                "Time": "08:00 PM"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -84.49922539418958,
+                    38.050035771358864
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": null,
+                "Venue": "Lexington Opera House",
+                "Artist": "Black Jacket Symphony",
+                "Location": "Lexington Opera House",
+                "Datetime": "2024-09-29T16:00:00-0500",
+                "ArtistLink": "https://www.songkick.com/concerts/41936786-black-jacket-symphony-at-lexington-opera-house",
+                "ArtistImage": "artist_images/Black_Jacket_Symphony.jpg",
+                "Date": "2024-09-29",
+                "Time": "04:00 PM"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -84.49922539418958,
+                    38.050035771358864
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": null,
+                "Venue": "Lexington Opera House",
+                "Artist": "Trombone Shorty & Orleans Avenue",
+                "Location": "Lexington Opera House",
+                "Datetime": "2024-09-30T20:00:00-0500",
+                "ArtistLink": "https://www.songkick.com/concerts/42021008-trombone-shorty-and-orleans-avenue-at-lexington-opera-house",
+                "ArtistImage": "artist_images/Trombone_Shorty_&_Orleans_Avenue.jpg",
+                "Date": "2024-09-30",
+                "Time": "08:00 PM"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -84.49922539418958,
+                    38.050035771358864
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": null,
+                "Venue": "Rupp Arena",
+                "Artist": "Lil Yachty, NLE Choppa, and Chow Lee",
+                "Location": "Rupp Arena",
+                "Datetime": "2024-09-05T20:00:00-0500",
+                "ArtistLink": "https://www.songkick.com/concerts/41921369-lil-yachty-at-rupp-arena",
+                "ArtistImage": "artist_images/Lil_Yachty,_NLE_Choppa,_and_Chow_Lee.jpg",
+                "Date": "2024-09-05",
+                "Time": "08:00 PM"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -84.502398484183857,
+                    38.049454801985291
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": null,
+                "Venue": "Rupp Arena",
+                "Artist": "Alejandro Escovedo and Jason Isbell and the 400 Unit",
+                "Location": "Rupp Arena",
+                "Datetime": "2024-09-06T20:00:00-0500",
+                "ArtistLink": "https://www.songkick.com/concerts/41796570-alejandro-escovedo-at-rupp-arena",
+                "ArtistImage": "artist_images/Alejandro_Escovedo_and_Jason_Isbell_and_the_400_Unit.jpg",
+                "Date": "2024-09-06",
+                "Time": "08:00 PM"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -84.502398484183857,
+                    38.049454801985291
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": null,
+                "Venue": "Rupp Arena",
+                "Artist": "Sturgill Simpson",
+                "Location": "Rupp Arena",
+                "Datetime": "2024-09-27T20:00:00-0500",
+                "ArtistLink": "https://www.songkick.com/concerts/41991417-sturgill-simpson-at-rupp-arena",
+                "ArtistImage": "artist_images/Sturgill_Simpson.jpg",
+                "Date": "2024-09-27",
+                "Time": "08:00 PM"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -84.502398484183857,
+                    38.049454801985291
+                ]
+            }
+        }
+    ]
 }
