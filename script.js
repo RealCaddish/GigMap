@@ -8,6 +8,11 @@ document.addEventListener('DOMContentLoaded', function () {
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
 
+    // add a selector for closing and opening a box for the description
+    document.querySelector('.description').addEventListener('click', function() {
+        this.classList.toggle('open');
+      });
+
     // load the venues/events joined geojson file asyncronously 
     fetch('shp/merged_venues_events.geojson')
         .then(function (response) {
@@ -43,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         legend.onAdd = function (map) {
             var div = L.DomUtil.create('div', 'legend');
-            div.innerHTML = '<h4>Event Calendar</h4>';
+            div.innerHTML = '<h4>Event Calendar: Sept 26 - Oct 26</h4>';
             dates.forEach(function (date, index) {
                 var dayDiv = L.DomUtil.create('div', 'calendar-day', div);
                 dayDiv.innerHTML = `<div style="position: absolute; top: 0; width: 100%;">${new Date(date).getDate()}</div>`;

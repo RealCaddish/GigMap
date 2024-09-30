@@ -1,13 +1,4 @@
-/* Import custom fonts */
-@font-face {
-    font-family: 'Slaytanic';
-    src: url('fonts/Slaytanic.ttf') format('truetype');
-}
 
-@font-face {
-    font-family: 'Lexend-SemiBold';
-    src: url('fonts/Lexend-SemiBold.ttf') format('truetype');
-}
 
 body, html {
     height: 100%;
