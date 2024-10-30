@@ -9,9 +9,9 @@ document.addEventListener('DOMContentLoaded', function () {
     }).addTo(map);
 
     // add a selector for closing and opening a box for the description
-    document.querySelector('.description').addEventListener('click', function() {
+    document.querySelector('.description').addEventListener('click', function () {
         this.classList.toggle('open');
-      });
+    });
 
     // load the venues/events joined geojson file asyncronously 
     fetch('shp/merged_venues_events.geojson')
@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         legend.onAdd = function (map) {
             var div = L.DomUtil.create('div', 'legend');
-            div.innerHTML = '<h4>Event Calendar: Sept 26 - Oct 26</h4>';
+            div.innerHTML = '<h4>Event Calendar: Nov 01 - Nov 30</h4>';
             dates.forEach(function (date, index) {
                 var dayDiv = L.DomUtil.create('div', 'calendar-day', div);
                 dayDiv.innerHTML = `<div style="position: absolute; top: 0; width: 100%;">${new Date(date).getDate()}</div>`;
@@ -56,9 +56,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 data[date].forEach(function (event, idx) {
                     var dot = L.DomUtil.create('div', 'event-dot', dayDiv);
                     dot.style.backgroundColor = colorPalette[index];
-                    // Add a title tooltip
+                    // Adding title tooltip
                     dot.title = `Artist: ${event.properties.Artist}, Venue: ${event.properties.Venue}`;
-                    // If you want more interactive or styled tooltips, use an attribute and CSS/JS
                     dot.setAttribute('data-artist', event.properties.Artist);
                     dot.setAttribute('data-venue', event.properties.Venue);
                 });
@@ -86,8 +85,8 @@ document.addEventListener('DOMContentLoaded', function () {
                     }).on('click', function (e) {
                         // Calculate the offset position to put the marker in the lower right-hand corner
                         var offsetLat = e.latlng.lat + 0.001;
-                        var offsetLng = e.latlng.lng - 0.004 * map.getSize().x / map.getSize().y;
-                        map.flyTo([offsetLat, offsetLng], 16); // Fly to the new position with a closer zoom
+                        var offsetLng = e.latlng.lng - 0.0001 * map.getSize().x / map.getSize().y;
+                        map.flyTo([offsetLat, offsetLng], 17); // Fly to the new position with a closer zoom
                     });
 
                     // Redefine the popup content with new layout

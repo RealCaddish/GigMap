@@ -1,9 +1,20 @@
+/* Fonts */
+@font-face {
+    font-family: Roboto;
+    src: url('./fonts/RobotoCondensed-VariableFont_wght.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
 
 
 body, html {
     height: 100%;
     margin: 0;
     padding: 0;
+}
+
+#title {
+    font-family: Roboto;
 }
 
 #mapid {
@@ -74,7 +85,7 @@ body, html {
     font-family: 'Lexend-SemiBold', Arial, sans-serif;
     font-size: 14px;
     z-index: 1000; /* Ensure it appears above other elements */
-    max-height: 50%; /* Limit the height */
+    max-height: 50%;
     overflow-y: auto; /* Enable scrolling */
 }
 
@@ -87,15 +98,15 @@ body, html {
 /* Style for popup date */
 .popup-datetime h2 {
     font-weight: bold;
-    font-size: 1.2em; /* Adjust the size as needed */
-    margin: 0; /* Remove any default margins */
-    padding: 1px 0; /* Reduce padding */
+    font-size: 1.2em; 
+    margin: 0; 
+    padding: 1px 0;
 }
 
 /* Style for popup time */
 .popup-time {
     font-size: 1em; /* Slightly smaller than the date */
-    margin: 0; /* Remove any default margins */
+    margin: 0; 
 }
 
 /* Style for popup artist details */
@@ -165,4 +176,55 @@ body, html {
     font-size: x-large;
     font-family: 'Slaytanic', Arial, sans-serif;
     text-align: center;
+}
+/* Description Box Styles */
+.description {
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    width: 300px;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.5s ease;
+    overflow: hidden;
+    z-index: 900;
+}
+
+#toggle-description {
+    background: #333;
+    color: white;
+    border: none;
+    padding: 10px;
+    width: 100%;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#description-content {
+    display: none; /* Hidden initially */
+}
+
+.description.expanded #description-content {
+    display: block; /* Show content when expanded */
+}
+
+.description.minimized {
+    max-height: 50px;
+    overflow: hidden;
+}
+
+@media (max-width: 768px) {
+    .description {
+        width: 90%;
+        right: 5%;
+        bottom: 20px;
+        left: 5%;
+    }
+
+    #toggle-description {
+        font-size: 18px;
+    }
 }
