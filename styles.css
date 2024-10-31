@@ -4,10 +4,11 @@
     src: url('./fonts/RobotoCondensed-VariableFont_wght.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
-  }
+}
 
 
-body, html {
+body,
+html {
     height: 100%;
     margin: 0;
     padding: 0;
@@ -33,7 +34,8 @@ body, html {
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
     font-family: Arial, sans-serif;
     font-size: 14px;
-    z-index: 1000; /* Ensure it appears above other elements */
+    z-index: 1000;
+    /* Ensure it appears above other elements */
 }
 
 .legend h4 {
@@ -69,7 +71,8 @@ body, html {
     font-family: Arial, sans-serif;
     font-size: 14px;
     cursor: pointer;
-    z-index: 1000; /* Ensure it appears above other elements */
+    z-index: 1000;
+    /* Ensure it appears above other elements */
 }
 
 /* Text box styles */
@@ -84,9 +87,11 @@ body, html {
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
     font-family: 'Lexend-SemiBold', Arial, sans-serif;
     font-size: 14px;
-    z-index: 1000; /* Ensure it appears above other elements */
+    z-index: 1000;
+    /* Ensure it appears above other elements */
     max-height: 50%;
-    overflow-y: auto; /* Enable scrolling */
+    overflow-y: auto;
+    /* Enable scrolling */
 }
 
 /* Style for info-box header */
@@ -98,20 +103,22 @@ body, html {
 /* Style for popup date */
 .popup-datetime h2 {
     font-weight: bold;
-    font-size: 1.2em; 
-    margin: 0; 
+    font-size: 1.2em;
+    margin: 0;
     padding: 1px 0;
 }
 
 /* Style for popup time */
 .popup-time {
-    font-size: 1em; /* Slightly smaller than the date */
-    margin: 0; 
+    font-size: 1em;
+    /* Slightly smaller than the date */
+    margin: 0;
 }
 
 /* Style for popup artist details */
 .popup-artist {
-    margin: 1px 0; /* Reduce margin between features */
+    margin: 1px 0;
+    /* Reduce margin between features */
 }
 
 .popup-artist-details {
@@ -121,14 +128,18 @@ body, html {
 
 .popup-artist-name {
     font-weight: bold;
-    margin: 0; /* Remove any default margins */
+    margin: 0;
+    /* Remove any default margins */
     text-decoration: none;
-    color: inherit; /* Use the inherited text color */
-    padding: 1px 0; /* Reduce padding */
+    color: inherit;
+    /* Use the inherited text color */
+    padding: 1px 0;
+    /* Reduce padding */
 }
 
 .popup-artist-name:hover {
-    text-decoration: underline; /* Underline on hover for better UX */
+    text-decoration: underline;
+    /* Underline on hover for better UX */
 }
 
 /* Styles for mobile devices */
@@ -141,7 +152,8 @@ body, html {
         width: 100%;
         border-radius: 0;
         padding: 10px;
-        max-height: 30%; /* Limit the height */
+        max-height: 30%;
+        /* Limit the height */
     }
 
     .legend {
@@ -160,8 +172,10 @@ body, html {
         width: auto;
         border-radius: 5px;
         padding: 20px;
-        max-height: 50%; /* Limit the height */
-        overflow-y: auto; /* Enable scrolling */
+        max-height: 50%;
+        /* Limit the height */
+        overflow-y: auto;
+        /* Enable scrolling */
     }
 
     .legend {
@@ -177,6 +191,7 @@ body, html {
     font-family: 'Slaytanic', Arial, sans-serif;
     text-align: center;
 }
+
 /* Description Box Styles */
 .description {
     position: absolute;
@@ -204,11 +219,13 @@ body, html {
 }
 
 #description-content {
-    display: none; /* Hidden initially */
+    display: none;
+    /* Hidden initially */
 }
 
 .description.expanded #description-content {
-    display: block; /* Show content when expanded */
+    display: block;
+    /* Show content when expanded */
 }
 
 .description.minimized {
@@ -227,4 +244,11 @@ body, html {
     #toggle-description {
         font-size: 18px;
     }
+}
+
+.card-img-top {
+    object-fit: cover;
+    width: 50%;
+    height: auto;
+    /* Adjust height according to your preference */
 }
