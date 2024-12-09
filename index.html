@@ -142,17 +142,22 @@
 
       .event-dot:hover::after {
         content: attr(data-artist) ", " attr(data-venue);
-        position: absolute;
-        left: 120%; /* Adjust based on your layout */
-        top: 50%;
-        transform: translateY(-50%);
+        position: fixed; /* Change to fixed positioning */
+        left: auto; /* Remove the constraint of left position within the parent */
+        top: auto;
         white-space: nowrap;
         background-color: black;
         color: white;
         padding: 5px 10px;
         border-radius: 5px;
-        z-index: 1000;
+        z-index: 10000; /* Ensure it is above other elements */
         box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+        transform: none; /* Remove unwanted transformation */
+      }
+
+      /* Dynamically adjust tooltip positioning */
+      .event-dot:hover::after {
+        content: attr(data-artist) ", " attr(data-venue);
       }
 
       .calendar-day:last-child {
@@ -234,9 +239,17 @@
         easy to dive into the city's vibrant music scene. Start exploring and
         enjoy the live tunes!
       </p>
-      <p>If you'd like to see other projects, visit <a href="https://nathanieldeaton.com/"> my website</a>  for other web maps I've built.</p>
+      <p>
+        If you'd like to see other projects, visit
+        <a href="https://nathanieldeaton.com/"> my website</a> for other web
+        maps I've built.
+      </p>
 
-      <p>All show data sourced from BandsInTown. You can find more about live shows and other musicians' pages at <a href="https://www.bandsintown.com/"> on their website.</a> </p>
+      <p>
+        All show data sourced from BandsInTown. You can find more about live
+        shows and other musicians' pages at
+        <a href="https://www.bandsintown.com/"> on their website.</a>
+      </p>
     </div>
 
     <script
