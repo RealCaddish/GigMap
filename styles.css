@@ -1,254 +1,211 @@
 /* Fonts */
 @font-face {
-    font-family: Roboto;
-    src: url('./fonts/RobotoCondensed-VariableFont_wght.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
+  font-family: "Roboto";
+  src: url("fonts/RobotoCondensed-VariableFont_wght.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
 }
 
+@font-face {
+  font-family: "Archivo";
+  src: url("fonts/Archivo-Italic-VariableFont_wdth,wght.ttf") format("truetype");
+}
 
 body,
 html {
-    height: 100%;
-    margin: 0;
-    padding: 0;
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
-#title {
-    font-family: Roboto;
+#map {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  height: 100vh;
+  width: 100vw;
 }
 
-#mapid {
-    height: 100%;
-    width: 100%;
+.title {
+  position: absolute;
+  top: 20px;
+  left: 70px;
+  background: rgba(255, 255, 255, 0.7);
+  padding: 10px 20px;
+  z-index: 1000;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
-/* Legend styles */
+.title h1 {
+  font-family: Roboto;
+  margin: 0;
+  font-size: 24px;
+}
+
+.description {
+  position: absolute;
+  top: 60px;
+  right: 20px;
+  width: 300px;
+  max-height: calc(100vh - 60px);
+  background: rgba(255, 255, 255, 0.7);
+  padding: 10px;
+  overflow-y: auto;
+  z-index: 900;
+  font-family: "Roboto";
+  transition: all 0.5s ease;
+  border-radius: 5px;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.description::after {
+  display: none;
+}
+
+.description h2 {
+  margin-top: 0;
+  font-size: 18px;
+}
+
+.description ul {
+  padding-left: 20px;
+  margin: 10px 0;
+}
+
+.description li {
+  margin-bottom: 10px;
+}
+
+.description p {
+  margin-bottom: 0;
+}
+
 .legend {
-    position: absolute;
+  font-family: Roboto;
+  background: rgba(255, 255, 255, 0.7);
+  padding: 5px;
+  font-size: 14px;
+  color: #000000;
+  border: 2px solid #dddddd;
+  position: absolute;
+  bottom: 20px;
+  left: 5px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+  max-height: 200px;
+  overflow-y: auto;
+  white-space: nowrap;
+  z-index: 1000;
+}
+
+.legend-toggle-wrapper {
+  text-align: right;
+  margin-bottom: 5px;
+}
+
+.legend button {
+  font-size: 12px;
+  padding: 4px 8px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.legend.collapsed .calendar-day {
+  display: none;
+}
+
+.calendar-day {
+  display: inline-block;
+  width: 40px;
+  min-height: 50px;
+  vertical-align: top;
+  margin: 2px;
+  text-align: center;
+  position: relative;
+  font-weight: bold;
+  padding-top: 20px;
+  border-right: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.calendar-day:last-child {
+  border-right: none;
+}
+
+.event-dot {
+  height: 10px;
+  width: 10px;
+  background-color: #f03;
+  border-radius: 50%;
+  display: block;
+  margin: 2px auto;
+  position: relative;
+}
+
+.event-dot:hover::after {
+  content: attr(data-artist) ", " attr(data-venue);
+  position: fixed;
+  white-space: nowrap;
+  background-color: black;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  z-index: 10000;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+  transform: none;
+}
+
+@media (max-width: 768px) {
+  .description {
+    width: 100%;
+    height: 40px;
+    top: auto;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    max-height: none;
+    overflow: hidden;
+    cursor: pointer;
+  }
+
+  .description.open {
+    height: auto;
+    max-height: calc(100vh - 60px);
+    overflow-y: auto;
+  }
+
+  .description::after {
+    content: "Description ▼";
+    display: block;
+    text-align: center;
+    font-weight: bold;
+  }
+
+  .description.open::after {
+    content: "Description ▲";
+  }
+
+  .description:not(.open) p {
+    display: none;
+  }
+
+  .legend {
+      display: inline-block;
+      white-space: nowrap;
+      overflow-x: auto;
+      max-width: 95vw;
+    }
+
+  .leaflet-popup-content {
+    font-size: 1em;
+  }
+}
+
+@media (min-width: 769px) {
+  .legend {
     bottom: 30px;
     right: 10px;
-    background: white;
-    padding: 10px;
-    border-radius: 5px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-    font-family: Arial, sans-serif;
-    font-size: 14px;
-    z-index: 1000;
-    /* Ensure it appears above other elements */
-}
-
-.legend h4 {
-    margin: 0 0 5px;
-}
-
-.legend div {
-    display: flex;
-    align-items: center;
-    margin-bottom: 5px;
-}
-
-.legend div span {
-    margin-left: 5px;
-}
-
-.legend .circle {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    display: inline-block;
-}
-
-/* Back button styles */
-.back-button {
-    position: absolute;
-    bottom: 10px;
-    left: 10px;
-    background: white;
-    padding: 5px 10px;
-    border-radius: 5px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-    font-family: Arial, sans-serif;
-    font-size: 14px;
-    cursor: pointer;
-    z-index: 1000;
-    /* Ensure it appears above other elements */
-}
-
-/* Text box styles */
-.info-box {
-    position: absolute;
-    top: 5%;
-    left: 80%;
-    right: 2%;
-    background: rgba(255, 255, 255, 0.8);
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-    font-family: 'Lexend-SemiBold', Arial, sans-serif;
-    font-size: 14px;
-    z-index: 1000;
-    /* Ensure it appears above other elements */
-    max-height: 50%;
-    overflow-y: auto;
-    /* Enable scrolling */
-}
-
-/* Style for info-box header */
-.info-box h1 {
-    font-family: 'Slaytanic', Arial, sans-serif;
-    text-align: center;
-}
-
-/* Style for popup date */
-.popup-datetime h2 {
-    font-weight: bold;
-    font-size: 1.2em;
-    margin: 0;
-    padding: 1px 0;
-}
-
-/* Style for popup time */
-.popup-time {
-    font-size: 1em;
-    /* Slightly smaller than the date */
-    margin: 0;
-}
-
-/* Style for popup artist details */
-.popup-artist {
-    margin: 1px 0;
-    /* Reduce margin between features */
-}
-
-.popup-artist-details {
-    display: inline-block;
-    vertical-align: middle;
-}
-
-.popup-artist-name {
-    font-weight: bold;
-    margin: 0;
-    /* Remove any default margins */
-    text-decoration: none;
-    color: inherit;
-    /* Use the inherited text color */
-    padding: 1px 0;
-    /* Reduce padding */
-}
-
-.popup-artist-name:hover {
-    text-decoration: underline;
-    /* Underline on hover for better UX */
-}
-
-/* Styles for mobile devices */
-@media (max-width: 768px) {
-    .info-box {
-        top: auto;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        width: 100%;
-        border-radius: 0;
-        padding: 10px;
-        max-height: 30%;
-        /* Limit the height */
-    }
-
-    .legend {
-        top: 10px;
-        bottom: auto;
-        right: 10px;
-    }
-}
-
-/* Reset styles for larger screens */
-@media (min-width: 769px) {
-    .info-box {
-        top: 5%;
-        left: 80%;
-        right: 2%;
-        width: auto;
-        border-radius: 5px;
-        padding: 20px;
-        max-height: 50%;
-        /* Limit the height */
-        overflow-y: auto;
-        /* Enable scrolling */
-    }
-
-    .legend {
-        bottom: 30px;
-        right: 10px;
-        top: auto;
-    }
-}
-
-.popup-location {
-    font-weight: bold;
-    font-size: x-large;
-    font-family: 'Slaytanic', Arial, sans-serif;
-    text-align: center;
-}
-
-/* Description Box Styles */
-.description {
-    position: absolute;
-    top: 60px;
-    right: 20px;
-    width: 300px;
-    background: rgba(255, 255, 255, 0.9);
-    padding: 10px;
-    border-radius: 5px;
-    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2);
-    transition: all 0.5s ease;
-    overflow: hidden;
-    z-index: 900;
-}
-
-#toggle-description {
-    background: #333;
-    color: white;
-    border: none;
-    padding: 10px;
-    width: 100%;
-    font-size: 16px;
-    cursor: pointer;
-    border-radius: 5px;
-}
-
-#description-content {
-    display: none;
-    /* Hidden initially */
-}
-
-.description.expanded #description-content {
-    display: block;
-    /* Show content when expanded */
-}
-
-.description.minimized {
-    max-height: 50px;
-    overflow: hidden;
-}
-
-@media (max-width: 768px) {
-    .description {
-        width: 90%;
-        right: 5%;
-        bottom: 20px;
-        left: 5%;
-    }
-
-    #toggle-description {
-        font-size: 18px;
-    }
-}
-
-.card-img-top {
-    object-fit: cover;
-    width: 50%;
-    height: auto;
-    /* Adjust height according to your preference */
+    top: auto;
+  }
 }

@@ -1,24 +1,38 @@
 document.addEventListener('DOMContentLoaded', function () {
     var originalCenter = [38.0406, -84.5037]; // Lexington KY coordinates
     var originalZoom = 13;
-    var map = L.map('map').setView(originalCenter, originalZoom); // Center map on Lexington, KY
+
+    // Detect mobile screen and disable scroll wheel zoom accordingly
+    var isMobile = window.innerWidth <= 768;
+    var map = L.map('map', {
+        center: originalCenter,
+        zoom: originalZoom,
+        scrollWheelZoom: !isMobile,
+        tap: false
+    });
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
 
-    // add a selector for closing and opening a box for the description
+    // Add listener for description toggle
     document.querySelector('.description').addEventListener('click', function () {
         this.classList.toggle('open');
     });
 
-    // load the venues/events joined geojson file asyncronously 
+    // Add listener for legend toggle (if implemented in HTML)
+    const legendToggle = document.getElementById('toggle-legend');
+    if (legendToggle) {
+        legendToggle.addEventListener('click', function () {
+            document.querySelector('.legend').classList.toggle('collapsed');
+        });
+    }
+
+    // Load the venues/events joined geojson file
     fetch('shp/merged_venues_events.geojson')
-        .then(function (response) {
-            return response.json();
-        })
-        .then(function (json) {
+        .then(response => response.json())
+        .then(json => {
             var byDate = {};
             json.features.forEach(function (feature) {
                 var date = feature.properties.Date;
@@ -31,7 +45,6 @@ document.addEventListener('DOMContentLoaded', function () {
             var dates = Object.keys(byDate).sort();
             var colorPalette = generateColorPalette(dates.length);
 
-            // Create GeoJSON layers and legend
             addLegend(byDate, dates, colorPalette);
             addGeoJSONLayers(byDate, dates, colorPalette);
         });
@@ -42,13 +55,11 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     function addLegend(data, dates, colorPalette) {
-        var legend = L.control({
-            position: 'bottomleft'
-        });
+        var legend = L.control({ position: 'bottomleft' });
 
         legend.onAdd = function (map) {
             var div = L.DomUtil.create('div', 'legend');
-            div.innerHTML = '<h4>Event Calendar: Nov 01 - Nov 30</h4>';
+            div.innerHTML = '<h4>Event Calendar: Jul 04 - Jul 30</h4>';
             dates.forEach(function (date, index) {
                 var dayDiv = L.DomUtil.create('div', 'calendar-day', div);
                 dayDiv.innerHTML = `<div style="position: absolute; top: 0; width: 100%;">${new Date(date).getDate()}</div>`;
@@ -56,7 +67,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 data[date].forEach(function (event, idx) {
                     var dot = L.DomUtil.create('div', 'event-dot', dayDiv);
                     dot.style.backgroundColor = colorPalette[index];
-                    // Adding title tooltip
                     dot.title = `Artist: ${event.properties.Artist}, Venue: ${event.properties.Venue}`;
                     dot.setAttribute('data-artist', event.properties.Artist);
                     dot.setAttribute('data-venue', event.properties.Venue);
@@ -64,18 +74,15 @@ document.addEventListener('DOMContentLoaded', function () {
             });
             return div;
         };
+
         legend.addTo(map);
     }
 
-
-
-    // function to read the points data from the geojson object, convert to circleMarkers, 
-    // then apply the colorPallette function to them
     function addGeoJSONLayers(data, dates, colorPalette) {
         dates.forEach(function (date, index) {
             L.geoJSON(data[date], {
                 pointToLayer: function (feature, latlng) {
-                    var marker = L.circleMarker(latlng, { // create circleMarkers and style the fillColor
+                    var marker = L.circleMarker(latlng, {
                         radius: 8,
                         fillColor: colorPalette[index],
                         color: '#000',
@@ -83,13 +90,11 @@ document.addEventListener('DOMContentLoaded', function () {
                         opacity: 1,
                         fillOpacity: 0.8
                     }).on('click', function (e) {
-                        // Calculate the offset position to put the marker in the lower right-hand corner
                         var offsetLat = e.latlng.lat + 0.001;
                         var offsetLng = e.latlng.lng - 0.0001 * map.getSize().x / map.getSize().y;
-                        map.flyTo([offsetLat, offsetLng], 17); // Fly to the new position with a closer zoom
+                        map.flyTo([offsetLat, offsetLng], 17);
                     });
 
-                    // Redefine the popup content with new layout
                     var popupContent = `
                         <div style="display: flex; align-items: flex-start; padding: 5px;">
                             <img src="${feature.properties['ArtistImage']}" alt="Image of ${feature.properties.Artist}"
@@ -109,14 +114,12 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // create a color pallette for the points and the legend symbols
     function generateColorPalette(count) {
         var colors = [];
-        var baseHue = 0; // Starting hue
+        var baseHue = 0;
         for (var i = 0; i < count; i++) {
-            colors.push(`hsl(${(baseHue + i * 137) % 360}, 70%, 50%)`); // Using a prime number to scatter hues evenly
+            colors.push(`hsl(${(baseHue + i * 137) % 360}, 70%, 50%)`);
         }
         return colors;
     }
-
 });

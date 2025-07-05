@@ -1,264 +1,63 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Live Music in Lexington, KY</title>
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-      crossorigin=""
-    />
-    <style>
-      #map {
-        display: flex;
-        justify-content: center;
-        position: relative;
-        height: 100vh; /* Adjust based on your requirement */
-        width: 100vw; /* Adjust based on your requirement */
-      }
 
-      /* Title heading */
-      .title {
-        position: absolute;
-        top: 20px;
-        left: 70px;
-        background: rgba(255, 255, 255, 0.7);
-        padding: 10px 20px;
-        z-index: 1000;
-        border-radius: 8px; /* Optional: rounded corners */
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); /* Optional: shadow effect */
-      }
+<head>
+  <title>Live Music in Lexington, KY</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* Quick inline fix to adjust legend width until updated in CSS */
+    .legend {
+      min-width: 320px;
+    }
+  </style>
+</head>
 
-      .title h1 {
-        font-family: Roboto;
-        margin: 0;
-        font-size: 24px;
-      }
+<body>
+  <div id="map"></div>
+  <div class="title">
+    <h1>Live Music in Lexington, KY</h1>
+  </div>
 
-      /* Description box */
-      .description {
-        position: absolute;
-        top: 60px; /* Adjust based on title height */
-        right: 20px;
-        width: 300px;
-        max-height: calc(100vh - 60px);
-        background: rgba(255, 255, 255, 0.7);
-        padding: 10px;
-        overflow-y: auto;
-        z-index: 900;
-        font-family: "Roboto";
-      }
+  <div class="description">
+    <h2>
+      Welcome to the <strong>Lexington Gig Map</strong>— A Guide for
+      Discovering live music events in Lexington, KY!
+    </h2>
+    <ul>
+      <li>
+        <strong>Find Live Shows:</strong> Navigate the interactive map to
+        explore upcoming live music performances across the city. Each point
+        on the map represents a venue hosting a show.
+      </li>
+      <li>
+        <strong>Calendar/Legend:</strong> At the bottom of the map, you'll
+        find a calendar and legend showcasing events by date.
+      </li>
+      <li>
+        <strong>Interactive Details:</strong> Tap on any point on the map to
+        reveal detailed information about the show.
+      </li>
+    </ul>
+    <p>
+      Whether you're a local or just visiting, the Lexington Gig Map makes it
+      easy to dive into the city's vibrant music scene.
+    </p>
+    <p>
+      If you'd like to see other projects, visit
+      <a href="https://nathanieldeaton.com/"> my website</a>.
+    </p>
+    <p>
+      All show data sourced from BandsInTown. Visit
+      <a href="https://www.bandsintown.com/"> their website</a>.
+    </p>
+  </div>
 
-      /* Hide the toggle arrow on larger screens */
-      .description::after {
-        display: none;
-      }
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="https://unpkg.com/@turf/turf.min.js"></script>
+  <script src="script.js"></script>
+</body>
 
-      .description h2 {
-        margin-top: 0;
-        font-size: 18px;
-      }
-
-      .description ul {
-        padding-left: 20px;
-        margin: 10px 0;
-      }
-
-      .description li {
-        margin-bottom: 10px;
-      }
-
-      .description p {
-        margin-bottom: 0;
-      }
-
-      /* Import custom fonts */
-      @font-face {
-        font-family: "Roboto";
-        src: url("fonts/RobotoCondensed-VariableFont_wght.ttf")
-          format("truetype");
-      }
-
-      @font-face {
-        font-family: "Archivo";
-        src: url("fonts/Archivo-Italic-VariableFont_wdth\,wght.ttf")
-          format("truetype");
-      }
-
-      .legend {
-        font-family: Roboto;
-        background: rgba(255, 255, 255, 0.7);
-        padding: 5px;
-        font-size: 14px;
-        color: #000000;
-        border: 2px solid #dddddd;
-        position: absolute;
-        bottom: 20px; /* Make sure it's positioned at the bottom */
-        left: 5px; /* Adjust this if it's too far to the left or overlapping */
-        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
-        max-height: 200px;
-        overflow-y: auto;
-        max-width: auto; /* Let it grow as needed based on content */
-
-        white-space: nowrap; /* Keep content on a single line unless specifically broken by <br> tags */
-      }
-
-      @media (max-width: 600px) {
-        .legend {
-          left: 0;
-          right: 0;
-          bottom: 0;
-          width: 100%; /* Full width for smaller screens */
-          max-width: 100%; /* Full width for smaller screens */
-        }
-      }
-
-      .calendar-day {
-        display: inline-block;
-        width: 40px; /* Adjust width based on content */
-        min-height: 50px; /* Minimum height to manage days with few events */
-        vertical-align: top;
-        margin: 2px;
-        text-align: center;
-        position: relative;
-        font-weight: bold;
-        padding-top: 20px; /* Space for the date at the top */
-        border-right: 1px solid rgba(0, 0, 0, 0.2); /* Semi-transparent vertical line between days */
-      }
-
-      .calendar-day:last-child {
-        border-right: none; /* No border for the last element */
-      }
-
-      .event-dot {
-        height: 10px;
-        width: 10px;
-        background-color: #f03;
-        border-radius: 50%;
-        display: block;
-        margin: 2px auto;
-        position: relative;
-      }
-
-      .event-dot:hover::after {
-        content: attr(data-artist) ", " attr(data-venue);
-        position: fixed; /* Change to fixed positioning */
-        left: auto; /* Remove the constraint of left position within the parent */
-        top: auto;
-        white-space: nowrap;
-        background-color: black;
-        color: white;
-        padding: 5px 10px;
-        border-radius: 5px;
-        z-index: 10000; /* Ensure it is above other elements */
-        box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
-        transform: none; /* Remove unwanted transformation */
-      }
-
-      /* Dynamically adjust tooltip positioning */
-      .event-dot:hover::after {
-        content: attr(data-artist) ", " attr(data-venue);
-      }
-
-      .calendar-day:last-child {
-        border-right: none; /* No border for the last element */
-      }
-
-      /* Responsive styles for smaller screens */
-      @media (max-width: 768px) {
-        .description {
-          width: 100%;
-          height: 40px;
-          top: auto;
-          bottom: 0;
-          right: 0;
-          left: 0;
-          max-height: none;
-          overflow: hidden;
-          cursor: pointer;
-        }
-
-        .description.open {
-          height: auto;
-          max-height: calc(100vh - 60px);
-          overflow-y: auto;
-        }
-
-        /* Toggle arrow */
-        .description::after {
-          content: "Description ▼";
-          display: block;
-          text-align: center;
-          font-weight: bold;
-        }
-
-        .description.open::after {
-          content: "Description ▲";
-        }
-
-        /* Hide content when collapsed */
-        .description:not(.open) p {
-          display: none;
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <div id="map"></div>
-    <!-- Title Heading -->
-    <div class="title">
-      <h1>Live Music in Lexington, KY</h1>
-    </div>
-    <!-- Description Box -->
-    <div class="description">
-      <h2>
-        Welcome to the <strong>Lexington Gig Map</strong>— A Guide for
-        Discovering live music events in Lexington, KY!
-      </h2>
-
-      <ul>
-        <li>
-          <strong>Find Live Shows:</strong> Navigate the interactive map to
-          explore upcoming live music performances across the city. Each point
-          on the map represents a venue hosting a show.
-        </li>
-        <li>
-          <strong>Calendar/Legend:</strong> At the bottom of the map, you'll
-          find a calendar and legend showcasing events by date. This feature
-          helps you quickly identify what's happening on any given day.
-        </li>
-        <li>
-          <strong>Interactive Details:</strong> Tap on any point on the map to
-          reveal detailed information about the show, including the artist
-          lineup and venue specifics.
-        </li>
-      </ul>
-
-      <p>
-        Whether you're a local or just visiting, the Lexington Gig Map makes it
-        easy to dive into the city's vibrant music scene. Start exploring and
-        enjoy the live tunes!
-      </p>
-      <p>
-        If you'd like to see other projects, visit
-        <a href="https://nathanieldeaton.com/"> my website</a> for other web
-        maps I've built.
-      </p>
-
-      <p>
-        All show data sourced from BandsInTown. You can find more about live
-        shows and other musicians' pages at
-        <a href="https://www.bandsintown.com/"> on their website.</a>
-      </p>
-    </div>
-
-    <script
-      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-      crossorigin=""
-    ></script>
-    <script src="https://unpkg.com/@turf/turf.min.js"></script>
-    <!-- Link to external JavaScript file -->
-    <script src="script.js"></script>
-  </body>
 </html>
