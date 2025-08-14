@@ -146,6 +146,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
         addLegend(byDate, dates, colorPalette);
         addGeoJSONLayers(byDate, dates, colorPalette);
+        
+        // Ensure map is properly loaded before fitting bounds
+        setTimeout(() => {
+            // Trigger a resize to ensure proper bounds calculation
+            map.invalidateSize();
+        }, 100);
     }
 
     function addLegend(data, dates, colorPalette) {
@@ -192,6 +198,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     // Add click handler for legend dots
                     dot.addEventListener('click', () => {
                         console.log('Legend dot clicked:', event.properties);
+                        console.log('Calling showLegendTooltip with event:', event);
                         showLegendTooltip(event);
                     });
 
@@ -210,7 +217,9 @@ document.addEventListener('DOMContentLoaded', function () {
                     if (isMobile) {
                         dot.addEventListener('touchstart', (e) => {
                             e.preventDefault();
-                            showMobileTooltip(event.properties.Artist, event.properties.Venue, event);
+                            console.log('Mobile touchstart triggered:', event.properties);
+                            console.log('Calling showLegendTooltip with event:', event);
+                            showLegendTooltip(event);
                         });
                     }
                 });
@@ -314,65 +323,173 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function addGeoJSONLayers(data, dates, colorPalette) {
+        // Collect all markers to fit them to the map view
+        const allMarkers = [];
+        
+        // Group all events by venue coordinates to handle overlapping
+        const venueGroups = {};
+        const allEvents = [];
+        
+        // Collect all events with their dates
         dates.forEach(function (date, index) {
-            L.geoJSON(data[date], {
-                pointToLayer: function (feature, latlng) {
-                    const marker = L.circleMarker(latlng, {
-                        radius: getMarkerRadius(),
-                        fillColor: colorPalette[index],
-                        color: '#000',
-                        weight: 1,
-                        opacity: 1,
-                        fillOpacity: 0.8
-                    });
-
-                    // Add click handler with optimized behavior
-                    marker.on('click', function (e) {
-                        e.originalEvent.stopPropagation();
-                        handleMarkerClick(e, feature);
-                    });
-
-                    // Add hover effects
-                    marker.on('mouseover', function () {
-                        this.setRadius(getMarkerRadius() + 2);
-                    });
-
-                    marker.on('mouseout', function () {
-                        this.setRadius(getMarkerRadius());
-                    });
-
-                    // Bind optimized popup
-                    const popupContent = createPopupContent(feature);
-                    marker.bindPopup(popupContent, {
-                        maxWidth: getPopupMaxWidth(),
-                        className: 'custom-popup',
-                        closeButton: true,
-                        autoPan: true,
-                        autoPanPadding: [50, 50]
-                    });
-
-                    return marker;
+            data[date].forEach(function (feature) {
+                const coords = feature.geometry.coordinates;
+                const coordKey = `${coords[0]},${coords[1]}`;
+                
+                if (!venueGroups[coordKey]) {
+                    venueGroups[coordKey] = [];
                 }
-            }).addTo(map);
+                
+                venueGroups[coordKey].push({
+                    feature: feature,
+                    date: date,
+                    dateIndex: index,
+                    color: colorPalette[index]
+                });
+            });
         });
+        
+        // Process each venue group
+        Object.keys(venueGroups).forEach(coordKey => {
+            const events = venueGroups[coordKey];
+            
+            if (events.length === 1) {
+                // Single event - use normal radius
+                const event = events[0];
+                const marker = createMarker(event.feature, event.color, getMarkerRadius());
+                allMarkers.push(marker);
+            } else {
+                // Multiple events - sort by date and assign progressive radii
+                events.sort((a, b) => new Date(a.date) - new Date(b.date));
+                
+                console.log(`🎯 Venue with multiple events: ${events[0].feature.properties.Venue} (${events.length} events)`);
+                
+                events.forEach((event, eventIndex) => {
+                    // Calculate progressive radius: closest date = smallest, farthest = largest
+                    const baseRadius = getMarkerRadius();
+                    const radiusIncrement = 2; // Increase radius by 2px for each additional event
+                    const radius = baseRadius + (eventIndex * radiusIncrement);
+                    
+                    console.log(`📍 Venue: ${event.feature.properties.Venue}, Date: ${event.date}, Radius: ${radius}px (${eventIndex + 1}/${events.length})`);
+                    
+                    const marker = createMarker(event.feature, event.color, radius);
+                    allMarkers.push(marker);
+                });
+            }
+        });
+        
+        // Fit all markers to the map view with padding
+        if (allMarkers.length > 0) {
+            console.log(`🗺️  Fitting ${allMarkers.length} markers to map view`);
+            const group = new L.featureGroup(allMarkers);
+            const bounds = group.getBounds();
+            console.log(`📍 Map bounds: ${bounds.getSouthWest().lat.toFixed(4)}, ${bounds.getSouthWest().lng.toFixed(4)} to ${bounds.getNorthEast().lat.toFixed(4)}, ${bounds.getNorthEast().lng.toFixed(4)}`);
+            
+            map.fitBounds(bounds, {
+                padding: [50, 50],
+                maxZoom: 15, // Don't zoom in too much
+                animate: true,
+                duration: 1
+            });
+        }
+    }
+    
+    function createMarker(feature, color, radius) {
+        const latlng = [feature.geometry.coordinates[1], feature.geometry.coordinates[0]];
+        
+        const marker = L.circleMarker(latlng, {
+            radius: radius,
+            fillColor: color,
+            color: '#000',
+            weight: 1,
+            opacity: 1,
+            fillOpacity: 0.8
+        });
+
+        // Add click handler with optimized behavior
+        marker.on('click', function (e) {
+            e.originalEvent.stopPropagation();
+            handleMarkerClick(e, feature);
+        });
+
+        // Add hover effects
+        marker.on('mouseover', function () {
+            this.setRadius(radius + 2);
+        });
+
+        marker.on('mouseout', function () {
+            this.setRadius(radius);
+        });
+
+        // Bind optimized popup
+        const popupContent = createPopupContent(feature);
+        marker.bindPopup(popupContent, {
+            maxWidth: getPopupMaxWidth(),
+            className: 'custom-popup',
+            closeButton: true,
+            autoPan: true,
+            autoPanPadding: [50, 50]
+        });
+
+        marker.addTo(map);
+        return marker;
     }
 
     function createPopupContent(feature) {
         const { Artist, Venue, Date, Time, ArtistImage } = feature.properties;
         
-        return `
-            <div class="popup-content">
-                <img src="${ArtistImage}" alt="Image of ${Artist}" 
-                     class="popup-image" 
-                     onerror="this.style.display='none'">
-                <div class="popup-info">
-                    <div class="popup-date">${formatDate(Date)}</div>
-                    <div class="popup-artist">${Artist}</div>
-                    <div class="popup-venue">${Venue}</div>
-                    <div class="popup-time">${Time || 'Time TBA'}</div>
+        // Check if there are multiple events at this venue
+        const venueEvents = getVenueEvents(Venue);
+        
+        if (venueEvents.length === 1) {
+            // Single event - show normal popup
+            return `
+                <div class="popup-content">
+                    <img src="${ArtistImage}" alt="Image of ${Artist}" 
+                         class="popup-image" 
+                         onerror="this.style.display='none'">
+                    <div class="popup-info">
+                        <div class="popup-date">${formatDate(Date)}</div>
+                        <div class="popup-artist">${Artist}</div>
+                        <div class="popup-venue">${Venue}</div>
+                        <div class="popup-time">${Time || 'Time TBA'}</div>
+                    </div>
                 </div>
-            </div>
-        `;
+            `;
+        } else {
+            // Multiple events - show venue summary with all events
+            const eventsHtml = venueEvents
+                .sort((a, b) => new Date(a.Date) - new Date(b.Date))
+                .map(event => `
+                    <div class="popup-event-item">
+                        <div class="popup-event-date">${formatDate(event.Date)}</div>
+                        <div class="popup-event-artist">${event.Artist}</div>
+                        <div class="popup-event-time">${event.Time || 'Time TBA'}</div>
+                    </div>
+                `).join('');
+            
+            return `
+                <div class="popup-content multi-event">
+                    <div class="popup-venue-header">${Venue}</div>
+                    <div class="popup-events-count">${venueEvents.length} upcoming events</div>
+                    <div class="popup-events-list">
+                        ${eventsHtml}
+                    </div>
+                </div>
+            `;
+        }
+    }
+    
+    function getVenueEvents(venueName) {
+        const events = [];
+        Object.keys(venuesData).forEach(date => {
+            venuesData[date].forEach(feature => {
+                if (feature.properties.Venue === venueName) {
+                    events.push(feature.properties);
+                }
+            });
+        });
+        return events;
     }
 
     function handleMarkerClick(e, feature) {
@@ -425,10 +542,29 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function resetMapView() {
-        map.flyTo(config.originalCenter, config.originalZoom, {
-            duration: 1,
-            easeLinearity: 0.25
+        // Get all markers on the map and fit them to view
+        const allMarkers = [];
+        map.eachLayer(function(layer) {
+            if (layer instanceof L.CircleMarker) {
+                allMarkers.push(layer);
+            }
         });
+        
+        if (allMarkers.length > 0) {
+            const group = new L.featureGroup(allMarkers);
+            map.fitBounds(group.getBounds(), {
+                padding: [50, 50],
+                maxZoom: 15,
+                animate: true,
+                duration: 1
+            });
+        } else {
+            // Fallback to original center if no markers found
+            map.flyTo(config.originalCenter, config.originalZoom, {
+                duration: 1,
+                easeLinearity: 0.25
+            });
+        }
     }
 
     function toggleLegend() {
@@ -710,6 +846,9 @@ document.addEventListener('DOMContentLoaded', function () {
     let legendTooltip = null;
 
     function showLegendTooltip(event) {
+        console.log('showLegendTooltip called with event:', event);
+        console.log('Event properties:', event.properties);
+        
         // Remove existing tooltip
         hideLegendTooltip();
 
@@ -786,6 +925,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Add to page
         document.body.appendChild(legendTooltip);
+        console.log('Tooltip added to DOM');
+        
+        // Force a repaint to ensure the tooltip is visible
+        legendTooltip.offsetHeight;
+        
+        // Check if tooltip is visible
+        const rect = legendTooltip.getBoundingClientRect();
+        console.log('Tooltip bounding rect:', rect);
+        console.log('Tooltip computed styles:', window.getComputedStyle(legendTooltip));
 
         // Debug: Check if elements are created properly
         console.log('Legend tooltip created:', legendTooltip);
@@ -809,6 +957,17 @@ document.addEventListener('DOMContentLoaded', function () {
             left: legendRect.left,
             right: legendRect.right
         } : 'Legend not found');
+        
+        // Verify positioning is correct
+        if (legendRect && tooltipRect) {
+            const tooltipAboveLegend = tooltipRect.bottom < legendRect.top;
+            const tooltipToLeft = tooltipRect.right < legendRect.left + (legendRect.width * 0.8);
+            console.log('Positioning check:', {
+                tooltipAboveLegend,
+                tooltipToLeft,
+                distanceFromLegend: legendRect.top - tooltipRect.bottom
+            });
+        }
 
         // Add zoom functionality
         const zoomBtn = legendTooltip.querySelector('.legend-tooltip-zoom-btn');

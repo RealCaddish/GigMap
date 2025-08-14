@@ -803,7 +803,7 @@ html {
   }
 
   .legend {
-    bottom: 95px;
+    bottom: 20px;
     left: 10px;
     right: 10px;
     max-width: none;
@@ -871,9 +871,11 @@ html {
 
   /* Mobile legend tooltip adjustments */
   .legend-tooltip {
-    bottom: 330px;
+    bottom: 350px;
+    left: 15px;
     max-width: 95vw;
     padding: 15px;
+    transform: none;
   }
 
   .legend-tooltip-artist-image {
@@ -1116,9 +1118,8 @@ button:focus,
 /* Legend tooltip styles */
 .legend-tooltip {
   position: fixed;
-  bottom: 340px;
-  left: 50%;
-  transform: translateX(-50%);
+  bottom: 360px;
+  left: 20px;
   background: var(--secondary-color);
   color: white;
   padding: 20px;
@@ -1129,6 +1130,8 @@ button:focus,
   width: 90vw;
   animation: legendTooltipFadeIn 0.3s ease;
   overflow: visible;
+  display: block !important;
+  visibility: visible !important;
 }
 
 .legend-tooltip-content {
@@ -1136,7 +1139,6 @@ button:focus,
   flex-direction: column;
   gap: 15px;
   overflow: visible;
-  word-wrap: break-word;
 }
 
 .legend-tooltip-header {
@@ -1281,11 +1283,11 @@ button:focus,
 @keyframes legendTooltipFadeIn {
   0% { 
     opacity: 0; 
-    transform: translateX(-50%) translateY(10px);
+    transform: translateY(10px);
   }
   100% { 
     opacity: 1; 
-    transform: translateX(-50%) translateY(0);
+    transform: translateY(0);
   }
 }
 
