@@ -956,7 +956,7 @@ html {
   }
 
   .legend {
-    bottom: 65px;
+    bottom: 45px;
     left: 15px;
     right: 320px;
     max-width: calc(100vw - 350px);
@@ -1018,7 +1018,7 @@ html {
   }
 
   .legend {
-    bottom: 65px;
+    bottom: 45px;
     left: 20px;
     right: 360px;
     max-height: 300px;
@@ -1059,7 +1059,7 @@ html {
   }
 
   .legend {
-    bottom: 75px;
+    bottom: 55px;
     left: 25px;
     right: 420px;
     max-height: 380px;
