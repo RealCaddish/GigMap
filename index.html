@@ -1,57 +1,88 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Interactive map of live music events in Lexington, KY">
+  <meta name="theme-color" content="#4a90e2">
   <title>Live Music in Lexington, KY</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
   <link rel="stylesheet" href="styles.css" />
-  <style>
-    /* Quick inline fix to adjust legend width until updated in CSS */
-    .legend {
-      min-width: 320px;
-    }
-  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 </head>
 
 <body>
   <div id="map"></div>
-  <div class="title">
-    <h1>Live Music in Lexington, KY</h1>
+  
+  <!-- Header Section -->
+  <header class="header">
+    <div class="title">
+      <h1>Live Music in Lexington, KY</h1>
+      <button class="menu-toggle" aria-label="Toggle menu" id="menu-toggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Description Panel -->
+  <div class="description" id="description">
+    <div class="description-header">
+      <h2>Welcome to the <strong>Lexington Gig Map</strong></h2>
+      <button class="close-btn" aria-label="Close description" id="close-description">×</button>
+    </div>
+    <div class="description-content">
+      <p>A Guide for Discovering live music events in Lexington, KY!</p>
+      <ul>
+        <li>
+          <strong>Find Live Shows:</strong> Navigate the interactive map to
+          explore upcoming live music performances across the city. Each point
+          on the map represents a venue hosting a show.
+        </li>
+        <li>
+          <strong>Calendar/Legend:</strong> At the bottom of the map, you'll
+          find a calendar and legend showcasing events by date.
+        </li>
+        <li>
+          <strong>Interactive Details:</strong> Tap on any point on the map to
+          reveal detailed information about the show.
+        </li>
+      </ul>
+      <p>
+        Whether you're a local or just visiting, the Lexington Gig Map makes it
+        easy to dive into the city's vibrant music scene.
+      </p>
+      <div class="description-footer">
+        <p>
+          If you'd like to see other projects, visit
+          <a href="https://nathanieldeaton.com/" target="_blank" rel="noopener">my website</a>.
+        </p>
+        <p>
+          All show data sourced from BandsInTown. Visit
+          <a href="https://www.bandsintown.com/" target="_blank" rel="noopener">their website</a>.
+        </p>
+      </div>
+    </div>
   </div>
 
-  <div class="description">
-    <h2>
-      Welcome to the <strong>Lexington Gig Map</strong>— A Guide for
-      Discovering live music events in Lexington, KY!
-    </h2>
-    <ul>
-      <li>
-        <strong>Find Live Shows:</strong> Navigate the interactive map to
-        explore upcoming live music performances across the city. Each point
-        on the map represents a venue hosting a show.
-      </li>
-      <li>
-        <strong>Calendar/Legend:</strong> At the bottom of the map, you'll
-        find a calendar and legend showcasing events by date.
-      </li>
-      <li>
-        <strong>Interactive Details:</strong> Tap on any point on the map to
-        reveal detailed information about the show.
-      </li>
-    </ul>
-    <p>
-      Whether you're a local or just visiting, the Lexington Gig Map makes it
-      easy to dive into the city's vibrant music scene.
-    </p>
-    <p>
-      If you'd like to see other projects, visit
-      <a href="https://nathanieldeaton.com/"> my website</a>.
-    </p>
-    <p>
-      All show data sourced from BandsInTown. Visit
-      <a href="https://www.bandsintown.com/"> their website</a>.
-    </p>
+  <!-- Loading Indicator -->
+  <div class="loading" id="loading">
+    <div class="loading-spinner"></div>
+    <p>Loading map...</p>
+  </div>
+
+  <!-- Map Controls -->
+  <div class="map-controls">
+    <button class="control-btn" id="reset-view" aria-label="Reset map view">
+      <span>⌂</span>
+    </button>
+    <button class="control-btn" id="toggle-legend" aria-label="Toggle legend">
+      <span>📅</span>
+    </button>
   </div>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
