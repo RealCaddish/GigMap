@@ -1,0 +1,156 @@
+2025-08-14 14:48:34,583 - INFO - Starting Lexington events scraping pipeline...
+2025-08-14 14:48:34,584 - INFO - Date range: 08/14/2025 to 09/14/2025
+2025-08-14 14:48:34,584 - INFO - Built URL: https://www.songkick.com/metro-areas/24580-us-lexington?utf8=%E2%9C%93&filters%5BminDate%5D=08%2F14%2F2025&filters%5BmaxDate%5D=09%2F14%2F2025
+2025-08-14 14:48:34,584 - INFO - Fetching webpage content...
+2025-08-14 14:48:35,124 - INFO - Found 24 events
+2025-08-14 14:48:35,226 - INFO - Processed event 1: Broncho at The Burl,Lexington, KY, US
+2025-08-14 14:48:35,249 - INFO - Processed event 2: Sundy Best at Manchester Music Hall,Lexington, KY, US
+2025-08-14 14:48:35,271 - INFO - Processed event 3: Tucker Riggleman & The Cheap Dates at Dreaming Creek Brewery,Richmond, KY, US
+2025-08-14 14:48:35,294 - INFO - Processed event 4: Scott Bradlee's Postmodern Jukebox at Lexington Opera House,Lexington, KY, US
+2025-08-14 14:48:35,414 - INFO - Processed event 5: Del McCoury Band at Lexington Opera House,Lexington, KY, US
+2025-08-14 14:48:35,435 - INFO - Processed event 6: Home Grown Head, Zoomst, and Cody Christian at The Green Lantern,Lexington, KY, US
+2025-08-14 14:48:35,458 - INFO - Processed event 7: Briscoe at The Burl,Lexington, KY, US
+2025-08-14 14:48:35,481 - INFO - Processed event 8: Carrellee at The Green Lantern,Lexington, KY, US
+2025-08-14 14:48:35,507 - INFO - Processed event 9: Year of October at Al's Bar,Lexington, KY, US
+2025-08-14 14:48:35,533 - INFO - Processed event 10: Tyler Ramsey at The Burl,Lexington, KY, US
+2025-08-14 14:48:35,652 - INFO - Processed event 11: Shadowgrass at The Burl,Lexington, KY, US
+2025-08-14 14:48:35,675 - INFO - Processed event 12: SUMPP at Al's Bar of Lexington,Lexington, KY, US
+2025-08-14 14:48:35,702 - INFO - Processed event 13: American Motors at The Green Lantern,Lexington, KY, US
+2025-08-14 14:48:35,731 - INFO - Processed event 14: Temple Of The Fuzz Witch, Cosmic Reaper, and Fell Ruin at Al's Bar,Lexington, KY, US
+2025-08-14 14:48:35,756 - INFO - Processed event 15: Mr. Gnome at The Burl,Lexington, KY, US
+2025-08-14 14:48:35,776 - INFO - Processed event 16: Daniel Donato's Cosmic Country at Manchester Music Hall,Lexington, KY, US
+2025-08-14 14:48:35,890 - INFO - Processed event 17: Willy Tea Taylor at The Green Lantern,Lexington, KY, US
+2025-08-14 14:48:35,910 - INFO - Processed event 18: Thunderchief at The Green Lantern,Lexington, KY, US
+2025-08-14 14:48:35,932 - INFO - Processed event 19: The Stews (US) at The Burl,Lexington, KY, US
+2025-08-14 14:48:35,953 - INFO - Processed event 20: Soccer Mommy at The Burl,Lexington, KY, US
+2025-08-14 14:48:36,107 - INFO - Processed event 21: Sunny Sweeney at Manchester Music Hall,Lexington, KY, US
+2025-08-14 14:48:36,134 - INFO - Processed event 22: Yacht Rock Revue at Manchester Music Hall,Lexington, KY, US
+2025-08-14 14:48:36,250 - INFO - Processed event 23: Ali Siddiq at Lexington Opera House,Lexington, KY, US
+2025-08-14 14:48:36,379 - INFO - Processed event 24: The Fab Four at Lexington Opera House,Lexington, KY, US
+2025-08-14 14:48:36,381 - INFO - Created DataFrame with 24 events
+2025-08-14 14:48:36,381 - INFO - Processing datetime data...
+2025-08-14 14:48:36,390 - INFO - Cleaning location data...
+2025-08-14 14:48:36,395 - INFO - Data saved to lexington_events_time_imperial_modified.csv
+2025-08-14 14:48:36,396 - INFO - Loading venues shapefile...
+2025-08-14 14:48:36,935 - INFO - Merging events with venues...
+2025-08-14 14:48:36,941 - INFO - Merged data contains 22 events
+2025-08-14 14:48:36,953 - INFO - Created 22 records
+2025-08-14 14:48:36,953 - INFO - GeoJSON saved to shp/merged_venues_events.geojson
+2025-08-14 14:48:36,953 - INFO - Pipeline completed successfully!
+2025-08-14 14:50:27,384 - INFO - Starting Lexington events scraping pipeline...
+2025-08-14 14:50:27,384 - INFO - Date range: 08/14/2025 to 09/14/2025
+2025-08-14 14:50:27,385 - INFO - Built URL: https://www.songkick.com/metro-areas/24580-us-lexington?utf8=%E2%9C%93&filters%5BminDate%5D=08%2F14%2F2025&filters%5BmaxDate%5D=09%2F14%2F2025
+2025-08-14 14:50:27,385 - INFO - Fetching webpage content...
+2025-08-14 14:50:27,568 - INFO - Found 24 events
+2025-08-14 14:50:27,652 - INFO - Processed event 1: Broncho at The Burl,Lexington, KY, US
+2025-08-14 14:50:27,671 - INFO - Processed event 2: Sundy Best at Manchester Music Hall,Lexington, KY, US
+2025-08-14 14:50:27,695 - INFO - Processed event 3: Tucker Riggleman & The Cheap Dates at Dreaming Creek Brewery,Richmond, KY, US
+2025-08-14 14:50:27,718 - INFO - Processed event 4: Scott Bradlee's Postmodern Jukebox at Lexington Opera House,Lexington, KY, US
+2025-08-14 14:50:27,739 - INFO - Processed event 5: Del McCoury Band at Lexington Opera House,Lexington, KY, US
+2025-08-14 14:50:27,762 - INFO - Processed event 6: Home Grown Head, Zoomst, and Cody Christian at The Green Lantern,Lexington, KY, US
+2025-08-14 14:50:27,787 - INFO - Processed event 7: Briscoe at The Burl,Lexington, KY, US
+2025-08-14 14:50:27,811 - INFO - Processed event 8: Carrellee at The Green Lantern,Lexington, KY, US
+2025-08-14 14:50:27,832 - INFO - Processed event 9: Year of October at Al's Bar,Lexington, KY, US
+2025-08-14 14:50:27,856 - INFO - Processed event 10: Tyler Ramsey at The Burl,Lexington, KY, US
+2025-08-14 14:50:27,876 - INFO - Processed event 11: Shadowgrass at The Burl,Lexington, KY, US
+2025-08-14 14:50:27,902 - INFO - Processed event 12: SUMPP at Al's Bar of Lexington,Lexington, KY, US
+2025-08-14 14:50:27,925 - INFO - Processed event 13: American Motors at The Green Lantern,Lexington, KY, US
+2025-08-14 14:50:27,946 - INFO - Processed event 14: Temple Of The Fuzz Witch, Cosmic Reaper, and Fell Ruin at Al's Bar,Lexington, KY, US
+2025-08-14 14:50:27,971 - INFO - Processed event 15: Mr. Gnome at The Burl,Lexington, KY, US
+2025-08-14 14:50:27,993 - INFO - Processed event 16: Daniel Donato's Cosmic Country at Manchester Music Hall,Lexington, KY, US
+2025-08-14 14:50:28,017 - INFO - Processed event 17: Willy Tea Taylor at The Green Lantern,Lexington, KY, US
+2025-08-14 14:50:28,039 - INFO - Processed event 18: Thunderchief at The Green Lantern,Lexington, KY, US
+2025-08-14 14:50:28,062 - INFO - Processed event 19: The Stews (US) at The Burl,Lexington, KY, US
+2025-08-14 14:50:28,084 - INFO - Processed event 20: Soccer Mommy at The Burl,Lexington, KY, US
+2025-08-14 14:50:28,105 - INFO - Processed event 21: Sunny Sweeney at Manchester Music Hall,Lexington, KY, US
+2025-08-14 14:50:28,128 - INFO - Processed event 22: Yacht Rock Revue at Manchester Music Hall,Lexington, KY, US
+2025-08-14 14:50:28,145 - INFO - Processed event 23: Ali Siddiq at Lexington Opera House,Lexington, KY, US
+2025-08-14 14:50:28,168 - INFO - Processed event 24: The Fab Four at Lexington Opera House,Lexington, KY, US
+2025-08-14 14:50:28,169 - INFO - Created DataFrame with 24 events
+2025-08-14 14:50:28,169 - INFO - Processing datetime data...
+2025-08-14 14:50:28,175 - INFO - Cleaning location data...
+2025-08-14 14:50:28,179 - INFO - Data saved to lexington_events_time_imperial_modified.csv
+2025-08-14 14:50:28,180 - INFO - Loading venues shapefile...
+2025-08-14 14:50:28,244 - INFO - Merging events with venues...
+2025-08-14 14:50:28,246 - INFO - Merged data contains 22 events
+2025-08-14 14:50:28,253 - INFO - Created 22 records
+2025-08-14 14:50:28,254 - INFO - GeoJSON saved to shp/merged_venues_events.geojson
+2025-08-14 14:50:28,254 - INFO - Pipeline completed successfully!
+2025-08-14 14:53:33,307 - INFO - Starting Lexington events scraping pipeline...
+2025-08-14 14:53:33,307 - INFO - Date range: 08/14/2025 to 09/14/2025
+2025-08-14 14:53:33,308 - INFO - Built URL: https://www.songkick.com/metro-areas/24580-us-lexington?utf8=%E2%9C%93&filters%5BminDate%5D=08%2F14%2F2025&filters%5BmaxDate%5D=09%2F14%2F2025
+2025-08-14 14:53:33,308 - INFO - Fetching webpage content...
+2025-08-14 14:53:33,492 - INFO - Found 24 events
+2025-08-14 14:53:33,575 - INFO - Processed event 1: Broncho at The Burl,Lexington, KY, US
+2025-08-14 14:53:33,595 - INFO - Processed event 2: Sundy Best at Manchester Music Hall,Lexington, KY, US
+2025-08-14 14:53:33,619 - INFO - Processed event 3: Tucker Riggleman & The Cheap Dates at Dreaming Creek Brewery,Richmond, KY, US
+2025-08-14 14:53:33,642 - INFO - Processed event 4: Scott Bradlee's Postmodern Jukebox at Lexington Opera House,Lexington, KY, US
+2025-08-14 14:53:33,664 - INFO - Processed event 5: Del McCoury Band at Lexington Opera House,Lexington, KY, US
+2025-08-14 14:53:33,687 - INFO - Processed event 6: Home Grown Head, Zoomst, and Cody Christian at The Green Lantern,Lexington, KY, US
+2025-08-14 14:53:33,711 - INFO - Processed event 7: Briscoe at The Burl,Lexington, KY, US
+2025-08-14 14:53:33,732 - INFO - Processed event 8: Carrellee at The Green Lantern,Lexington, KY, US
+2025-08-14 14:53:33,753 - INFO - Processed event 9: Year of October at Al's Bar,Lexington, KY, US
+2025-08-14 14:53:33,777 - INFO - Processed event 10: Tyler Ramsey at The Burl,Lexington, KY, US
+2025-08-14 14:53:33,800 - INFO - Processed event 11: Shadowgrass at The Burl,Lexington, KY, US
+2025-08-14 14:53:33,825 - INFO - Processed event 12: SUMPP at Al's Bar of Lexington,Lexington, KY, US
+2025-08-14 14:53:33,852 - INFO - Processed event 13: American Motors at The Green Lantern,Lexington, KY, US
+2025-08-14 14:53:33,876 - INFO - Processed event 14: Temple Of The Fuzz Witch, Cosmic Reaper, and Fell Ruin at Al's Bar,Lexington, KY, US
+2025-08-14 14:53:33,902 - INFO - Processed event 15: Mr. Gnome at The Burl,Lexington, KY, US
+2025-08-14 14:53:33,920 - INFO - Processed event 16: Daniel Donato's Cosmic Country at Manchester Music Hall,Lexington, KY, US
+2025-08-14 14:53:33,941 - INFO - Processed event 17: Willy Tea Taylor at The Green Lantern,Lexington, KY, US
+2025-08-14 14:53:33,963 - INFO - Processed event 18: Thunderchief at The Green Lantern,Lexington, KY, US
+2025-08-14 14:53:33,983 - INFO - Processed event 19: The Stews (US) at The Burl,Lexington, KY, US
+2025-08-14 14:53:34,107 - INFO - Processed event 20: Soccer Mommy at The Burl,Lexington, KY, US
+2025-08-14 14:53:34,130 - INFO - Processed event 21: Sunny Sweeney at Manchester Music Hall,Lexington, KY, US
+2025-08-14 14:53:34,157 - INFO - Processed event 22: Yacht Rock Revue at Manchester Music Hall,Lexington, KY, US
+2025-08-14 14:53:34,181 - INFO - Processed event 23: Ali Siddiq at Lexington Opera House,Lexington, KY, US
+2025-08-14 14:53:34,200 - INFO - Processed event 24: The Fab Four at Lexington Opera House,Lexington, KY, US
+2025-08-14 14:53:34,201 - INFO - Created DataFrame with 24 events
+2025-08-14 14:53:34,201 - INFO - Processing datetime data...
+2025-08-14 14:53:34,207 - INFO - Cleaning location data...
+2025-08-14 14:53:34,211 - INFO - Data saved to lexington_events_time_imperial_modified.csv
+2025-08-14 14:53:34,211 - INFO - Loading venues shapefile...
+2025-08-14 14:53:34,280 - INFO - Merging events with venues...
+2025-08-14 14:53:34,282 - INFO - Merged data contains 22 events
+2025-08-14 14:53:34,287 - INFO - Created 22 records
+2025-08-14 14:53:34,288 - INFO - GeoJSON saved to shp/merged_venues_events.geojson
+2025-08-14 14:53:34,288 - INFO - Pipeline completed successfully!
+2025-08-14 14:59:36,872 - INFO - Starting Lexington events scraping pipeline...
+2025-08-14 14:59:36,873 - INFO - Date range: 08/14/2025 to 09/14/2025
+2025-08-14 14:59:36,873 - INFO - Built URL: https://www.songkick.com/metro-areas/24580-us-lexington?utf8=%E2%9C%93&filters%5BminDate%5D=08%2F14%2F2025&filters%5BmaxDate%5D=09%2F14%2F2025
+2025-08-14 14:59:36,873 - INFO - Fetching webpage content...
+2025-08-14 14:59:37,063 - INFO - Found 24 events
+2025-08-14 14:59:37,161 - INFO - Processed event 1: Broncho at The Burl,Lexington, KY, US
+2025-08-14 14:59:37,184 - INFO - Processed event 2: Sundy Best at Manchester Music Hall,Lexington, KY, US
+2025-08-14 14:59:37,206 - INFO - Processed event 3: Tucker Riggleman & The Cheap Dates at Dreaming Creek Brewery,Richmond, KY, US
+2025-08-14 14:59:37,228 - INFO - Processed event 4: Scott Bradlee's Postmodern Jukebox at Lexington Opera House,Lexington, KY, US
+2025-08-14 14:59:37,250 - INFO - Processed event 5: Del McCoury Band at Lexington Opera House,Lexington, KY, US
+2025-08-14 14:59:37,273 - INFO - Processed event 6: Home Grown Head, Zoomst, and Cody Christian at The Green Lantern,Lexington, KY, US
+2025-08-14 14:59:37,295 - INFO - Processed event 7: Briscoe at The Burl,Lexington, KY, US
+2025-08-14 14:59:37,318 - INFO - Processed event 8: Carrellee at The Green Lantern,Lexington, KY, US
+2025-08-14 14:59:37,341 - INFO - Processed event 9: Year of October at Al's Bar,Lexington, KY, US
+2025-08-14 14:59:37,364 - INFO - Processed event 10: Tyler Ramsey at The Burl,Lexington, KY, US
+2025-08-14 14:59:37,384 - INFO - Processed event 11: Shadowgrass at The Burl,Lexington, KY, US
+2025-08-14 14:59:37,407 - INFO - Processed event 12: SUMPP at Al's Bar of Lexington,Lexington, KY, US
+2025-08-14 14:59:37,430 - INFO - Processed event 13: American Motors at The Green Lantern,Lexington, KY, US
+2025-08-14 14:59:37,451 - INFO - Processed event 14: Temple Of The Fuzz Witch, Cosmic Reaper, and Fell Ruin at Al's Bar,Lexington, KY, US
+2025-08-14 14:59:37,479 - INFO - Processed event 15: Mr. Gnome at The Burl,Lexington, KY, US
+2025-08-14 14:59:37,498 - INFO - Processed event 16: Daniel Donato's Cosmic Country at Manchester Music Hall,Lexington, KY, US
+2025-08-14 14:59:37,517 - INFO - Processed event 17: Willy Tea Taylor at The Green Lantern,Lexington, KY, US
+2025-08-14 14:59:37,539 - INFO - Processed event 18: Thunderchief at The Green Lantern,Lexington, KY, US
+2025-08-14 14:59:37,660 - INFO - Processed event 19: The Stews (US) at The Burl,Lexington, KY, US
+2025-08-14 14:59:37,682 - INFO - Processed event 20: Soccer Mommy at The Burl,Lexington, KY, US
+2025-08-14 14:59:37,704 - INFO - Processed event 21: Sunny Sweeney at Manchester Music Hall,Lexington, KY, US
+2025-08-14 14:59:37,729 - INFO - Processed event 22: Yacht Rock Revue at Manchester Music Hall,Lexington, KY, US
+2025-08-14 14:59:37,752 - INFO - Processed event 23: Ali Siddiq at Lexington Opera House,Lexington, KY, US
+2025-08-14 14:59:37,774 - INFO - Processed event 24: The Fab Four at Lexington Opera House,Lexington, KY, US
+2025-08-14 14:59:37,775 - INFO - Created DataFrame with 24 events
+2025-08-14 14:59:37,775 - INFO - Processing datetime data...
+2025-08-14 14:59:37,781 - INFO - Cleaning location data...
+2025-08-14 14:59:37,785 - INFO - Data saved to lexington_events_time_imperial_modified.csv
+2025-08-14 14:59:37,785 - INFO - Loading venues shapefile...
+2025-08-14 14:59:37,858 - INFO - Merging events with venues...
+2025-08-14 14:59:37,860 - INFO - Merged data contains 22 events
+2025-08-14 14:59:37,866 - INFO - Created 22 records
+2025-08-14 14:59:37,867 - INFO - GeoJSON saved to shp/merged_venues_events.geojson
+2025-08-14 14:59:37,867 - INFO - Pipeline completed successfully!

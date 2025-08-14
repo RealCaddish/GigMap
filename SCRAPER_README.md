@@ -1,212 +1,186 @@
-# Enhanced SongKick Scraper for Lexington GigMap
+# Automated Lexington Events Scraper
 
-## Overview
+This automated system scrapes upcoming music events from [Songkick](https://www.songkick.com/metro-areas/24580-us-lexington) and updates your Lexington Gig Map automatically.
 
-This enhanced version of the SongKick scraper provides a cleaner, more robust, and feature-rich solution for scraping music event data from SongKick for the Lexington GigMap project.
+## 🚀 Features
 
-## 🚀 Key Improvements
+- **Automatic Date Calculation**: Dynamically calculates the current month's date range
+- **Complete Pipeline**: Scrapes data, processes it, and generates the final GeoJSON for your map
+- **Scheduled Updates**: Can run automatically on a weekly or daily schedule
+- **Error Handling**: Comprehensive logging and error recovery
+- **Image Downloads**: Automatically downloads artist images
+- **Data Processing**: Handles datetime conversion and location cleaning
 
-### Code Quality
-- **Modular Design**: Separated into logical functions with clear responsibilities
-- **Comprehensive Documentation**: Detailed docstrings and comments throughout
-- **Error Handling**: Robust error handling for network issues, parsing errors, and file operations
-- **Type Hints**: Clear function signatures and parameter descriptions
+## 📋 Requirements
 
-### Enhanced Features
-- **Image Download**: Automatically downloads artist images and saves them locally
-- **Data Validation**: Quality checks and statistics reporting
-- **Respectful Scraping**: Proper delays and headers to be respectful to SongKick's servers
-- **Flexible Output**: Enhanced CSV with better column organization
-- **Progress Tracking**: Real-time progress updates during scraping
+Install the required dependencies:
 
-### Data Processing
-- **Time Conversion**: Converts 24-hour time to 12-hour format
-- **Location Cleaning**: Removes common location suffixes and formatting issues
-- **Date Parsing**: Handles multiple datetime formats
-- **Duplicate Detection**: Identifies and reports duplicate events
-
-## 📁 File Structure
-
-```
-GigMap/
-├── songkick_scraper_enhanced.py    # Main enhanced scraper script
-├── requirements.txt                # Python dependencies
-├── SCRAPER_README.md              # This documentation
-├── artist_images/                 # Directory for downloaded artist images
-├── lexington_events_enhanced.csv  # Enhanced output CSV
-└── [other project files...]
-```
-
-## 🛠️ Installation
-
-1. **Install Dependencies**:
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-2. **Verify Installation**:
-   ```bash
-   python songkick_scraper_enhanced.py --help
-   ```
-
-## 🎯 Usage
-
-### Basic Usage
 ```bash
-python songkick_scraper_enhanced.py
+pip install -r requirements.txt
 ```
 
-### What It Does
-1. **Scrapes SongKick**: Fetches event data from the Lexington area
-2. **Downloads Images**: Saves artist images to `artist_images/` directory
-3. **Processes Data**: Converts times, cleans locations, and validates data
-4. **Saves Results**: Creates `lexington_events_enhanced.csv`
+## 🛠️ Usage
 
-### Output Files
-- **`lexington_events_enhanced.csv`**: Main dataset with all event information
-- **`artist_images/`**: Directory containing downloaded artist images
+### Quick Start - Run Once
 
-## 📊 Data Schema
+To run the scraper once and update your map data:
 
-The enhanced CSV contains the following columns:
+```bash
+python automated_scraper.py
+```
 
-| Column | Description | Example |
-|--------|-------------|---------|
-| `Artist` | Artist/band name | "Silversun Pickups" |
-| `Location` | Venue name (cleaned) | "The Burl" |
-| `Date` | Event date | "2025-07-24" |
-| `Time` | Event time (12-hour format) | "07:00 PM" |
-| `Datetime` | Original datetime string | "2025-07-24T19:00:00-0500" |
-| `Artist_Link` | SongKick artist page URL | "https://www.songkick.com/..." |
-| `Artist_Image` | Local path to artist image | "artist_images/Silversun_Pickups.jpg" |
-| `Time_Text` | Original time text | "7:00 PM" |
+### Scheduled Updates
+
+#### Weekly Updates (Recommended)
+```bash
+python scheduler.py weekly
+```
+This will run the scraper every Monday at 9:00 AM.
+
+#### Daily Updates
+```bash
+python scheduler.py daily
+```
+This will run the scraper every day at 9:00 AM.
+
+#### Run Once via Scheduler
+```bash
+python scheduler.py once
+```
+
+## 📁 Output Files
+
+The scraper generates the following files:
+
+- `lexington_events_time_imperial_modified.csv` - Processed event data
+- `shp/merged_venues_events.geojson` - Final GeoJSON for your map
+- `artist_images/` - Downloaded artist images
+- `scraper.log` - Detailed logging information
 
 ## 🔧 Configuration
 
-### URL Configuration
-Edit the `SONGKICK_URL` variable in the script to change the date range or location:
+### Date Range
+By default, the scraper looks ahead 1 month. You can modify this in `automated_scraper.py`:
 
 ```python
-SONGKICK_URL = 'https://www.songkick.com/metro-areas/24580-us-lexington?utf8=%E2%9C%93&filters%5BminDate%5D=07%2F03%2F2025&filters%5BmaxDate%5D=07%2F30%2F2025'
+# In the main() function, change months_ahead parameter
+success = scraper.run_complete_pipeline(months_ahead=2)  # Look ahead 2 months
 ```
 
-### Output Configuration
-Modify these variables to change output locations:
+### Schedule Time
+To change when the scheduled scraper runs, edit `scheduler.py`:
 
 ```python
-ARTIST_IMAGES_DIR = 'artist_images'
-OUTPUT_CSV = 'lexington_events_enhanced.csv'
+# Change the time (24-hour format)
+schedule.every().monday.at("14:00").do(run_scraper)  # Run at 2:00 PM
 ```
 
-## 📈 Data Quality Features
-
-### Validation Checks
-- **Missing Data Analysis**: Reports percentage of missing data for each column
-- **Duplicate Detection**: Identifies duplicate events
-- **Date Range Analysis**: Shows the span of event dates
-- **Image Download Success Rate**: Reports how many images were successfully downloaded
-
-### Error Handling
-- **Network Timeouts**: Handles slow connections gracefully
-- **Image Download Failures**: Continues processing even if some images fail
-- **Parsing Errors**: Robust HTML parsing with fallback options
-- **File System Errors**: Handles permission and disk space issues
-
-## 🔄 Integration with Web Map
-
-### Updating Your Workflow
-1. **Run the Enhanced Scraper**:
-   ```bash
-   python songkick_scraper_enhanced.py
-   ```
-
-2. **Update Your GeoJSON Merge Process**:
-   The enhanced CSV uses different column names. Update your merge script:
-   ```python
-   # Old column names
-   # 'Artist Link' -> 'ArtistLink'
-   # 'Artist Image' -> 'ArtistImage'
-   
-   # New column names
-   # 'Artist_Link' -> 'ArtistLink'
-   # 'Artist_Image' -> 'ArtistImage'
-   ```
-
-3. **Update Your Web Map**:
-   The `script.js` file should work with the new column names automatically.
-
-## 🚨 Troubleshooting
+## 🐛 Troubleshooting
 
 ### Common Issues
 
-**"No data was scraped"**
-- Check your internet connection
-- Verify the SongKick URL is accessible
-- SongKick may have changed their HTML structure
+1. **No events found**: Check if Songkick has updated their HTML structure
+2. **Image download failures**: Network issues or missing images (non-critical)
+3. **Venues shapefile missing**: Ensure `shp/venues.shp` exists
+4. **Permission errors**: Make sure you have write permissions in the directory
 
-**"Failed to download image"**
-- Network connectivity issues
-- Image URLs may be broken
-- Check disk space in `artist_images/` directory
+### Logs
 
-**"Permission denied"**
-- Ensure write permissions in the project directory
-- Check if files are open in other applications
+Check the log files for detailed information:
+- `scraper.log` - Scraper execution details
+- `scheduler.log` - Scheduler execution details
 
-### Debug Mode
-Add debug prints by modifying the script:
-```python
-# Add this at the top of main()
-import logging
-logging.basicConfig(level=logging.DEBUG)
+### Manual Testing
+
+To test the scraper manually:
+
+```bash
+python automated_scraper.py
 ```
 
-## 🔮 Future Enhancements
+Check the console output and log files for any errors.
 
-### Potential Improvements
-1. **Multi-Source Scraping**: Add support for other event sources
-2. **Scheduled Scraping**: Automate daily/weekly updates
-3. **Database Storage**: Store data in SQLite or PostgreSQL
-4. **API Integration**: Use official APIs where available
-5. **Image Processing**: Resize and optimize downloaded images
-6. **Email Notifications**: Alert on new events or scraping failures
+## 🔄 Automation Options
 
-### Contributing
-To contribute improvements:
-1. Fork the repository
-2. Create a feature branch
-3. Add tests for new functionality
-4. Submit a pull request with detailed description
+### Option 1: Python Scheduler (Recommended for Development)
 
-## 📝 Changelog
+Use the included scheduler:
 
-### Version 2.0 (Enhanced)
-- ✅ Modular function-based architecture
-- ✅ Comprehensive error handling
-- ✅ Image download functionality
-- ✅ Data validation and quality checks
-- ✅ Enhanced CSV output format
-- ✅ Progress tracking and statistics
-- ✅ Respectful scraping practices
+```bash
+python scheduler.py weekly
+```
 
-### Version 1.0 (Original)
-- Basic scraping functionality
-- Simple CSV output
-- Limited error handling
+### Option 2: System Cron (Recommended for Production)
 
-## 📄 License
+Add to your crontab for weekly updates:
 
-This enhanced scraper is based on the original SongKick scraper and maintains the same license terms as the main project.
+```bash
+# Edit crontab
+crontab -e
 
-## 🤝 Support
+# Add this line to run every Monday at 9:00 AM
+0 9 * * 1 cd /path/to/your/project && python automated_scraper.py
+```
 
-For issues or questions:
-1. Check the troubleshooting section above
-2. Review the error messages in the console output
-3. Verify your Python environment and dependencies
-4. Test with a smaller date range first
+### Option 3: Windows Task Scheduler
 
----
+1. Open Task Scheduler
+2. Create Basic Task
+3. Set trigger to weekly on Monday
+4. Set action to start program: `python`
+5. Add arguments: `automated_scraper.py`
+6. Set start in: `/path/to/your/project`
 
-**Note**: This scraper is for educational and personal use. Please respect SongKick's terms of service and implement appropriate rate limiting for production use.
+## 📊 Data Flow
+
+1. **Scraping**: Fetches events from Songkick for the current month
+2. **Processing**: Converts datetime formats and cleans location data
+3. **Image Download**: Downloads artist images to `artist_images/` folder
+4. **Merging**: Combines event data with venue coordinates
+5. **Output**: Generates CSV and GeoJSON files for your map
+
+## �� Rate Limiting
+
+The scraper includes:
+- 30-second timeout for web requests
+- 10-second timeout for image downloads
+- User-Agent headers to avoid blocking
+- Error handling for failed requests
+
+## 📈 Monitoring
+
+Monitor the scraper's performance:
+
+```bash
+# Check recent logs
+tail -f scraper.log
+
+# Check file sizes to ensure data is being generated
+ls -la *.csv shp/*.geojson
+```
+
+## 🆘 Support
+
+If you encounter issues:
+
+1. Check the log files for error messages
+2. Verify your internet connection
+3. Ensure all dependencies are installed
+4. Check that the venues shapefile exists
+5. Verify file permissions
+
+## 🔄 Updating the Map
+
+After the scraper runs successfully:
+
+1. The `shp/merged_venues_events.geojson` file is automatically updated
+2. Your web map will use the new data on the next page refresh
+3. No manual intervention required!
+
+## 📝 Notes
+
+- The scraper respects Songkick's terms of service
+- Images are downloaded locally to avoid external dependencies
+- The system is designed to be robust and handle network issues gracefully
+- All data processing maintains the same format as your original manual process
 

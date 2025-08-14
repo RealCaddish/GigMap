@@ -158,11 +158,29 @@ document.addEventListener('DOMContentLoaded', function () {
             const dateRange = getDateRange(dates);
             div.innerHTML = `<h4>Event Calendar: ${dateRange}</h4>`;
             
+            // Create calendar container
+            const calendarContainer = L.DomUtil.create('div', 'calendar-container', div);
+            
+            // Get today's date for comparison
+            const today = new Date();
+            const todayString = today.toISOString().split('T')[0]; // Format: YYYY-MM-DD
+            console.log('Today:', todayString);
+            console.log('Available dates:', dates);
+            
+            // Check if today has events
+            const hasTodayEvents = dates.includes(todayString);
+            
             // Create calendar days
             dates.forEach(function (date, index) {
-                const dayDiv = L.DomUtil.create('div', 'calendar-day', div);
+                const dayDiv = L.DomUtil.create('div', 'calendar-day', calendarContainer);
                 const dayNumber = new Date(date).getDate();
                 dayDiv.innerHTML = `<div style="position: absolute; top: 0; width: 100%;">${dayNumber}</div>`;
+
+                // Check if this date is today and add highlighting class
+                if (date === todayString) {
+                    dayDiv.classList.add('today');
+                    console.log('Today found:', date, 'Highlighting applied');
+                }
 
                 data[date].forEach(function (event) {
                     const dot = L.DomUtil.create('div', 'event-dot', dayDiv);
@@ -173,10 +191,121 @@ document.addEventListener('DOMContentLoaded', function () {
                     
                     // Add click handler for legend dots
                     dot.addEventListener('click', () => {
-                        flyToEvent(event);
+                        console.log('Legend dot clicked:', event.properties);
+                        showLegendTooltip(event);
                     });
+
+                    // Add enhanced hover tooltip for desktop
+                    if (!isMobile) {
+                        dot.addEventListener('mouseenter', (e) => {
+                            showDesktopTooltip(event, e);
+                        });
+                        
+                        dot.addEventListener('mouseleave', () => {
+                            hideDesktopTooltip();
+                        });
+                    }
+
+                    // Add mobile-friendly tooltip handling
+                    if (isMobile) {
+                        dot.addEventListener('touchstart', (e) => {
+                            e.preventDefault();
+                            showMobileTooltip(event.properties.Artist, event.properties.Venue, event);
+                        });
+                    }
                 });
             });
+            
+            // Add "no events today" indicator if today has no events
+            if (!hasTodayEvents) {
+                const noEventsDiv = L.DomUtil.create('div', 'no-events-today', div);
+                noEventsDiv.innerHTML = `<div style="text-align: center; margin-top: 10px; padding: 8px; background: rgba(76, 175, 80, 0.1); border: 1px solid #4CAF50; border-radius: 4px; color: #4CAF50; font-size: 0.8rem;">
+                    <strong>Today (${todayString})</strong> - No events scheduled
+                </div>`;
+            }
+            
+            return div;
+        };
+
+        legend.addTo(map);
+    }
+
+    // Desktop tooltip functions
+    let desktopTooltip = null;
+
+    function showDesktopTooltip(event, mouseEvent) {
+        // Remove existing tooltip
+        hideDesktopTooltip();
+
+        const artist = event.properties.Artist || 'Unknown Artist';
+        const venue = event.properties.Venue || 'Unknown Venue';
+        const eventDate = event.properties.Date;
+        const eventTime = event.properties.Time || 'Time TBA';
+        const artistImage = event.properties.ArtistImage;
+        const artistLink = event.properties.ArtistLink;
+        const formattedDate = formatDate(eventDate);
+
+        // Create tooltip element
+        desktopTooltip = document.createElement('div');
+        desktopTooltip.className = 'desktop-tooltip';
+        desktopTooltip.innerHTML = `
+            <div class="desktop-tooltip-content">
+                <div class="desktop-tooltip-header">
+                    <div class="desktop-tooltip-artist-image">
+                        <img src="${artistImage}" alt="${artist}" onerror="this.style.display='none'">
+                    </div>
+                    <div class="desktop-tooltip-artist-info">
+                        <div class="desktop-tooltip-artist-name">${artist}</div>
+                        <div class="desktop-tooltip-venue">${venue}</div>
+                        <div class="desktop-tooltip-date">${formattedDate} at ${eventTime}</div>
+                    </div>
+                </div>
+                <div class="desktop-tooltip-actions">
+                    <button class="desktop-tooltip-zoom-btn">📍 Zoom to Show</button>
+                </div>
+            </div>
+        `;
+
+        // Position tooltip
+        const rect = mouseEvent.target.getBoundingClientRect();
+        desktopTooltip.style.cssText = `
+            position: fixed;
+            top: ${rect.top - 10}px;
+            left: ${rect.left + rect.width + 10}px;
+            background: var(--secondary-color);
+            color: white;
+            padding: 15px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 8px 25px var(--shadow-color);
+            z-index: 10000;
+            width: 280px;
+            animation: tooltipFadeIn 0.2s ease;
+        `;
+
+        // Add zoom functionality
+        const zoomBtn = desktopTooltip.querySelector('.desktop-tooltip-zoom-btn');
+        zoomBtn.addEventListener('click', () => {
+            flyToEvent(event);
+            hideDesktopTooltip();
+        });
+
+        document.body.appendChild(desktopTooltip);
+    }
+
+    function hideDesktopTooltip() {
+        if (desktopTooltip) {
+            desktopTooltip.remove();
+            desktopTooltip = null;
+        }
+    }
+            
+            // Add "no events today" indicator if today has no events
+            if (!hasTodayEvents) {
+                const noEventsDiv = L.DomUtil.create('div', 'no-events-today', div);
+                noEventsDiv.innerHTML = `<div style="text-align: center; margin-top: 10px; padding: 8px; background: rgba(76, 175, 80, 0.1); border: 1px solid #4CAF50; border-radius: 4px; color: #4CAF50; font-size: 0.8rem;">
+                    <strong>Today (${todayString})</strong> - No events scheduled
+                </div>`;
+            }
             
             return div;
         };
@@ -449,4 +578,290 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Initialize preloading
     preloadImages();
+
+    // Enhanced mobile tooltip function with detailed artist information
+    function showMobileTooltip(artist, venue, event) {
+        // Remove any existing mobile tooltip
+        const existingTooltip = document.querySelector('.mobile-tooltip');
+        if (existingTooltip) {
+            existingTooltip.remove();
+        }
+
+        // Remove any existing selected state from dots
+        document.querySelectorAll('.event-dot.selected').forEach(dot => {
+            dot.classList.remove('selected');
+        });
+
+        // Find and highlight the clicked dot
+        const clickedDot = event.target || document.querySelector(`[data-artist="${artist}"][data-venue="${venue}"]`);
+        if (clickedDot && clickedDot.classList.contains('event-dot')) {
+            clickedDot.classList.add('selected');
+        }
+
+        // Get event details
+        const eventDate = event.properties.Date;
+        const eventTime = event.properties.Time || 'Time TBA';
+        const artistImage = event.properties.ArtistImage;
+        const artistLink = event.properties.ArtistLink;
+        const formattedDate = formatDate(eventDate);
+
+        // Create tooltip element with detailed information
+        const tooltip = document.createElement('div');
+        tooltip.className = 'mobile-tooltip';
+        
+        // Get additional venue information
+        const venueInfo = getVenueInfo(venue);
+        
+        // Better datetime formatting
+        let displayDateTime = formattedDate;
+        if (eventTime && eventTime !== 'Time TBA') {
+            displayDateTime += ` at ${eventTime}`;
+        }
+        
+        // Create image element with better error handling
+        // Fix image path by replacing backslashes and encoding spaces
+        const fixedImagePath = artistImage ? artistImage.replace(/\\/g, '/').replace(/ /g, '%20') : null;
+        const imageHtml = fixedImagePath ? 
+            `<img src="${fixedImagePath}" alt="${artist}" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\\"artist-placeholder\\">🎵</div>'">` :
+            '<div class="artist-placeholder">🎵</div>';
+        
+        tooltip.innerHTML = `
+            <div class="tooltip-content">
+                <div class="tooltip-header">
+                    <div class="tooltip-artist-image">
+                        ${imageHtml}
+                    </div>
+                    <div class="tooltip-artist-info">
+                        <div class="tooltip-artist-name">${artist}</div>
+                        <div class="tooltip-venue">📍 ${venue}</div>
+                        ${venueInfo ? `<div class="tooltip-venue-details">${venueInfo}</div>` : ''}
+                        <div class="tooltip-datetime">📅 ${displayDateTime}</div>
+                        ${artistLink ? `<div class="tooltip-link"><a href="${artistLink}" target="_blank" rel="noopener">🔗 View on Songkick</a></div>` : ''}
+                    </div>
+                </div>
+                <div class="tooltip-actions">
+                    <button class="tooltip-zoom-btn">📍 Zoom to Show</button>
+                    <button class="tooltip-close">×</button>
+                </div>
+            </div>
+        `;
+
+        // Add styles
+        tooltip.style.cssText = `
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: var(--secondary-color);
+            color: white;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 8px 25px var(--shadow-color);
+            z-index: 10001;
+            max-width: 90vw;
+            width: 320px;
+            animation: tooltipFadeIn 0.3s ease;
+        `;
+
+        // Add to page
+        document.body.appendChild(tooltip);
+
+        // Add zoom functionality
+        const zoomBtn = tooltip.querySelector('.tooltip-zoom-btn');
+        zoomBtn.addEventListener('click', () => {
+            flyToEvent(event);
+            tooltip.remove();
+        });
+
+        // Add close functionality
+        const closeBtn = tooltip.querySelector('.tooltip-close');
+        closeBtn.addEventListener('click', () => {
+            tooltip.remove();
+            // Remove selected state when closing
+            document.querySelectorAll('.event-dot.selected').forEach(dot => {
+                dot.classList.remove('selected');
+            });
+        });
+
+        // Auto-close after 5 seconds
+        setTimeout(() => {
+            if (tooltip.parentNode) {
+                tooltip.remove();
+                // Remove selected state when auto-closing
+                document.querySelectorAll('.event-dot.selected').forEach(dot => {
+                    dot.classList.remove('selected');
+                });
+            }
+        }, 5000);
+
+        // Close on background tap
+        tooltip.addEventListener('click', (e) => {
+            if (e.target === tooltip) {
+                tooltip.remove();
+                // Remove selected state when closing
+                document.querySelectorAll('.event-dot.selected').forEach(dot => {
+                    dot.classList.remove('selected');
+                });
+            }
+        });
+    }
+
+    // Legend tooltip functions
+    let legendTooltip = null;
+
+    function showLegendTooltip(event) {
+        // Remove existing tooltip
+        hideLegendTooltip();
+
+        // Remove any existing selected state from dots
+        document.querySelectorAll('.event-dot.selected').forEach(dot => {
+            dot.classList.remove('selected');
+        });
+
+        // Find and highlight the clicked dot
+        // First try to find by the event target if it's a dot
+        let clickedDot = event.target;
+        if (!clickedDot || !clickedDot.classList.contains('event-dot')) {
+            // If not a direct dot click, find by artist and venue data attributes
+            clickedDot = document.querySelector(`[data-artist="${event.properties.Artist}"][data-venue="${event.properties.Venue}"]`);
+        }
+        
+        if (clickedDot && clickedDot.classList.contains('event-dot')) {
+            clickedDot.classList.add('selected');
+        }
+
+        // Debug logging
+        console.log('Event properties:', event.properties);
+
+        const artist = event.properties.Artist || 'Unknown Artist';
+        const venue = event.properties.Venue || 'Unknown Venue';
+        const eventDate = event.properties.Date;
+        const eventTime = event.properties.Time || 'Time TBA';
+        const artistImage = event.properties.ArtistImage;
+        const artistLink = event.properties.ArtistLink;
+        const formattedDate = formatDate(eventDate);
+
+        console.log('Extracted data:', { artist, venue, eventDate, eventTime, artistImage, artistLink, formattedDate });
+
+        // Create tooltip element with enhanced content
+        legendTooltip = document.createElement('div');
+        legendTooltip.className = 'legend-tooltip';
+        
+        // Get additional venue information
+        const venueInfo = getVenueInfo(venue);
+        
+        // Better datetime formatting
+        let displayDateTime = formattedDate;
+        if (eventTime && eventTime !== 'Time TBA') {
+            displayDateTime += ` at ${eventTime}`;
+        }
+        
+        // Create image element with better error handling
+        // Fix image path by replacing backslashes and encoding spaces
+        const fixedImagePath = artistImage ? artistImage.replace(/\\/g, '/').replace(/ /g, '%20') : null;
+        const imageHtml = fixedImagePath ? 
+            `<img src="${fixedImagePath}" alt="${artist}" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\\"artist-placeholder\\">🎵</div>'">` :
+            '<div class="artist-placeholder">🎵</div>';
+        
+        legendTooltip.innerHTML = `
+            <div class="legend-tooltip-content">
+                <div class="legend-tooltip-header">
+                    <div class="legend-tooltip-artist-image">
+                        ${imageHtml}
+                    </div>
+                    <div class="legend-tooltip-artist-info">
+                        <div class="legend-tooltip-artist-name">${artist}</div>
+                        <div class="legend-tooltip-venue">📍 ${venue}</div>
+                        ${venueInfo ? `<div class="legend-tooltip-venue-details">${venueInfo}</div>` : ''}
+                        <div class="legend-tooltip-datetime">📅 ${displayDateTime}</div>
+                        ${artistLink ? `<div class="legend-tooltip-link"><a href="${artistLink}" target="_blank" rel="noopener">🔗 View on Songkick</a></div>` : ''}
+                    </div>
+                </div>
+                <div class="legend-tooltip-actions">
+                    <button class="legend-tooltip-zoom-btn">📍 Zoom to Show</button>
+                    <button class="legend-tooltip-close">×</button>
+                </div>
+            </div>
+        `;
+
+        // Add to page
+        document.body.appendChild(legendTooltip);
+
+        // Debug: Check if elements are created properly
+        console.log('Legend tooltip created:', legendTooltip);
+        console.log('Artist image element:', legendTooltip.querySelector('.legend-tooltip-artist-image'));
+        console.log('Artist name element:', legendTooltip.querySelector('.legend-tooltip-artist-name'));
+        console.log('Full tooltip HTML:', legendTooltip.innerHTML);
+        
+        // Debug positioning
+        const tooltipRect = legendTooltip.getBoundingClientRect();
+        const legendElement = document.querySelector('.legend');
+        const legendRect = legendElement ? legendElement.getBoundingClientRect() : null;
+        console.log('Tooltip position:', {
+            bottom: tooltipRect.bottom,
+            top: tooltipRect.top,
+            left: tooltipRect.left,
+            right: tooltipRect.right
+        });
+        console.log('Legend position:', legendRect ? {
+            bottom: legendRect.bottom,
+            top: legendRect.top,
+            left: legendRect.left,
+            right: legendRect.right
+        } : 'Legend not found');
+
+        // Add zoom functionality
+        const zoomBtn = legendTooltip.querySelector('.legend-tooltip-zoom-btn');
+        zoomBtn.addEventListener('click', () => {
+            flyToEvent(event);
+            hideLegendTooltip();
+        });
+
+        // Add close functionality
+        const closeBtn = legendTooltip.querySelector('.legend-tooltip-close');
+        closeBtn.addEventListener('click', () => {
+            hideLegendTooltip();
+        });
+
+        // Auto-close after 8 seconds
+        setTimeout(() => {
+            if (legendTooltip && legendTooltip.parentNode) {
+                hideLegendTooltip();
+            }
+        }, 8000);
+
+        // Close on background click
+        legendTooltip.addEventListener('click', (e) => {
+            if (e.target === legendTooltip) {
+                hideLegendTooltip();
+            }
+        });
+    }
+
+    function hideLegendTooltip() {
+        if (legendTooltip) {
+            legendTooltip.remove();
+            legendTooltip = null;
+        }
+        
+        // Remove selected state from all dots
+        document.querySelectorAll('.event-dot.selected').forEach(dot => {
+            dot.classList.remove('selected');
+        });
+    }
+
+    // Function to get additional venue information
+    function getVenueInfo(venueName) {
+        const venueDetails = {
+            'The Burl': 'Live music venue & arcade bar',
+            'Manchester Music Hall': 'Historic downtown music venue',
+            'Lexington Opera House': 'Historic performing arts center',
+            'The Green Lantern': 'Intimate live music venue',
+            'Al\'s Bar': 'Local dive bar with live music',
+            'Al\'s Bar of Lexington': 'Local dive bar with live music',
+            'Dreaming Creek Brewery': 'Craft brewery with live music'
+        };
+        
+        return venueDetails[venueName] || null;
+    }
 });

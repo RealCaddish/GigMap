@@ -5,10 +5,7 @@ const urlsToCache = [
   '/styles.css',
   '/script.js',
   '/fonts/RobotoCondensed-VariableFont_wght.ttf',
-  '/fonts/Archivo-Italic-VariableFont_wdth,wght.ttf',
-  'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css',
-  'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js',
-  'https://unpkg.com/@turf/turf.min.js'
+  '/fonts/Archivo-Italic-VariableFont_wdth,wght.ttf'
 ];
 
 // Install event
