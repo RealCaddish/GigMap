@@ -130,6 +130,9 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function processVenuesData(json) {
+        console.log('Processing venues data:', json);
+        console.log('Number of features:', json.features.length);
+        
         // Group events by date
         const byDate = {};
         json.features.forEach(function (feature) {
@@ -143,6 +146,9 @@ document.addEventListener('DOMContentLoaded', function () {
         venuesData = byDate;
         const dates = Object.keys(byDate).sort();
         colorPalette = generateColorPalette(dates.length);
+        
+        console.log('Dates found:', dates);
+        console.log('Venues data:', venuesData);
 
         addLegend(byDate, dates, colorPalette);
         addGeoJSONLayers(byDate, dates, colorPalette);
@@ -188,39 +194,93 @@ document.addEventListener('DOMContentLoaded', function () {
                     console.log('Today found:', date, 'Highlighting applied');
                 }
 
+                                // Create a container for all events on this date
+                const eventsContainer = L.DomUtil.create('div', 'events-container', dayDiv);
+                eventsContainer.style.display = 'flex';
+                eventsContainer.style.flexDirection = 'column';
+                eventsContainer.style.alignItems = 'center';
+                eventsContainer.style.gap = '2px';
+                
                 data[date].forEach(function (event) {
-                    const dot = L.DomUtil.create('div', 'event-dot', dayDiv);
-                    dot.style.backgroundColor = colorPalette[index];
-                    dot.title = event.properties.Artist + ' at ' + event.properties.Venue;
-                    dot.setAttribute('data-artist', event.properties.Artist);
-                    dot.setAttribute('data-venue', event.properties.Venue);
+                    // Check if this venue has multiple events on this specific date
+                    const eventsOnThisDate = data[date].filter(e => e.properties.Venue === event.properties.Venue);
+                    const hasMultipleEvents = eventsOnThisDate.length > 1;
                     
-                    // Add click handler for legend dots
-                    dot.addEventListener('click', () => {
-                        console.log('Legend dot clicked:', event.properties);
-                        console.log('Calling showLegendTooltip with event:', event);
-                        showLegendTooltip(event);
-                    });
-
-                    // Add enhanced hover tooltip for desktop
-                    if (!isMobile) {
-                        dot.addEventListener('mouseenter', (e) => {
-                            showDesktopTooltip(event, e);
-                        });
+                    if (hasMultipleEvents) {
+                        // Create single ring for this event
+                        const ring = L.DomUtil.create('div', 'event-ring', eventsContainer);
+                        ring.style.borderRadius = '50%';
+                        ring.style.border = '1px solid ' + colorPalette[index];
+                        ring.style.backgroundColor = 'transparent';
+                        ring.style.width = '10px';
+                        ring.style.height = '10px';
+                        ring.style.display = 'block';
+                        ring.title = event.properties.Artist + ' at ' + event.properties.Venue;
+                        ring.setAttribute('data-artist', event.properties.Artist);
+                        ring.setAttribute('data-venue', event.properties.Venue);
                         
-                        dot.addEventListener('mouseleave', () => {
-                            hideDesktopTooltip();
-                        });
-                    }
-
-                    // Add mobile-friendly tooltip handling
-                    if (isMobile) {
-                        dot.addEventListener('touchstart', (e) => {
-                            e.preventDefault();
-                            console.log('Mobile touchstart triggered:', event.properties);
+                        // Add click handler for legend rings
+                        ring.addEventListener('click', () => {
+                            console.log('Legend ring clicked:', event.properties);
                             console.log('Calling showLegendTooltip with event:', event);
                             showLegendTooltip(event);
                         });
+                        
+                        // Add enhanced hover tooltip for desktop
+                        if (!isMobile) {
+                            ring.addEventListener('mouseenter', (e) => {
+                                showDesktopTooltip(event, e);
+                            });
+                            
+                            ring.addEventListener('mouseleave', () => {
+                                hideDesktopTooltip();
+                            });
+                        }
+                        
+                        // Add mobile-friendly tooltip handling
+                        if (isMobile) {
+                            ring.addEventListener('touchstart', (e) => {
+                                e.preventDefault();
+                                console.log('Mobile touchstart triggered:', event.properties);
+                                console.log('Calling showLegendTooltip with event:', event);
+                                showLegendTooltip(event);
+                            });
+                        }
+                    } else {
+                        // Create solid dot for single events
+                        const dot = L.DomUtil.create('div', 'event-dot', eventsContainer);
+                        dot.style.backgroundColor = colorPalette[index];
+                        dot.title = event.properties.Artist + ' at ' + event.properties.Venue;
+                        dot.setAttribute('data-artist', event.properties.Artist);
+                        dot.setAttribute('data-venue', event.properties.Venue);
+                        
+                        // Add click handler for legend dots
+                        dot.addEventListener('click', () => {
+                            console.log('Legend dot clicked:', event.properties);
+                            console.log('Calling showLegendTooltip with event:', event);
+                            showLegendTooltip(event);
+                        });
+
+                        // Add enhanced hover tooltip for desktop
+                        if (!isMobile) {
+                            dot.addEventListener('mouseenter', (e) => {
+                                showDesktopTooltip(event, e);
+                            });
+                            
+                            dot.addEventListener('mouseleave', () => {
+                                hideDesktopTooltip();
+                            });
+                        }
+
+                        // Add mobile-friendly tooltip handling
+                        if (isMobile) {
+                            dot.addEventListener('touchstart', (e) => {
+                                e.preventDefault();
+                                console.log('Mobile touchstart triggered:', event.properties);
+                                console.log('Calling showLegendTooltip with event:', event);
+                                showLegendTooltip(event);
+                            });
+                        }
                     }
                 });
             });
@@ -306,7 +366,7 @@ document.addEventListener('DOMContentLoaded', function () {
             desktopTooltip.remove();
             desktopTooltip = null;
         }
-
+    }
 
     function addGeoJSONLayers(data, dates, colorPalette) {
         // Collect all markers to fit them to the map view
@@ -340,25 +400,36 @@ document.addEventListener('DOMContentLoaded', function () {
             const events = venueGroups[coordKey];
             
             if (events.length === 1) {
-                // Single event - use normal radius
+                // Single event - use normal solid point
                 const event = events[0];
                 const marker = createMarker(event.feature, event.color, getMarkerRadius());
                 allMarkers.push(marker);
             } else {
-                // Multiple events - sort by date and assign progressive radii
+                // Multiple events - create rings with inner ring = closest to today
                 events.sort((a, b) => new Date(a.date) - new Date(b.date));
                 
                 console.log('🎯 Venue with multiple events: ' + events[0].feature.properties.Venue + ' (' + events.length + ' events)');
                 
+                // Get today's date for comparison
+                const today = new Date();
+                const todayString = today.toISOString().split('T')[0];
+                
+                // Sort events by distance from today (closest first)
+                events.sort((a, b) => {
+                    const daysA = Math.abs((new Date(a.date) - today) / (1000 * 60 * 60 * 24));
+                    const daysB = Math.abs((new Date(b.date) - today) / (1000 * 60 * 60 * 24));
+                    return daysA - daysB;
+                });
+                
                 events.forEach((event, eventIndex) => {
-                    // Calculate progressive radius: closest date = smallest, farthest = largest
+                    // Calculate ring radius: closest to today = smallest (inner ring)
                     const baseRadius = getMarkerRadius();
-                    const radiusIncrement = 2; // Increase radius by 2px for each additional event
+                    const radiusIncrement = 4; // Increase radius by 4px for each additional ring
                     const radius = baseRadius + (eventIndex * radiusIncrement);
                     
-                    console.log('📍 Venue: ' + event.feature.properties.Venue + ', Date: ' + event.date + ', Radius: ' + radius + 'px (' + (eventIndex + 1) + '/' + events.length + ')');
+                    console.log('📍 Venue: ' + event.feature.properties.Venue + ', Date: ' + event.date + ', Ring: ' + (eventIndex + 1) + '/' + events.length + ', Radius: ' + radius + 'px');
                     
-                    const marker = createMarker(event.feature, event.color, radius);
+                    const marker = createMarker(event.feature, event.color, radius, true, eventIndex, events.length);
                     allMarkers.push(marker);
                 });
             }
@@ -380,17 +451,31 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
     
-    function createMarker(feature, color, radius) {
+    function createMarker(feature, color, radius, isRing = false, ringIndex = 0, totalRings = 1) {
         const latlng = [feature.geometry.coordinates[1], feature.geometry.coordinates[0]];
         
-        const marker = L.circleMarker(latlng, {
-            radius: radius,
-            fillColor: color,
-            color: '#000',
-            weight: 1,
-            opacity: 1,
-            fillOpacity: 0.8
-        });
+        let marker;
+        if (isRing) {
+            // Create ring marker (hollow circle)
+            marker = L.circleMarker(latlng, {
+                radius: radius,
+                fillColor: 'transparent',
+                color: color,
+                weight: 4,
+                opacity: 1,
+                fillOpacity: 0
+            });
+        } else {
+            // Create solid point marker (fallback for single events)
+            marker = L.circleMarker(latlng, {
+                radius: radius,
+                fillColor: color,
+                color: '#000',
+                weight: 1,
+                opacity: 1,
+                fillOpacity: 0.8
+            });
+        }
 
         // Add click handler with optimized behavior
         marker.on('click', function (e) {
@@ -422,7 +507,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function createPopupContent(feature) {
-        const { Artist, Venue, Date, Time, ArtistImage } = feature.properties;
+        const { Artist, Venue, Date: eventDate, Time, ArtistImage } = feature.properties;
         
         // Check if there are multiple events at this venue
         const venueEvents = getVenueEvents(Venue);
@@ -435,7 +520,7 @@ document.addEventListener('DOMContentLoaded', function () {
                          class="popup-image" 
                          onerror="this.style.display='none'">
                     <div class="popup-info">
-                        <div class="popup-date">${formatDate(Date)}</div>
+                        <div class="popup-date">${formatDate(eventDate)}</div>
                         <div class="popup-artist">${Artist}</div>
                         <div class="popup-venue">${Venue}</div>
                         <div class="popup-time">${Time || 'Time TBA'}</div>
@@ -1008,6 +1093,5 @@ document.addEventListener('DOMContentLoaded', function () {
         };
         
         return venueDetails[venueName] || null;
-    }
     }
 });

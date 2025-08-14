@@ -849,6 +849,29 @@ html {
     min-height: 12px;
   }
 
+  .events-container {
+    margin: 4px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+  }
+
+  .event-ring {
+    border-radius: 50%;
+    border: 2px solid;
+    background-color: transparent;
+    transition: all 0.2s ease;
+    width: 10px;
+    height: 10px;
+    display: block;
+  }
+
+  .event-ring:hover {
+    transform: scale(1.1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  }
+
   .calendar-day.today {
     transform: scale(1.05);
     z-index: 10;
@@ -921,9 +944,11 @@ html {
 /* Tablet Styles */
 @media (min-width: 769px) and (max-width: 1024px) {
   .description {
-    width: 300px;
+    width: 280px;
     top: 50%;
+    right: 15px;
     transform: translateY(-50%);
+    max-height: calc(100vh - var(--header-height) - 100px);
   }
 
   .description-content {
@@ -933,8 +958,8 @@ html {
   .legend {
     bottom: 85px;
     left: 15px;
-    right: 15px;
-    max-width: none;
+    right: 320px;
+    max-width: calc(100vw - 350px);
     max-height: 240px;
     min-height: 170px;
     padding: 18px;
@@ -982,31 +1007,74 @@ html {
   }
 }
 
+/* Laptop/Medium Screen Styles */
+@media (min-width: 1025px) and (max-width: 1366px) {
+  .description {
+    width: 320px;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+    max-height: calc(100vh - var(--header-height) - 100px);
+  }
+
+  .legend {
+    bottom: 85px;
+    left: 20px;
+    right: 360px;
+    max-height: 300px;
+    min-height: 160px;
+    width: auto;
+    max-width: calc(100vw - 400px);
+  }
+
+  .legend .calendar-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(44px, 1fr));
+    gap: 3px;
+    max-width: 100%;
+    justify-items: center;
+    max-height: 100px;
+    overflow-y: auto;
+    padding-bottom: 6px;
+  }
+
+  .calendar-day {
+    width: 40px;
+    min-height: 55px;
+    margin: 2px;
+    font-size: 0.75rem;
+    padding-top: 20px;
+    overflow: hidden;
+  }
+}
+
 /* Large Screen Styles */
-@media (min-width: 1025px) {
+@media (min-width: 1367px) {
   .description {
     width: 380px;
     top: 50%;
+    right: 25px;
     transform: translateY(-50%);
+    max-height: calc(100vh - var(--header-height) - 120px);
   }
 
   .legend {
     bottom: 95px;
     left: 25px;
-    right: auto;
+    right: 420px;
     max-height: 380px;
     min-height: 180px;
     width: auto;
-    max-width: 700px;
+    max-width: calc(100vw - 450px);
   }
 
   .legend .calendar-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(52px, 1fr));
-    gap: 5px;
+    grid-template-columns: repeat(auto-fit, minmax(48px, 1fr));
+    gap: 4px;
     max-width: 100%;
     justify-items: center;
-    max-height: 140px;
+    max-height: 120px;
     overflow-y: auto;
     padding-bottom: 8px;
   }
