@@ -191,7 +191,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 data[date].forEach(function (event) {
                     const dot = L.DomUtil.create('div', 'event-dot', dayDiv);
                     dot.style.backgroundColor = colorPalette[index];
-                    dot.title = `${event.properties.Artist} at ${event.properties.Venue}`;
+                    dot.title = event.properties.Artist + ' at ' + event.properties.Venue;
                     dot.setAttribute('data-artist', event.properties.Artist);
                     dot.setAttribute('data-venue', event.properties.Venue);
                     
@@ -228,9 +228,9 @@ document.addEventListener('DOMContentLoaded', function () {
             // Add "no events today" indicator if today has no events
             if (!hasTodayEvents) {
                 const noEventsDiv = L.DomUtil.create('div', 'no-events-today', div);
-                noEventsDiv.innerHTML = `<div style="text-align: center; margin-top: 10px; padding: 8px; background: rgba(76, 175, 80, 0.1); border: 1px solid #4CAF50; border-radius: 4px; color: #4CAF50; font-size: 0.8rem;">
-                    <strong>Today (${todayString})</strong> - No events scheduled
-                </div>`;
+                noEventsDiv.innerHTML = '<div style="text-align: center; margin-top: 10px; padding: 8px; background: rgba(76, 175, 80, 0.1); border: 1px solid #4CAF50; border-radius: 4px; color: #4CAF50; font-size: 0.8rem;">' +
+                    '<strong>Today (' + todayString + ')</strong> - No events scheduled' +
+                '</div>';
             }
             
             return div;
@@ -306,21 +306,7 @@ document.addEventListener('DOMContentLoaded', function () {
             desktopTooltip.remove();
             desktopTooltip = null;
         }
-    }
-            
-            // Add "no events today" indicator if today has no events
-            if (!hasTodayEvents) {
-                const noEventsDiv = L.DomUtil.create('div', 'no-events-today', div);
-                noEventsDiv.innerHTML = `<div style="text-align: center; margin-top: 10px; padding: 8px; background: rgba(76, 175, 80, 0.1); border: 1px solid #4CAF50; border-radius: 4px; color: #4CAF50; font-size: 0.8rem;">
-                    <strong>Today (${todayString})</strong> - No events scheduled
-                </div>`;
-            }
-            
-            return div;
-        };
 
-        legend.addTo(map);
-    }
 
     function addGeoJSONLayers(data, dates, colorPalette) {
         // Collect all markers to fit them to the map view
@@ -334,7 +320,7 @@ document.addEventListener('DOMContentLoaded', function () {
         dates.forEach(function (date, index) {
             data[date].forEach(function (feature) {
                 const coords = feature.geometry.coordinates;
-                const coordKey = `${coords[0]},${coords[1]}`;
+                const coordKey = coords[0] + ',' + coords[1];
                 
                 if (!venueGroups[coordKey]) {
                     venueGroups[coordKey] = [];
@@ -362,7 +348,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 // Multiple events - sort by date and assign progressive radii
                 events.sort((a, b) => new Date(a.date) - new Date(b.date));
                 
-                console.log(`🎯 Venue with multiple events: ${events[0].feature.properties.Venue} (${events.length} events)`);
+                console.log('🎯 Venue with multiple events: ' + events[0].feature.properties.Venue + ' (' + events.length + ' events)');
                 
                 events.forEach((event, eventIndex) => {
                     // Calculate progressive radius: closest date = smallest, farthest = largest
@@ -370,7 +356,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     const radiusIncrement = 2; // Increase radius by 2px for each additional event
                     const radius = baseRadius + (eventIndex * radiusIncrement);
                     
-                    console.log(`📍 Venue: ${event.feature.properties.Venue}, Date: ${event.date}, Radius: ${radius}px (${eventIndex + 1}/${events.length})`);
+                    console.log('📍 Venue: ' + event.feature.properties.Venue + ', Date: ' + event.date + ', Radius: ' + radius + 'px (' + (eventIndex + 1) + '/' + events.length + ')');
                     
                     const marker = createMarker(event.feature, event.color, radius);
                     allMarkers.push(marker);
@@ -380,10 +366,10 @@ document.addEventListener('DOMContentLoaded', function () {
         
         // Fit all markers to the map view with padding
         if (allMarkers.length > 0) {
-            console.log(`🗺️  Fitting ${allMarkers.length} markers to map view`);
+            console.log('🗺️  Fitting ' + allMarkers.length + ' markers to map view');
             const group = new L.featureGroup(allMarkers);
             const bounds = group.getBounds();
-            console.log(`📍 Map bounds: ${bounds.getSouthWest().lat.toFixed(4)}, ${bounds.getSouthWest().lng.toFixed(4)} to ${bounds.getNorthEast().lat.toFixed(4)}, ${bounds.getNorthEast().lng.toFixed(4)}`);
+            console.log('📍 Map bounds: ' + bounds.getSouthWest().lat.toFixed(4) + ', ' + bounds.getSouthWest().lng.toFixed(4) + ' to ' + bounds.getNorthEast().lat.toFixed(4) + ', ' + bounds.getNorthEast().lng.toFixed(4));
             
             map.fitBounds(bounds, {
                 padding: [50, 50],
@@ -729,7 +715,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
 
         // Find and highlight the clicked dot
-        const clickedDot = event.target || document.querySelector(`[data-artist="${artist}"][data-venue="${venue}"]`);
+        const clickedDot = event.target || document.querySelector('[data-artist="' + artist + '"][data-venue="' + venue + '"]');
         if (clickedDot && clickedDot.classList.contains('event-dot')) {
             clickedDot.classList.add('selected');
         }
@@ -862,7 +848,7 @@ document.addEventListener('DOMContentLoaded', function () {
         let clickedDot = event.target;
         if (!clickedDot || !clickedDot.classList.contains('event-dot')) {
             // If not a direct dot click, find by artist and venue data attributes
-            clickedDot = document.querySelector(`[data-artist="${event.properties.Artist}"][data-venue="${event.properties.Venue}"]`);
+            clickedDot = document.querySelector('[data-artist="' + event.properties.Artist + '"][data-venue="' + event.properties.Venue + '"]');
         }
         
         if (clickedDot && clickedDot.classList.contains('event-dot')) {
@@ -1022,5 +1008,6 @@ document.addEventListener('DOMContentLoaded', function () {
         };
         
         return venueDetails[venueName] || null;
+    }
     }
 });
