@@ -29,41 +29,85 @@
     </div>
   </header>
 
-  <!-- Description Panel -->
-  <div class="description" id="description">
+  <!-- Description Modal -->
+  <div class="description modal" id="description">
     <div class="description-header">
       <h2>Welcome to the <strong>Lexington Gig Map</strong></h2>
       <button class="close-btn" aria-label="Close description" id="close-description">×</button>
     </div>
     <div class="description-content">
-      <p>A Guide for Discovering live music events in Lexington, KY!</p>
-      <ul>
-        <li>
-          <strong>Find Live Shows:</strong> Navigate the interactive map to
-          explore upcoming live music performances across the city. Each point
-          on the map represents a venue hosting a show.
-        </li>
-        <li>
-          <strong>Calendar/Legend:</strong> At the bottom of the map, you'll
-          find a calendar and legend showcasing events by date.
-        </li>
-        <li>
-          <strong>Interactive Details:</strong> Tap on any point on the map to
-          reveal detailed information about the show.
-        </li>
-      </ul>
+      <div class="about-intro">
+        <p>Hi, I'm <strong>Nathaniel Deaton</strong>, and welcome to the Lexington Gig Map!</p>
+        
+        <div class="about-image-wrapper">
+          <img src="cassander_birthday.jpg" alt="Nathaniel and Cassander" class="about-image">
+          <p class="image-caption">Me and Cassander on his 12th birthday</p>
+        </div>
+        
+        <p>
+          As a music lover living in Lexington, I was constantly checking multiple sources to find out 
+          what shows were happening around town. I wanted a single, visual way to see all the live music 
+          events happening in Lexington at a glance. That's why I created this map - to make it easier 
+          to find shows and avoid missing out on the good stuff happening around the city.
+        </p>
+      </div>
+      
+      <div class="how-it-works">
+        <h3>How It Works</h3>
+        <p>
+          The Lexington Gig Map automatically scrapes live music event data from Songkick and displays 
+          each show as a point on an interactive map of the city. The map makes it easy to see where 
+          shows are happening geographically and when they're scheduled.
+        </p>
+        
+        <ul>
+          <li>
+            <strong>Interactive Map:</strong> Each point on the map represents a venue hosting one or 
+            more shows. Click or tap on any point to see details about the events at that venue, including 
+            artist names, dates, times, and venue information. If multiple shows are scheduled at the same 
+            venue, you'll see them all in a scrollable list.
+          </li>
+          <li>
+            <strong>Calendar Legend:</strong> At the bottom of the map, you'll find a calendar showing 
+            all upcoming shows organized by date. Each day displays the artist names and venues, making 
+            it easy to browse by date. Hover over any event card to see a preview tooltip with more details.
+          </li>
+          <li>
+            <strong>Color Coding:</strong> Events are automatically color-coded by proximity to help you 
+            quickly identify shows happening soon:
+            <ul style="margin-top: 8px; padding-left: 20px;">
+              <li><span style="color: hsl(0, 75%, 50%);">●</span> Red/Orange = Tonight/Tomorrow</li>
+              <li><span style="color: hsl(45, 75%, 55%);">●</span> Yellow/Orange = This Week</li>
+              <li><span style="color: hsl(150, 70%, 50%);">●</span> Green = Next Week</li>
+              <li><span style="color: hsl(220, 70%, 50%);">●</span> Blue = Later</li>
+            </ul>
+          </li>
+          <li>
+            <strong>Venue Information:</strong> When you click on a map marker, you'll see detailed 
+            information about the shows including artist images (when available), venue details, and 
+            links to purchase tickets. The map can also zoom directly to any venue location.
+          </li>
+          <li>
+            <strong>Data Updates:</strong> The map is updated regularly with the latest show information 
+            from Songkick, so you always have access to current event listings.
+          </li>
+        </ul>
+      </div>
+      
       <p>
-        Whether you're a local or just visiting, the Lexington Gig Map makes it
-        easy to dive into the city's vibrant music scene.
+        Whether you're a local looking to discover new venues and artists, or a visitor wanting to 
+        experience Lexington's music scene, the Lexington Gig Map makes it easy to dive into the 
+        city's vibrant live music culture.
       </p>
+      
       <div class="description-footer">
         <p>
           If you'd like to see other projects, visit
           <a href="https://nathanieldeaton.com/" target="_blank" rel="noopener">my website</a>.
         </p>
         <p>
-          All show data sourced from BandsInTown. Visit
-          <a href="https://www.bandsintown.com/" target="_blank" rel="noopener">their website</a>.
+          All show data sourced from Songkick. Visit
+          <a href="https://www.songkick.com/" target="_blank" rel="noopener">their website</a>.
         </p>
       </div>
     </div>
@@ -84,6 +128,14 @@
       <span>📅</span>
     </button>
   </div>
+
+  <!-- About Button -->
+  <button class="about-btn" id="about-btn" aria-label="About this project">
+    <span>About</span>
+  </button>
+
+  <!-- Modal Backdrop -->
+  <div class="modal-backdrop" id="modal-backdrop"></div>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>

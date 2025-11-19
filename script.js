@@ -67,22 +67,36 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function setupEventListeners() {
-        // Menu toggle for mobile
-        const menuToggle = document.getElementById('menu-toggle');
         const description = document.getElementById('description');
         const closeDescription = document.getElementById('close-description');
+        const aboutBtn = document.getElementById('about-btn');
+        const modalBackdrop = document.getElementById('modal-backdrop');
 
-        if (menuToggle) {
-            menuToggle.addEventListener('click', () => {
-                description.classList.toggle('open');
-                menuToggle.classList.toggle('active');
+        // Open modal from About button
+        if (aboutBtn) {
+            aboutBtn.addEventListener('click', () => {
+                openModal();
             });
         }
 
+        // Close modal from close button
         if (closeDescription) {
             closeDescription.addEventListener('click', () => {
-                description.classList.remove('open');
-                if (menuToggle) menuToggle.classList.remove('active');
+                closeModal();
+            });
+        }
+
+        // Close modal from backdrop click
+        if (modalBackdrop) {
+            modalBackdrop.addEventListener('click', () => {
+                closeModal();
+            });
+        }
+
+        // Prevent modal content clicks from closing
+        if (description) {
+            description.addEventListener('click', (e) => {
+                e.stopPropagation();
             });
         }
 
@@ -98,18 +112,30 @@ document.addEventListener('DOMContentLoaded', function () {
             toggleLegendBtn.addEventListener('click', toggleLegend);
         }
 
-        // Close description when clicking outside on mobile
-        if (isMobile) {
-            document.addEventListener('click', (e) => {
-                if (!description.contains(e.target) && !menuToggle.contains(e.target)) {
-                    description.classList.remove('open');
-                    menuToggle.classList.remove('active');
-                }
-            });
-        }
-
         // Keyboard navigation
         document.addEventListener('keydown', handleKeyboardNavigation);
+    }
+
+    function openModal() {
+        const description = document.getElementById('description');
+        const modalBackdrop = document.getElementById('modal-backdrop');
+        
+        if (description && modalBackdrop) {
+            description.classList.add('active');
+            modalBackdrop.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        }
+    }
+
+    function closeModal() {
+        const description = document.getElementById('description');
+        const modalBackdrop = document.getElementById('modal-backdrop');
+        
+        if (description && modalBackdrop) {
+            description.classList.remove('active');
+            modalBackdrop.classList.remove('active');
+            document.body.style.overflow = ''; // Restore scrolling
+        }
     }
 
     function loadVenuesData() {
@@ -145,7 +171,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         venuesData = byDate;
         const dates = Object.keys(byDate).sort();
-        colorPalette = generateColorPalette(dates.length);
+        colorPalette = generateColorPalette(dates);
         
         console.log('Dates found:', dates);
         console.log('Venues data:', venuesData);
@@ -161,14 +187,38 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function addLegend(data, dates, colorPalette) {
+        // Remove existing legend if it exists
+        if (legend) {
+            map.removeControl(legend);
+            legend = null;
+        }
+        
         legend = L.control({ position: 'bottomleft' });
 
         legend.onAdd = function (map) {
             const div = L.DomUtil.create('div', 'legend');
             
-            // Create header with date range
+            // Create header with date range and color legend
             const dateRange = getDateRange(dates);
-            div.innerHTML = `<h4>Event Calendar: ${dateRange}</h4>`;
+            const header = L.DomUtil.create('h4', '', div);
+            header.textContent = `Event Calendar: ${dateRange}`;
+            
+            // Create color legend
+            const colorLegend = L.DomUtil.create('div', 'color-legend', div);
+            const legendItems = [
+                { color: 'hsl(0, 75%, 50%)', label: 'Tonight/Tomorrow' },
+                { color: 'hsl(45, 75%, 55%)', label: 'This Week' },
+                { color: 'hsl(150, 70%, 50%)', label: 'Next Week' },
+                { color: 'hsl(220, 70%, 50%)', label: 'Later' }
+            ];
+            
+            legendItems.forEach(item => {
+                const legendItem = L.DomUtil.create('div', 'color-legend-item', colorLegend);
+                const swatch = L.DomUtil.create('span', 'color-swatch', legendItem);
+                swatch.style.backgroundColor = item.color;
+                const label = L.DomUtil.create('span', 'color-label', legendItem);
+                label.textContent = item.label;
+            });
             
             // Create calendar container
             const calendarContainer = L.DomUtil.create('div', 'calendar-container', div);
@@ -186,103 +236,74 @@ document.addEventListener('DOMContentLoaded', function () {
             dates.forEach(function (date, index) {
                 const dayDiv = L.DomUtil.create('div', 'calendar-day', calendarContainer);
                 const dayNumber = new Date(date).getDate();
-                dayDiv.innerHTML = `<div style="position: absolute; top: 0; width: 100%;">${dayNumber}</div>`;
+                const dayLabel = L.DomUtil.create('div', 'calendar-day-label', dayDiv);
+                dayLabel.textContent = dayNumber;
 
                 // Check if this date is today and add highlighting class
                 if (date === todayString) {
                     dayDiv.classList.add('today');
                     console.log('Today found:', date, 'Highlighting applied');
                 }
-
-                                // Create a container for all events on this date
-                const eventsContainer = L.DomUtil.create('div', 'events-container', dayDiv);
-                eventsContainer.style.display = 'flex';
-                eventsContainer.style.flexDirection = 'column';
-                eventsContainer.style.alignItems = 'center';
-                eventsContainer.style.gap = '2px';
                 
-                data[date].forEach(function (event) {
-                    // Check if this venue has multiple events on this specific date
-                    const eventsOnThisDate = data[date].filter(e => e.properties.Venue === event.properties.Venue);
-                    const hasMultipleEvents = eventsOnThisDate.length > 1;
+                // Get the color for this date (should match map markers)
+                const dateColor = colorPalette[index];
+                dayDiv.style.borderLeft = `3px solid ${dateColor}`;
+
+                // Create events container showing artist names
+                const eventsContainer = L.DomUtil.create('div', 'events-container', dayDiv);
+                
+                // Show up to 3 events, with "more" indicator if more exist
+                const eventsToShow = data[date].slice(0, 3);
+                const remainingCount = Math.max(0, data[date].length - 3);
+                
+                eventsToShow.forEach((event, eventIdx) => {
+                    const eventCard = L.DomUtil.create('div', 'event-card', eventsContainer);
                     
-                    if (hasMultipleEvents) {
-                        // Create single ring for this event
-                        const ring = L.DomUtil.create('div', 'event-ring', eventsContainer);
-                        ring.style.borderRadius = '50%';
-                        ring.style.border = '1px solid ' + colorPalette[index];
-                        ring.style.backgroundColor = 'transparent';
-                        ring.style.width = '10px';
-                        ring.style.height = '10px';
-                        ring.style.display = 'block';
-                        ring.title = event.properties.Artist + ' at ' + event.properties.Venue;
-                        ring.setAttribute('data-artist', event.properties.Artist);
-                        ring.setAttribute('data-venue', event.properties.Venue);
-                        
-                        // Add click handler for legend rings
-                        ring.addEventListener('click', () => {
-                            console.log('Legend ring clicked:', event.properties);
-                            console.log('Calling showLegendTooltip with event:', event);
-                            showLegendTooltip(event);
-                        });
-                        
-                        // Add enhanced hover tooltip for desktop
-                        if (!isMobile) {
-                            ring.addEventListener('mouseenter', (e) => {
+                    // Prevent event bubbling from child elements
+                    eventCard.style.pointerEvents = 'auto';
+                    
+                    const artistName = L.DomUtil.create('div', 'event-artist-name', eventCard);
+                    artistName.textContent = event.properties.Artist;
+                    
+                    const venueName = L.DomUtil.create('div', 'event-venue-name', eventCard);
+                    venueName.textContent = event.properties.Venue;
+                    
+                    // Always show time, use 'TBA' if not available
+                    const eventTime = L.DomUtil.create('div', 'event-time', eventCard);
+                    eventTime.textContent = event.properties.Time || 'TBA';
+                    
+                    // Add click handler only on the card itself
+                    eventCard.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        e.preventDefault();
+                        showLegendTooltip(event);
+                    }, true); // Use capture phase
+                    
+                    // Add hover for desktop - only on card, not children
+                    if (!isMobile) {
+                        let hoverTimeout;
+                        eventCard.addEventListener('mouseenter', (e) => {
+                            e.stopPropagation();
+                            clearTimeout(hoverTimeout);
+                            hoverTimeout = setTimeout(() => {
                                 showDesktopTooltip(event, e);
-                            });
-                            
-                            ring.addEventListener('mouseleave', () => {
-                                hideDesktopTooltip();
-                            });
-                        }
+                            }, 100);
+                        }, true);
                         
-                        // Add mobile-friendly tooltip handling
-                        if (isMobile) {
-                            ring.addEventListener('touchstart', (e) => {
-                                e.preventDefault();
-                                console.log('Mobile touchstart triggered:', event.properties);
-                                console.log('Calling showLegendTooltip with event:', event);
-                                showLegendTooltip(event);
-                            });
-                        }
-                    } else {
-                        // Create solid dot for single events
-                        const dot = L.DomUtil.create('div', 'event-dot', eventsContainer);
-                        dot.style.backgroundColor = colorPalette[index];
-                        dot.title = event.properties.Artist + ' at ' + event.properties.Venue;
-                        dot.setAttribute('data-artist', event.properties.Artist);
-                        dot.setAttribute('data-venue', event.properties.Venue);
-                        
-                        // Add click handler for legend dots
-                        dot.addEventListener('click', () => {
-                            console.log('Legend dot clicked:', event.properties);
-                            console.log('Calling showLegendTooltip with event:', event);
-                            showLegendTooltip(event);
-                        });
-
-                        // Add enhanced hover tooltip for desktop
-                        if (!isMobile) {
-                            dot.addEventListener('mouseenter', (e) => {
-                                showDesktopTooltip(event, e);
-                            });
-                            
-                            dot.addEventListener('mouseleave', () => {
-                                hideDesktopTooltip();
-                            });
-                        }
-
-                        // Add mobile-friendly tooltip handling
-                        if (isMobile) {
-                            dot.addEventListener('touchstart', (e) => {
-                                e.preventDefault();
-                                console.log('Mobile touchstart triggered:', event.properties);
-                                console.log('Calling showLegendTooltip with event:', event);
-                                showLegendTooltip(event);
-                            });
-                        }
+                        eventCard.addEventListener('mouseleave', (e) => {
+                            e.stopPropagation();
+                            clearTimeout(hoverTimeout);
+                            hideDesktopTooltip();
+                        }, true);
                     }
                 });
+                
+                // Show "more" indicator if there are additional events
+                if (remainingCount > 0) {
+                    const moreIndicator = L.DomUtil.create('div', 'event-more-indicator', eventsContainer);
+                    moreIndicator.textContent = `+${remainingCount} more`;
+                    moreIndicator.style.cssText = 'font-size: 0.65rem; color: var(--primary-color); font-weight: 600; margin-top: 2px; pointer-events: none;';
+                }
             });
             
             // Add "no events today" indicator if today has no events
@@ -399,40 +420,32 @@ document.addEventListener('DOMContentLoaded', function () {
         Object.keys(venueGroups).forEach(coordKey => {
             const events = venueGroups[coordKey];
             
-            if (events.length === 1) {
-                // Single event - use normal solid point
-                const event = events[0];
-                const marker = createMarker(event.feature, event.color, getMarkerRadius());
-                allMarkers.push(marker);
-            } else {
-                // Multiple events - create rings with inner ring = closest to today
-                events.sort((a, b) => new Date(a.date) - new Date(b.date));
-                
-                console.log('🎯 Venue with multiple events: ' + events[0].feature.properties.Venue + ' (' + events.length + ' events)');
-                
-                // Get today's date for comparison
-                const today = new Date();
-                const todayString = today.toISOString().split('T')[0];
-                
-                // Sort events by distance from today (closest first)
-                events.sort((a, b) => {
-                    const daysA = Math.abs((new Date(a.date) - today) / (1000 * 60 * 60 * 24));
-                    const daysB = Math.abs((new Date(b.date) - today) / (1000 * 60 * 60 * 24));
-                    return daysA - daysB;
-                });
-                
-                events.forEach((event, eventIndex) => {
-                    // Calculate ring radius: closest to today = smallest (inner ring)
-                    const baseRadius = getMarkerRadius();
-                    const radiusIncrement = 4; // Increase radius by 4px for each additional ring
-                    const radius = baseRadius + (eventIndex * radiusIncrement);
-                    
-                    console.log('📍 Venue: ' + event.feature.properties.Venue + ', Date: ' + event.date + ', Ring: ' + (eventIndex + 1) + '/' + events.length + ', Radius: ' + radius + 'px');
-                    
-                    const marker = createMarker(event.feature, event.color, radius, true, eventIndex, events.length);
-                    allMarkers.push(marker);
-                });
-            }
+            // Sort events by date (closest to today first for color selection)
+            const today = new Date();
+            events.sort((a, b) => {
+                const daysA = Math.abs((new Date(a.date) - today) / (1000 * 60 * 60 * 24));
+                const daysB = Math.abs((new Date(b.date) - today) / (1000 * 60 * 60 * 24));
+                return daysA - daysB;
+            });
+            
+            // Use color of closest upcoming event - find the date index to get matching color
+            const closestDate = events[0].date;
+            const dateIndex = dates.indexOf(closestDate);
+            const primaryColor = dateIndex >= 0 ? colorPalette[dateIndex] : events[0].color;
+            
+            // Calculate marker size based on event count (larger for more events)
+            const baseRadius = getMarkerRadius();
+            const eventCount = events.length;
+            const radius = eventCount === 1 ? baseRadius : baseRadius + (Math.min(eventCount - 1, 5) * 2); // Max +10px for 6+ events
+            
+            console.log('🎯 Venue: ' + events[0].feature.properties.Venue + ' (' + eventCount + ' events), Radius: ' + radius + 'px');
+            
+            // Create single marker with event count
+            const marker = createMarker(events[0].feature, primaryColor, radius, false, 0, eventCount);
+            marker.eventCount = eventCount;
+            marker.allEvents = events.map(e => e.feature);
+            
+            allMarkers.push(marker);
         });
         
         // Fit all markers to the map view with padding
@@ -454,26 +467,75 @@ document.addEventListener('DOMContentLoaded', function () {
     function createMarker(feature, color, radius, isRing = false, ringIndex = 0, totalRings = 1) {
         const latlng = [feature.geometry.coordinates[1], feature.geometry.coordinates[0]];
         
+        // totalRings represents event count
+        const eventCount = totalRings || 1;
         let marker;
-        if (isRing) {
-            // Create ring marker (hollow circle)
-            marker = L.circleMarker(latlng, {
-                radius: radius,
-                fillColor: 'transparent',
-                color: color,
-                weight: 4,
-                opacity: 1,
-                fillOpacity: 0
+        
+        if (eventCount > 1) {
+            // Multiple events - use divIcon with count badge
+            const size = radius * 2;
+            const iconHtml = `
+                <div class="marker-count-badge" style="
+                    background: ${color};
+                    color: white;
+                    border-radius: 50%;
+                    width: ${size}px;
+                    height: ${size}px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: ${Math.max(10, size * 0.35)}px;
+                    font-weight: bold;
+                    border: 3px solid white;
+                    box-shadow: 0 2px 10px rgba(0,0,0,0.4);
+                    transition: transform 0.2s ease;
+                ">${eventCount}</div>
+            `;
+            
+            const customIcon = L.divIcon({
+                className: 'custom-marker-with-count',
+                html: iconHtml,
+                iconSize: [size, size],
+                iconAnchor: [size / 2, size / 2],
+                popupAnchor: [0, -size / 2]
+            });
+            
+            marker = L.marker(latlng, { icon: customIcon });
+            
+            // Add hover effects for divIcon marker
+            marker.on('mouseover', function () {
+                const badge = this._icon?.querySelector('.marker-count-badge');
+                if (badge) {
+                    badge.style.transform = 'scale(1.15)';
+                    badge.style.boxShadow = '0 4px 15px rgba(0,0,0,0.5)';
+                }
+            });
+            
+            marker.on('mouseout', function () {
+                const badge = this._icon?.querySelector('.marker-count-badge');
+                if (badge) {
+                    badge.style.transform = 'scale(1)';
+                    badge.style.boxShadow = '0 2px 10px rgba(0,0,0,0.4)';
+                }
             });
         } else {
-            // Create solid point marker (fallback for single events)
+            // Single event - use circleMarker
             marker = L.circleMarker(latlng, {
                 radius: radius,
                 fillColor: color,
                 color: '#000',
-                weight: 1,
+                weight: 1.5,
                 opacity: 1,
-                fillOpacity: 0.8
+                fillOpacity: 0.85
+            });
+            
+            // Add hover effects for circleMarker
+            marker.on('mouseover', function () {
+                this.setRadius(radius + 2);
+            });
+
+            marker.on('mouseout', function () {
+                this.setRadius(radius);
             });
         }
 
@@ -483,16 +545,7 @@ document.addEventListener('DOMContentLoaded', function () {
             handleMarkerClick(e, feature);
         });
 
-        // Add hover effects
-        marker.on('mouseover', function () {
-            this.setRadius(radius + 2);
-        });
-
-        marker.on('mouseout', function () {
-            this.setRadius(radius);
-        });
-
-        // Bind optimized popup
+        // Bind optimized popup (will show all events if multiple)
         const popupContent = createPopupContent(feature);
         marker.bindPopup(popupContent, {
             maxWidth: getPopupMaxWidth(),
@@ -513,36 +566,51 @@ document.addEventListener('DOMContentLoaded', function () {
         const venueEvents = getVenueEvents(Venue);
         
         if (venueEvents.length === 1) {
-            // Single event - show normal popup
+            // Single event - show normal popup with relative date
+            const relDate = formatRelativeDate(eventDate);
             return `
                 <div class="popup-content">
-                    <img src="${ArtistImage}" alt="Image of ${Artist}" 
-                         class="popup-image" 
-                         onerror="this.style.display='none'">
+                    ${ArtistImage ? `<img src="${ArtistImage}" alt="${Artist}" class="popup-image" onerror="this.style.display='none'">` : ''}
                     <div class="popup-info">
-                        <div class="popup-date">${formatDate(eventDate)}</div>
+                        <div class="popup-date-badge" style="background-color: ${relDate.color};">${relDate.label}</div>
                         <div class="popup-artist">${Artist}</div>
-                        <div class="popup-venue">${Venue}</div>
-                        <div class="popup-time">${Time || 'Time TBA'}</div>
+                        <div class="popup-venue">📍 ${Venue}</div>
+                        <div class="popup-time">🕐 ${Time || 'TBA'}</div>
+                        <div class="popup-full-date">${relDate.full}</div>
                     </div>
                 </div>
             `;
         } else {
-            // Multiple events - show venue summary with all events
+            // Multiple events - show venue summary with all events, images, and relative dates
             const eventsHtml = venueEvents
                 .sort((a, b) => new Date(a.Date) - new Date(b.Date))
-                .map(event => `
-                    <div class="popup-event-item">
-                        <div class="popup-event-date">${formatDate(event.Date)}</div>
-                        <div class="popup-event-artist">${event.Artist}</div>
-                        <div class="popup-event-time">${event.Time || 'Time TBA'}</div>
-                    </div>
-                `).join('');
+                .map(event => {
+                    const relDate = formatRelativeDate(event.Date);
+                    const imagePath = event.ArtistImage || '';
+                    return `
+                        <div class="popup-event-card" style="border-left: 3px solid ${relDate.color};">
+                            <div class="popup-event-image-wrapper">
+                                ${imagePath ? `<img src="${imagePath}" alt="${event.Artist}" class="popup-event-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">` : ''}
+                                <div class="popup-event-image-placeholder" style="${imagePath ? 'display: none;' : 'display: flex;'}">🎵</div>
+                            </div>
+                            <div class="popup-event-details">
+                                <div class="popup-event-date-badge" style="background-color: ${relDate.color};">${relDate.label}</div>
+                                <div class="popup-event-artist">${event.Artist}</div>
+                                <div class="popup-event-meta">
+                                    <span class="popup-event-time">🕐 ${event.Time || 'TBA'}</span>
+                                    <span class="popup-event-full-date">${relDate.full}</span>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
             
             return `
                 <div class="popup-content multi-event">
-                    <div class="popup-venue-header">${Venue}</div>
-                    <div class="popup-events-count">${venueEvents.length} upcoming events</div>
+                    <div class="popup-venue-header">
+                        <h3 class="popup-venue-title">📍 ${Venue}</h3>
+                        <div class="popup-events-count">${venueEvents.length} Upcoming Shows</div>
+                    </div>
                     <div class="popup-events-list">
                         ${eventsHtml}
                     </div>
@@ -664,7 +732,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (currentPopup) {
                     map.closePopup(currentPopup);
                 }
-                document.getElementById('description').classList.remove('open');
+                closeModal();
                 break;
             case 'r':
             case 'R':
@@ -677,13 +745,42 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // Utility functions
-    function generateColorPalette(count) {
-        const colors = [];
-        const baseHue = 0;
-        for (let i = 0; i < count; i++) {
-            colors.push(`hsl(${(baseHue + i * 137) % 360}, 70%, 50%)`);
-        }
-        return colors;
+    function generateColorPalette(dates) {
+        // Generate time-based color palette
+        // Closer events = warmer colors (red/orange), further = cooler (blue/purple)
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        
+        return dates.map(dateString => {
+            const eventDate = new Date(dateString);
+            eventDate.setHours(0, 0, 0, 0);
+            const diffTime = eventDate - today;
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            
+            // Color scheme based on time distance:
+            // 0-1 days (tonight/tomorrow): Red/Orange (urgent)
+            // 2-3 days: Orange/Yellow (soon)
+            // 4-7 days: Yellow/Green (this week)
+            // 8-14 days: Green/Cyan (next week)
+            // 15+ days: Blue/Purple (later)
+            
+            if (diffDays <= 1) {
+                // Red to Orange (tonight/tomorrow)
+                return `hsl(${0 + (diffDays * 15)}, 75%, 50%)`; // Red to Orange
+            } else if (diffDays <= 3) {
+                // Orange to Yellow (soon)
+                return `hsl(${30 + ((diffDays - 1) * 15)}, 75%, 55%)`; // Orange to Yellow
+            } else if (diffDays <= 7) {
+                // Yellow to Green (this week)
+                return `hsl(${60 + ((diffDays - 3) * 15)}, 70%, 50%)`; // Yellow to Green
+            } else if (diffDays <= 14) {
+                // Green to Cyan (next week)
+                return `hsl(${120 + ((diffDays - 7) * 10)}, 70%, 50%)`; // Green to Cyan
+            } else {
+                // Blue to Purple (later)
+                return `hsl(${200 + Math.min((diffDays - 14) * 5, 60)}, 70%, 50%)`; // Blue to Purple
+            }
+        });
     }
 
     function getDateRange(dates) {
@@ -700,6 +797,44 @@ document.addEventListener('DOMContentLoaded', function () {
             month: 'short', 
             day: 'numeric' 
         });
+    }
+    
+    function formatRelativeDate(dateString) {
+        const eventDate = new Date(dateString);
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        eventDate.setHours(0, 0, 0, 0);
+        
+        const diffTime = eventDate - today;
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        
+        // Get color for this date using the same logic as generateColorPalette
+        let color;
+        if (diffDays <= 1) {
+            color = `hsl(${0 + (diffDays * 15)}, 75%, 50%)`; // Red to Orange
+        } else if (diffDays <= 3) {
+            color = `hsl(${30 + ((diffDays - 1) * 15)}, 75%, 55%)`; // Orange to Yellow
+        } else if (diffDays <= 7) {
+            color = `hsl(${60 + ((diffDays - 3) * 15)}, 70%, 50%)`; // Yellow to Green
+        } else if (diffDays <= 14) {
+            color = `hsl(${120 + ((diffDays - 7) * 10)}, 70%, 50%)`; // Green to Cyan
+        } else {
+            color = `hsl(${200 + Math.min((diffDays - 14) * 5, 60)}, 70%, 50%)`; // Blue to Purple
+        }
+        
+        if (diffDays === 0) {
+            return { label: 'Tonight', full: formatDate(dateString), color: color };
+        } else if (diffDays === 1) {
+            return { label: 'Tomorrow', full: formatDate(dateString), color: color };
+        } else if (diffDays === 2) {
+            return { label: 'In 2 Days', full: formatDate(dateString), color: color };
+        } else if (diffDays >= 3 && diffDays <= 7) {
+            return { label: 'This Week', full: formatDate(dateString), color: color };
+        } else if (diffDays >= 8 && diffDays <= 14) {
+            return { label: 'Next Week', full: formatDate(dateString), color: color };
+        } else {
+            return { label: formatDate(dateString), full: formatDate(dateString), color: color };
+        }
     }
 
     function getMarkerRadius() {
@@ -758,17 +893,32 @@ document.addEventListener('DOMContentLoaded', function () {
         }, 5000);
     }
 
-    // Performance optimizations
+    // Performance optimizations - Service Worker registration
+    // Unregister any existing service workers on localhost
     if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-            navigator.serviceWorker.register('/sw.js')
-                .then(registration => {
-                    console.log('SW registered: ', registration);
-                })
-                .catch(registrationError => {
-                    console.log('SW registration failed: ', registrationError);
+        if (window.location.hostname === 'localhost' || 
+            window.location.hostname === '127.0.0.1' ||
+            window.location.hostname === '') {
+            // Unregister service workers for local development
+            navigator.serviceWorker.getRegistrations().then(registrations => {
+                registrations.forEach(registration => {
+                    registration.unregister().then(() => {
+                        console.log('Service Worker unregistered for local development');
+                    });
                 });
-        });
+            });
+        } else {
+            // Register service worker for production
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then(registration => {
+                        console.log('Service Worker registered:', registration);
+                    })
+                    .catch(registrationError => {
+                        console.warn('Service Worker registration failed:', registrationError);
+                    });
+            });
+        }
     }
 
     // Preload critical images

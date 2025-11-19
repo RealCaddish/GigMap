@@ -335,8 +335,8 @@ def main():
     """
     scraper = LexingtonEventScraper()
     
-    # Run the complete pipeline
-    success = scraper.run_complete_pipeline(months_ahead=1)
+    # Run the complete pipeline - fetch data through December
+    success = scraper.run_complete_pipeline(months_ahead=2)
     
     if success:
         print("✅ Scraping completed successfully!")
