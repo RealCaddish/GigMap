@@ -220,6 +220,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 label.textContent = item.label;
             });
             
+            // Add numbered marker example to legend
+            const markerExampleItem = L.DomUtil.create('div', 'color-legend-item', colorLegend);
+            const markerExample = L.DomUtil.create('span', 'legend-marker-example', markerExampleItem);
+            markerExample.innerHTML = '<div style="width: 28px; height: 28px; border-radius: 50%; background: var(--primary-color); color: white; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: bold; border: 3px solid white; box-shadow: 0 2px 4px rgba(0,0,0,0.3);">5</div>';
+            const markerLabel = L.DomUtil.create('span', 'color-label', markerExampleItem);
+            markerLabel.textContent = '= # of events';
+            
             // Create calendar container
             const calendarContainer = L.DomUtil.create('div', 'calendar-container', div);
             
@@ -243,11 +250,12 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (date === todayString) {
                     dayDiv.classList.add('today');
                     console.log('Today found:', date, 'Highlighting applied');
+                } else {
+                    // Get the color for this date (should match map markers)
+                    // Only apply border-left if it's not today (today uses full border)
+                    const dateColor = colorPalette[index];
+                    dayDiv.style.borderLeft = `3px solid ${dateColor}`;
                 }
-                
-                // Get the color for this date (should match map markers)
-                const dateColor = colorPalette[index];
-                dayDiv.style.borderLeft = `3px solid ${dateColor}`;
 
                 // Create events container showing artist names
                 const eventsContainer = L.DomUtil.create('div', 'events-container', dayDiv);
@@ -304,9 +312,21 @@ document.addEventListener('DOMContentLoaded', function () {
                     moreIndicator.textContent = `+${remainingCount} more`;
                     moreIndicator.style.cssText = 'font-size: 0.65rem; color: var(--primary-color); font-weight: 600; margin-top: 2px; pointer-events: none;';
                 }
+                
+                // Prevent map dragging when interacting with calendar day
+                L.DomEvent.disableScrollPropagation(dayDiv);
+                L.DomEvent.disableClickPropagation(dayDiv);
             });
             
             // Removed "no events today" indicator as requested
+            
+            // Prevent map dragging when interacting with legend
+            L.DomEvent.disableScrollPropagation(div);
+            L.DomEvent.disableClickPropagation(div);
+            
+            // Also prevent dragging on the calendar container
+            L.DomEvent.disableScrollPropagation(calendarContainer);
+            L.DomEvent.disableClickPropagation(calendarContainer);
             
             return div;
         };
