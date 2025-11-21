@@ -299,3 +299,36 @@
 2025-11-19 11:28:22,994 - INFO - Created 16 records
 2025-11-19 11:28:22,994 - INFO - GeoJSON saved to shp/merged_venues_events.geojson
 2025-11-19 11:28:22,994 - INFO - Pipeline completed successfully!
+2025-11-21 12:43:30,557 - INFO - Starting Lexington events scraping pipeline...
+2025-11-21 12:43:30,557 - INFO - Date range: 11/21/2025 to 01/21/2026
+2025-11-21 12:43:30,557 - INFO - Built URL: https://www.songkick.com/metro-areas/24580-us-lexington?utf8=%E2%9C%93&filters%5BminDate%5D=11%2F21%2F2025&filters%5BmaxDate%5D=01%2F21%2F2026
+2025-11-21 12:43:30,557 - INFO - Fetching webpage content...
+2025-11-21 12:43:31,563 - INFO - Found 18 events
+2025-11-21 12:43:32,063 - INFO - Processed event 1: Buffalo Wabs & The Price Hill Hustle at The Burl,Lexington, KY, US
+2025-11-21 12:43:32,090 - INFO - Processed event 2: King 810 at Manchester Music Hall,Lexington, KY, US
+2025-11-21 12:43:32,122 - INFO - Processed event 3: Magnolia Boulevard at The Burl,Lexington, KY, US
+2025-11-21 12:43:32,243 - INFO - Processed event 4: Los Rugar, Las Lluvias del Norte, and Los Últimos del Topo Chico at Diamante Venue,Lexington, KY, US
+2025-11-21 12:43:32,270 - INFO - Processed event 5: Andrea Bocelli at Rupp Arena,Lexington, KY, US
+2025-11-21 12:43:32,303 - INFO - Processed event 6: EKOH at Manchester Music Hall,Lexington, KY, US
+2025-11-21 12:43:32,331 - INFO - Processed event 7: Chris Janson, The Band Perry, Kameron Marlowe, Craig Campbell, Mackenzie Carpenter, and Austin Williams at Lexington Opera House,Lexington, KY, US
+2025-11-21 12:43:32,359 - INFO - Processed event 8: Trans-Siberian Orchestra at Rupp Arena,Lexington, KY, US
+2025-11-21 12:43:32,380 - INFO - Processed event 9: Over the Rhine at Kentucky Theatre,Lexington, KY, US
+2025-11-21 12:43:32,402 - INFO - Processed event 10: Montgomery Gentry, John Michael Montgomery, Travis Denning, and Walker Montgomery at Rupp Arena,Lexington, KY, US
+2025-11-21 12:43:32,428 - INFO - Processed event 11: Rivers of Nihil at Manchester Music Hall,Lexington, KY, US
+2025-11-21 12:43:32,570 - INFO - Processed event 12: Ginuwine at Manchester Music Hall,Lexington, KY, US
+2025-11-21 12:43:32,723 - INFO - Processed event 13: Andy Frasco & The U.N. at The Burl,Lexington, KY, US
+2025-11-21 12:43:32,744 - INFO - Processed event 14: Glyders at The Green Lantern,Lexington, KY, US
+2025-11-21 12:43:32,766 - INFO - Processed event 15: The Local Honeys at The Burl,Lexington, KY, US
+2025-11-21 12:43:32,897 - INFO - Processed event 16: Maggie Antone at The Burl,Lexington, KY, US
+2025-11-21 12:43:32,924 - INFO - Processed event 17: Year of October at Al's Bar,Lexington, KY, US
+2025-11-21 12:43:32,949 - INFO - Processed event 18: Tarta Relena at Singletary Center,Lexington, KY, US
+2025-11-21 12:43:32,952 - INFO - Created DataFrame with 18 events
+2025-11-21 12:43:32,953 - INFO - Processing datetime data...
+2025-11-21 12:43:32,961 - INFO - Cleaning location data...
+2025-11-21 12:43:32,967 - INFO - Data saved to lexington_events_time_imperial_modified.csv
+2025-11-21 12:43:32,967 - INFO - Loading venues shapefile...
+2025-11-21 12:43:33,528 - INFO - Merging events with venues...
+2025-11-21 12:43:33,534 - INFO - Merged data contains 15 events
+2025-11-21 12:43:33,546 - INFO - Created 15 records
+2025-11-21 12:43:33,546 - INFO - GeoJSON saved to shp/merged_venues_events.geojson
+2025-11-21 12:43:33,546 - INFO - Pipeline completed successfully!

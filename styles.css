@@ -121,7 +121,7 @@ html {
 /* About Button */
 .about-btn {
   position: fixed;
-  top: calc(var(--header-height) + 75px);
+  top: calc(var(--header-height) + 130px); /* 20px (map-controls top) + 45px (reset btn) + 10px (gap) + 45px (legend btn) + 10px (spacing) = 130px */
   left: 20px;
   background: var(--overlay-color);
   backdrop-filter: blur(10px);
@@ -418,7 +418,8 @@ html {
   box-shadow: 0 -6px 20px var(--shadow-color);
   max-height: min(38vh, 340px);
   min-height: 120px;
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: visible;
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -493,7 +494,9 @@ html {
   max-width: 100%;
   justify-items: stretch;
   overflow-y: auto;
+  overflow-x: visible;
   padding-bottom: 4px;
+  padding-top: 12px;
 }
 
 .calendar-day {
@@ -508,7 +511,7 @@ html {
   font-weight: 600;
   border-radius: 6px;
   background: rgba(255, 255, 255, 0.85);
-  overflow: hidden;
+  overflow: visible;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
   cursor: default;
   transition: all 0.2s ease;
@@ -541,6 +544,9 @@ html {
   z-index: 2;
   position: relative;
   animation: todayPulse 2s ease-in-out infinite;
+  overflow: visible !important;
+  margin-top: 12px;
+  padding-top: 12px;
 }
 
 @keyframes todayPulse {
@@ -555,17 +561,19 @@ html {
 .calendar-day.today::before {
   content: 'TODAY';
   position: absolute;
-  top: -8px;
+  top: -12px;
   left: 50%;
   transform: translateX(-50%);
   background: #4CAF50;
   color: white;
-  font-size: 0.6rem;
+  font-size: 0.7rem;
   font-weight: bold;
-  padding: 2px 6px;
-  border-radius: 10px;
+  padding: 4px 10px;
+  border-radius: 14px;
   white-space: nowrap;
-  z-index: 3;
+  z-index: 1001;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.25);
+  letter-spacing: 0.5px;
 }
 
 .events-container {
@@ -578,25 +586,28 @@ html {
 }
 
 .event-card {
-  padding: 4px 0;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  padding: 6px 8px;
+  margin: 0 0 4px 0;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
   cursor: pointer;
   user-select: none;
   position: relative;
   z-index: 1;
+  transition: all 0.2s ease;
+  min-height: auto;
 }
 
 .event-card:last-child {
-  border-bottom: none;
+  margin-bottom: 0;
 }
 
 .event-card:hover {
-  background: rgba(0, 0, 0, 0.02);
-  border-radius: 4px;
-  padding-left: 4px;
-  padding-right: 4px;
-  margin-left: -4px;
-  margin-right: -4px;
+  background: rgba(255, 255, 255, 1);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+  transform: translateY(-1px);
 }
 
 .event-artist-name {
@@ -1043,6 +1054,33 @@ html {
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+}
+
+/* Hide any ">" characters or pseudo-elements that might appear in popup event cards */
+.popup-event-card::before,
+.popup-event-card::after,
+.popup-event-image-wrapper::before,
+.popup-event-image-wrapper::after {
+  display: none !important;
+}
+
+.popup-event-card *::before,
+.popup-event-card *::after {
+  display: none !important;
+}
+
+/* Ensure no text decoration or arrows appear */
+.popup-event-card,
+.popup-event-image-wrapper,
+.popup-event-card * {
+  text-decoration: none !important;
+  list-style: none !important;
+}
+
+/* Specifically hide Leaflet's popup close button if it appears inside event cards */
+.popup-event-card .leaflet-popup-close-button {
+  display: none !important;
 }
 
 .popup-event-image {
@@ -1153,7 +1191,7 @@ html {
 
   /* About Button Mobile */
   .about-btn {
-    top: calc(var(--mobile-header-height) + 60px);
+    top: calc(var(--mobile-header-height) + 108px); /* 10px (map-controls top) + 44px (reset btn) + 8px (gap) + 44px (legend btn) + 2px (spacing) = 108px */
     left: 10px;
     padding: 10px 16px;
     font-size: 0.85rem;
@@ -1254,41 +1292,102 @@ html {
   }
 
   .legend .calendar-container {
-    grid-template-columns: repeat(auto-fit, minmax(75px, 1fr));
-    gap: 6px;
+    grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+    gap: 8px;
     max-height: none;
     align-content: flex-start;
   }
   
   .calendar-day {
-    min-height: 52px;
-    padding: 6px 4px;
+    min-height: auto;
+    padding: 8px 6px;
     font-size: 0.75rem;
+    overflow: visible;
   }
 
   .calendar-day-label {
-    font-size: 0.7rem;
-    margin-bottom: 3px;
+    font-size: 0.75rem;
+    margin-bottom: 6px;
+    font-weight: 700;
+  }
+  
+  .events-container {
+    gap: 2px;
+    margin-top: 6px;
+  }
+  
+  .event-card {
+    padding: 10px 12px;
+    margin: 0;
+    border-radius: 0;
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-bottom: none;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+    transition: all 0.2s ease;
+    min-height: auto;
+  }
+  
+  .event-card:first-child {
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+  }
+  
+  .event-card:last-child {
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    margin-bottom: 0;
+  }
+  
+  .event-card:only-child {
+    border-radius: 8px;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+  }
+  
+  .event-card:active {
+    transform: scale(0.98);
+    background: rgba(255, 255, 255, 1);
   }
   
   .event-artist-name {
-    font-size: 0.65rem;
-    -webkit-line-clamp: 1;
-    line-clamp: 1;
-    margin-bottom: 1px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    margin-bottom: 4px;
+    color: var(--secondary-color);
+    line-height: 1.25;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    word-break: break-word;
   }
   
   .event-venue-name {
-    font-size: 0.6rem;
+    font-size: 0.68rem;
+    color: #555;
+    margin-bottom: 3px;
+    line-height: 1.2;
+    white-space: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    word-break: break-word;
   }
   
   .event-time {
-    font-size: 0.55rem;
-    margin-top: 1px;
-  }
-
-  .event-card {
-    padding: 3px 0;
+    font-size: 0.65rem;
+    margin-top: 2px;
+    font-weight: 600;
+    color: var(--primary-color);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   /* Mobile Popup Improvements */
@@ -1405,7 +1504,7 @@ html {
   }
 
   .about-btn {
-    top: calc(var(--header-height) + 70px);
+    top: calc(var(--header-height) + 130px); /* 15px (map-controls top) + 45px (reset btn) + 10px (gap) + 45px (legend btn) + 5px (spacing) = 120px, but using 130px for consistency */
     left: 15px;
     padding: 11px 18px;
     font-size: 0.9rem;
@@ -1444,19 +1543,85 @@ html {
   }
 
   .legend .calendar-container {
-    grid-template-columns: repeat(auto-fit, minmax(75px, 1fr));
-    gap: 6px;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 8px;
     max-height: none;
     align-content: flex-start;
   }
 
   .calendar-day {
-    min-height: 55px;
-    padding: 7px 5px;
+    min-height: auto;
+    padding: 10px 8px;
+    overflow: visible;
   }
-
+  
+  .calendar-day-label {
+    margin-bottom: 8px;
+    font-size: 0.8rem;
+  }
+  
+  .events-container {
+    gap: 2px;
+    margin-top: 8px;
+  }
+  
+  .event-card {
+    padding: 12px 14px;
+    margin: 0;
+    border-radius: 0;
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-bottom: none;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    transition: all 0.2s ease;
+    min-height: auto;
+  }
+  
+  .event-card:first-child {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+  }
+  
+  .event-card:last-child {
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    margin-bottom: 0;
+  }
+  
+  .event-card:only-child {
+    border-radius: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+  }
+  
+  .event-card:active {
+    transform: scale(0.98);
+  }
+  
   .event-artist-name {
-    font-size: 0.68rem;
+    font-size: 0.82rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+    line-height: 1.3;
+    overflow: visible;
+  }
+  
+  .event-venue-name {
+    font-size: 0.75rem;
+    margin-bottom: 5px;
+    color: #555;
+    white-space: normal;
+    overflow: visible;
+    line-height: 1.3;
+  }
+  
+  .event-time {
+    font-size: 0.72rem;
+    font-weight: 600;
+    margin-top: 2px;
+    color: var(--primary-color);
+    overflow: visible;
   }
 
   .no-events-today div {
@@ -1472,7 +1637,7 @@ html {
 /* Laptop/Medium Screen Styles */
 @media (min-width: 1025px) and (max-width: 1366px) {
   .about-btn {
-    top: calc(var(--header-height) + 75px);
+    top: calc(var(--header-height) + 130px);
     left: 20px;
   }
 
@@ -1491,32 +1656,28 @@ html {
   }
 
   .legend .calendar-container {
-    grid-template-columns: repeat(auto-fit, minmax(44px, 1fr));
-    gap: 6px;
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+    gap: 8px;
     max-height: none;
     align-content: flex-start;
   }
 
   .calendar-day {
-    width: 40px;
     min-height: 55px;
-    margin: 2px;
-    font-size: 0.75rem;
-    padding-top: 20px;
+    padding: 7px 5px;
     overflow: visible;
-    gap: 5px;
   }
 
   .calendar-day-label {
-    top: 4px;
     font-size: 0.8rem;
+    margin-bottom: 4px;
   }
 }
 
 /* Large Screen Styles */
 @media (min-width: 1367px) {
   .about-btn {
-    top: calc(var(--header-height) + 75px);
+    top: calc(var(--header-height) + 130px);
     left: 20px;
   }
 
@@ -1535,7 +1696,7 @@ html {
   }
 
   .legend .calendar-container {
-    grid-template-columns: repeat(auto-fit, minmax(48px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
     gap: 8px;
     max-height: none;
     align-content: flex-start;
@@ -1543,12 +1704,13 @@ html {
 
   .calendar-day {
     gap: 6px;
-    padding-top: 26px;
+    padding: 8px 6px;
+    overflow: visible;
   }
 
   .calendar-day-label {
-    top: 6px;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
+    margin-bottom: 4px;
   }
 
   .popup-content {

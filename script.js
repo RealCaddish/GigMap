@@ -306,13 +306,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             });
             
-            // Add "no events today" indicator if today has no events
-            if (!hasTodayEvents) {
-                const noEventsDiv = L.DomUtil.create('div', 'no-events-today', div);
-                noEventsDiv.innerHTML = '<div style="text-align: center; margin-top: 10px; padding: 8px; background: rgba(76, 175, 80, 0.1); border: 1px solid #4CAF50; border-radius: 4px; color: #4CAF50; font-size: 0.8rem;">' +
-                    '<strong>Today (' + todayString + ')</strong> - No events scheduled' +
-                '</div>';
-            }
+            // Removed "no events today" indicator as requested
             
             return div;
         };
@@ -590,8 +584,8 @@ document.addEventListener('DOMContentLoaded', function () {
                     return `
                         <div class="popup-event-card" style="border-left: 3px solid ${relDate.color};">
                             <div class="popup-event-image-wrapper">
-                                ${imagePath ? `<img src="${imagePath}" alt="${event.Artist}" class="popup-event-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">` : ''}
-                                <div class="popup-event-image-placeholder" style="${imagePath ? 'display: none;' : 'display: flex;'}">🎵</div>
+                                ${imagePath ? `<img src="${imagePath}" alt="${event.Artist}" class="popup-event-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />` : '<div class="popup-event-image-placeholder" style="display: flex;">🎵</div>'}
+                                ${imagePath ? '<div class="popup-event-image-placeholder" style="display: none;">🎵</div>' : ''}
                             </div>
                             <div class="popup-event-details">
                                 <div class="popup-event-date-badge" style="background-color: ${relDate.color};">${relDate.label}</div>
@@ -684,8 +678,12 @@ document.addEventListener('DOMContentLoaded', function () {
         // Get all markers on the map and fit them to view
         const allMarkers = [];
         map.eachLayer(function(layer) {
-            if (layer instanceof L.CircleMarker) {
-                allMarkers.push(layer);
+            // Check for both CircleMarker (single events) and Marker (multi-event venues with divIcon)
+            if (layer instanceof L.CircleMarker || (layer instanceof L.Marker && layer.options.icon)) {
+                // Make sure it's not a base layer or other non-marker layer
+                if (layer.getLatLng) {
+                    allMarkers.push(layer);
+                }
             }
         });
         
