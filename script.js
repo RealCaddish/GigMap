@@ -156,9 +156,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function processVenuesData(json) {
-        console.log('Processing venues data:', json);
-        console.log('Number of features:', json.features.length);
-        
         // Group events by date
         const byDate = {};
         json.features.forEach(function (feature) {
@@ -172,9 +169,6 @@ document.addEventListener('DOMContentLoaded', function () {
         venuesData = byDate;
         const dates = Object.keys(byDate).sort();
         colorPalette = generateColorPalette(dates);
-        
-        console.log('Dates found:', dates);
-        console.log('Venues data:', venuesData);
 
         addLegend(byDate, dates, colorPalette);
         addGeoJSONLayers(byDate, dates, colorPalette);
@@ -233,8 +227,6 @@ document.addEventListener('DOMContentLoaded', function () {
             // Get today's date for comparison
             const today = new Date();
             const todayString = today.toISOString().split('T')[0]; // Format: YYYY-MM-DD
-            console.log('Today:', todayString);
-            console.log('Available dates:', dates);
             
             // Check if today has events
             const hasTodayEvents = dates.includes(todayString);
@@ -249,7 +241,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 // Check if this date is today and add highlighting class
                 if (date === todayString) {
                     dayDiv.classList.add('today');
-                    console.log('Today found:', date, 'Highlighting applied');
                 } else {
                     // Get the color for this date (should match map markers)
                     // Only apply border-left if it's not today (today uses full border)
@@ -452,8 +443,6 @@ document.addEventListener('DOMContentLoaded', function () {
             const eventCount = events.length;
             const radius = eventCount === 1 ? baseRadius : baseRadius + (Math.min(eventCount - 1, 5) * 2); // Max +10px for 6+ events
             
-            console.log('🎯 Venue: ' + events[0].feature.properties.Venue + ' (' + eventCount + ' events), Radius: ' + radius + 'px');
-            
             // Create single marker with event count
             const marker = createMarker(events[0].feature, primaryColor, radius, false, 0, eventCount);
             marker.eventCount = eventCount;
@@ -464,10 +453,8 @@ document.addEventListener('DOMContentLoaded', function () {
         
         // Fit all markers to the map view with padding
         if (allMarkers.length > 0) {
-            console.log('🗺️  Fitting ' + allMarkers.length + ' markers to map view');
             const group = new L.featureGroup(allMarkers);
             const bounds = group.getBounds();
-            console.log('📍 Map bounds: ' + bounds.getSouthWest().lat.toFixed(4) + ', ' + bounds.getSouthWest().lng.toFixed(4) + ' to ' + bounds.getNorthEast().lat.toFixed(4) + ', ' + bounds.getNorthEast().lng.toFixed(4));
             
             map.fitBounds(bounds, {
                 padding: [50, 50],
@@ -920,20 +907,15 @@ document.addEventListener('DOMContentLoaded', function () {
             // Unregister service workers for local development
             navigator.serviceWorker.getRegistrations().then(registrations => {
                 registrations.forEach(registration => {
-                    registration.unregister().then(() => {
-                        console.log('Service Worker unregistered for local development');
-                    });
+                    registration.unregister();
                 });
             });
         } else {
             // Register service worker for production
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('./sw.js')
-                    .then(registration => {
-                        console.log('Service Worker registered:', registration);
-                    })
-                    .catch(registrationError => {
-                        console.warn('Service Worker registration failed:', registrationError);
+                    .catch(() => {
+                        // Service worker registration failed - silently fail
                     });
             });
         }
@@ -1085,9 +1067,6 @@ document.addEventListener('DOMContentLoaded', function () {
     let legendTooltip = null;
 
     function showLegendTooltip(event) {
-        console.log('showLegendTooltip called with event:', event);
-        console.log('Event properties:', event.properties);
-        
         // Remove existing tooltip
         hideLegendTooltip();
 
@@ -1108,9 +1087,6 @@ document.addEventListener('DOMContentLoaded', function () {
             clickedDot.classList.add('selected');
         }
 
-        // Debug logging
-        console.log('Event properties:', event.properties);
-
         const artist = event.properties.Artist || 'Unknown Artist';
         const venue = event.properties.Venue || 'Unknown Venue';
         const eventDate = event.properties.Date;
@@ -1118,8 +1094,6 @@ document.addEventListener('DOMContentLoaded', function () {
         const artistImage = event.properties.ArtistImage;
         const artistLink = event.properties.ArtistLink;
         const formattedDate = formatDate(eventDate);
-
-        console.log('Extracted data:', { artist, venue, eventDate, eventTime, artistImage, artistLink, formattedDate });
 
         // Create tooltip element with enhanced content
         legendTooltip = document.createElement('div');
@@ -1164,49 +1138,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Add to page
         document.body.appendChild(legendTooltip);
-        console.log('Tooltip added to DOM');
         
         // Force a repaint to ensure the tooltip is visible
         legendTooltip.offsetHeight;
-        
-        // Check if tooltip is visible
-        const rect = legendTooltip.getBoundingClientRect();
-        console.log('Tooltip bounding rect:', rect);
-        console.log('Tooltip computed styles:', window.getComputedStyle(legendTooltip));
-
-        // Debug: Check if elements are created properly
-        console.log('Legend tooltip created:', legendTooltip);
-        console.log('Artist image element:', legendTooltip.querySelector('.legend-tooltip-artist-image'));
-        console.log('Artist name element:', legendTooltip.querySelector('.legend-tooltip-artist-name'));
-        console.log('Full tooltip HTML:', legendTooltip.innerHTML);
-        
-        // Debug positioning
-        const tooltipRect = legendTooltip.getBoundingClientRect();
-        const legendElement = document.querySelector('.legend');
-        const legendRect = legendElement ? legendElement.getBoundingClientRect() : null;
-        console.log('Tooltip position:', {
-            bottom: tooltipRect.bottom,
-            top: tooltipRect.top,
-            left: tooltipRect.left,
-            right: tooltipRect.right
-        });
-        console.log('Legend position:', legendRect ? {
-            bottom: legendRect.bottom,
-            top: legendRect.top,
-            left: legendRect.left,
-            right: legendRect.right
-        } : 'Legend not found');
-        
-        // Verify positioning is correct
-        if (legendRect && tooltipRect) {
-            const tooltipAboveLegend = tooltipRect.bottom < legendRect.top;
-            const tooltipToLeft = tooltipRect.right < legendRect.left + (legendRect.width * 0.8);
-            console.log('Positioning check:', {
-                tooltipAboveLegend,
-                tooltipToLeft,
-                distanceFromLegend: legendRect.top - tooltipRect.bottom
-            });
-        }
 
         // Add zoom functionality
         const zoomBtn = legendTooltip.querySelector('.legend-tooltip-zoom-btn');

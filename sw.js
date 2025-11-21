@@ -7,9 +7,7 @@ const isLocalhost = self.location.hostname === 'localhost' ||
 if (isLocalhost) {
   self.addEventListener('install', event => {
     // Unregister on localhost
-    self.registration.unregister().then(() => {
-      console.log('Service Worker unregistered for local development');
-    });
+    self.registration.unregister();
   });
   
   // Don't intercept any fetches on localhost
@@ -59,10 +57,8 @@ if (isLocalhost) {
     event.waitUntil(
       caches.open(CACHE_NAME)
         .then(cache => {
-          console.log('Opened cache');
           // Use addAll with error handling
-          return cache.addAll(urlsToCache).catch(err => {
-            console.warn('Some resources failed to cache:', err);
+          return cache.addAll(urlsToCache).catch(() => {
             // Continue even if some files fail
             return Promise.resolve();
           });
@@ -121,8 +117,7 @@ if (isLocalhost) {
               }
               return response;
             })
-            .catch(err => {
-              console.warn('Fetch failed:', err);
+            .catch(() => {
               // Return a basic error response instead of failing silently
               return new Response('Network error', {
                 status: 408,
@@ -140,7 +135,6 @@ if (isLocalhost) {
         return Promise.all(
           cacheNames.map(cacheName => {
             if (cacheName !== CACHE_NAME) {
-              console.log('Deleting old cache:', cacheName);
               return caches.delete(cacheName);
             }
           })
@@ -150,18 +144,4 @@ if (isLocalhost) {
   });
 }
 
-// Activate event
-self.addEventListener('activate', event => {
-  event.waitUntil(
-    caches.keys().then(cacheNames => {
-      return Promise.all(
-        cacheNames.map(cacheName => {
-          if (cacheName !== CACHE_NAME) {
-            console.log('Deleting old cache:', cacheName);
-            return caches.delete(cacheName);
-          }
-        })
-      );
-    })
-  );
-});
+// Activate event (duplicate removed - already handled above)
